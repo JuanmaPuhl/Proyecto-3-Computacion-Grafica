@@ -79,6 +79,10 @@ function drawBlinnPhong(object){
   mat4.invert(MV,MV);
   mat4.transpose(MV,MV);
   gl.uniformMatrix4fv(u_normalMatrix, false, MV);
+	let MVP = mat4.create();
+	mat4.multiply(MVP,viewMatrix,matrix);
+	mat4.multiply(MVP,projMatrix,MVP);
+	gl.uniformMatrix4fv(u_MVP,false,MVP);
   let material = object.getMaterial();
   /*-----------------------PASO LOS VALORES DEL MATERIAL--------------------*/
   gl.uniform3fv(u_ka,material.getKa());
@@ -110,6 +114,10 @@ function drawCookTorrance(object){
   mat4.invert(MV,MV);
   mat4.transpose(MV,MV);
   gl.uniformMatrix4fv(u_normalMatrix, false, MV);
+	let MVP = mat4.create();
+	mat4.multiply(MVP,viewMatrix,matrix);
+	mat4.multiply(MVP,projMatrix,MVP);
+	gl.uniformMatrix4fv(u_MVP,false,MVP);
   let material = object.getMaterial();
   /*-----------------------PASO LOS VALORES DEL MATERIAL--------------------*/
   gl.uniform3fv(u_ka,material.getKa());
@@ -134,7 +142,9 @@ function drawOrenNayar(object){
 	passLight(1,light);
 	passLight(2,light2);
 	passLight(3,light3);
-
+	gl.activeTexture(gl.TEXTURE0);
+	gl.bindTexture(gl.TEXTURE_2D,object.getTexture());
+	gl.uniform1i(shaderProgram.samplerUniform,0);
   let matrix = object.getObjectMatrix();
   gl.uniformMatrix4fv(u_modelMatrix, false, matrix);
   let MV = mat4.create();
@@ -143,6 +153,10 @@ function drawOrenNayar(object){
   mat4.invert(MV,MV);
   mat4.transpose(MV,MV);
   gl.uniformMatrix4fv(u_normalMatrix, false, MV);
+	let MVP = mat4.create();
+	mat4.multiply(MVP,viewMatrix,matrix);
+	mat4.multiply(MVP,projMatrix,MVP);
+	gl.uniformMatrix4fv(u_MVP,false,MVP);
   gl.uniform1f(u_ro,1.0);
   gl.uniform1f(u_sigma,90.0);
   let material = object.getMaterial();
@@ -175,6 +189,10 @@ function drawCookTorranceShirley(object){
   mat4.invert(MV,MV);
   mat4.transpose(MV,MV);
   gl.uniformMatrix4fv(u_normalMatrix, false, MV);
+	let MVP = mat4.create();
+	mat4.multiply(MVP,viewMatrix,matrix);
+	mat4.multiply(MVP,projMatrix,MVP);
+	gl.uniformMatrix4fv(u_MVP,false,MVP);
   gl.uniform1f(u_rugosidad,0.84);
   gl.uniform1f(u_F0,0.51);
   gl.uniform1f(u_Nu,2);

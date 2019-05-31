@@ -1,6 +1,7 @@
 body{
 	background-color: #393e46;
 	font-family : Helvetica;
+	color : white;
 }
 
 #webglCanvas{

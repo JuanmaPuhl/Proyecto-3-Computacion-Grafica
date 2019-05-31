@@ -41,6 +41,7 @@ function setShaderCookTorrance(){
   u_sigma = gl.getUniformLocation(shaderProgram, 'sigma');
   texLocation = gl.getAttribLocation(shaderProgram, 'vertexTextureCoordinates');
   u_sampler = gl.getUniformLocation(shaderProgram, 'imagen');
+  u_MVP = gl.getUniformLocation(shaderProgram, 'MVP');
 }
 
 /*Funcion para setear uniforms de OrenNayar*/
@@ -58,6 +59,9 @@ function setShaderOrenNayar(){
   u_ro = gl.getUniformLocation(shaderProgram,'p');
   u_sigma = gl.getUniformLocation(shaderProgram, 'sigma');
   u_MV = gl.getUniformLocation(shaderProgram, 'MV');
+  texLocation = gl.getAttribLocation(shaderProgram, 'vertexTextureCoordinates');
+  u_sampler = gl.getUniformLocation(shaderProgram, 'imagen');
+  u_MVP = gl.getUniformLocation(shaderProgram, 'MVP');
 }
 
 /*Funcion para setear uniforms de Shirley*/
@@ -80,6 +84,7 @@ function setShaderCookTorranceShirley(){
   u_Nv = gl.getUniformLocation(shaderProgram, 'Nv');
   texLocation = gl.getAttribLocation(shaderProgram, 'vertexTextureCoordinates');
   u_sampler = gl.getUniformLocation(shaderProgram, 'imagen');
+  u_MVP = gl.getUniformLocation(shaderProgram, 'MVP');
 }
 
 /*Funcion para crear cada shaderProgram*/

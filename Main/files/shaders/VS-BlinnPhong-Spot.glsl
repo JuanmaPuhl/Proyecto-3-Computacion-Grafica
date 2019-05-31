@@ -8,7 +8,7 @@ uniform mat4 projectionMatrix;
 uniform mat4 normalMatrix;
 uniform vec4 posL; // coordenadas del ojo
 uniform vec4 dirL; //coordenadas del ojo
-
+uniform mat4 MVP;
 in vec3 vertexPosition;
 in vec3 vertexNormal;
 in vec2 vertexTextureCoordinates;
@@ -22,7 +22,7 @@ out vec3 vVE; //Direccion del ojo al vertice en coordenadas del ojo
 
 
 void main(){
-    gl_Position = projectionMatrix  *MV* vec4(vertexPosition,1);
+    gl_Position = MVP* vec4(vertexPosition,1);
 
     vec3 vertex_pos_eye = (MV*vec4(vertexPosition,1.0)).xyz; //posicion del vertice en coordenadas del ojo
     vVE = -vertex_pos_eye;

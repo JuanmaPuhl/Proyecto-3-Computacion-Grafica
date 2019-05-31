@@ -34,6 +34,7 @@ struct Light{
 
 
 uniform Light lights[10];
+vec3 coeficienteDifuso;
 
 vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
   vec4 posL = l.posL;
@@ -84,7 +85,7 @@ vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
     float SpecularAshiShi = Numerador/Divisor;
 
     // Coeficiente difuso de Ashikhmin-Shirley
-    vec3 PrimerTermino = (28.0*kd/28.0*PHI) * (1.0 - SpecularAshiShi);
+    vec3 PrimerTermino = (28.0*coeficienteDifuso/28.0*PHI) * (1.0 - SpecularAshiShi);
     float SegundoTermino = 1.0-pow((1.0- NdotL/2.0),5.0);
     float TercerTermino = 1.0-pow((1.0- NdotV/2.0),5.0);
     vec3 DifusoAshShi = PrimerTermino*SegundoTermino*TercerTermino;
@@ -133,7 +134,7 @@ vec3 calcularAportePuntual(Light l, vec3 N, vec3 V){
 
 
   // Coeficiente difuso de Ashikhmin-Shirley
-  vec3 PrimerTermino = (28.0*kd/28.0*PHI) * (1.0 - ks);
+  vec3 PrimerTermino = (28.0*coeficienteDifuso/28.0*PHI) * (1.0 - ks);
   float SegundoTermino = 1.0-pow((1.0- NdotL/2.0),5.0);
   float TercerTermino = 1.0-pow((1.0- NdotV/2.0),5.0);
   vec3 DifusoAshShi = PrimerTermino*SegundoTermino*TercerTermino;
@@ -195,7 +196,7 @@ vec3 calcularAporteDireccional(Light l, vec3 N, vec3 V){
 
 
   // Coeficiente difuso de Ashikhmin-Shirley
-  vec3 PrimerTermino = (28.0*kd/28.0*PHI) * (1.0 - ks);
+  vec3 PrimerTermino = (28.0*coeficienteDifuso/28.0*PHI) * (1.0 - ks);
   float SegundoTermino = 1.0-pow((1.0- NdotL/2.0),5.0);
   float TercerTermino = 1.0-pow((1.0- NdotV/2.0),5.0);
   vec3 DifusoAshShi = PrimerTermino*SegundoTermino*TercerTermino;
@@ -215,6 +216,7 @@ vec3 calcularAporteDireccional(Light l, vec3 N, vec3 V){
   return toReturn;
 }
 void main(){
+    coeficienteDifuso = vec3(texture(imagen,fTexCoor));
     // Normalizo los vectores
     vec3 N = normalize(vNE);
     //vec3 L = normalize(vLE);
@@ -230,6 +232,4 @@ void main(){
       if(lights[i].type==2)
         colorFrag += vec4(calcularAporteDireccional(lights[i],N,V),1.0);
     }
-
-    colorFrag += texture(imagen,fTexCoor);
 }`

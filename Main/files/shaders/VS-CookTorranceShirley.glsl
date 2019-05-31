@@ -5,7 +5,7 @@ uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 uniform mat4 normalMatrix;
 uniform mat4 MV;
-
+uniform mat4 MVP;
 
 in vec3 vertexPosition;
 in vec3 vertexNormal;
@@ -31,7 +31,7 @@ void main(void){
     // //Calcular el vector del ojo en espacio del ojo; el ojo, por def esta en el origen.
     // vVE= normalize(-posVE);
 
-    gl_Position = projectionMatrix  *MV* vec4(vertexPosition,1.0);
+    gl_Position = MVP* vec4(vertexPosition,1.0);
 
     vec3 vertex_pos_eye = vec3(MV*vec4(vertexPosition,1.0)); //posicion del vertice en coordenadas del ojo
     vVE = -vertex_pos_eye;
