@@ -70,6 +70,22 @@ function createTextures(){
 	texturas.push(new Texture("Fuego","textures/fuego.png"));
 	texturas.push(new Texture("Metal","textures/metal.jpg"));
 	texturas.push(new Texture("Alfombra","textures/78874761-antecedentes-de-la-alfombra-roja-material-patrón-textura-suelo.jpg"));
+	texturas.push(new Texture("BMW","textures/BMWM3GTR.jpg"));
+	texturas.push(new Texture("Mitsubishi","textures/Mitsubishi/MLE-texture.jpg"));
+	texturas.push(new Texture("RuedasMLE","textures/Mitsubishi/MLE-wheel.jpg"));
+	texturas.push(new Texture("EnrejadoMLE","textures/Mitsubishi/MLE-opacity.jpg"));
+	texturas.push(new Texture("Porsche","textures/Porsche/skin07/0000.bmp"));
+	texturas.push(new Texture("RuedasPorsche","textures/Porsche/car/0000.bmp"));
+	texturas.push(new Texture("Camaro", "textures/Camaro/Lines1.png"));
+	texturas.push(new Texture("CamaroPlaca","textures/Camaro/plaque2.jpg"));
+	texturas.push(new Texture("CamaroLlantas","textures/Camaro/CAMARO RIM.png"));
+	texturas.push(new Texture("Corvette","textures/Corvette/albedo_esterno.jpg"));
+	texturas.push(new Texture("Audi","textures/WEILL_Thomas_DIFF.png"));
+	texturas.push(new Texture("CorvetteWheel","textures/Corvette/wheels.png"));
+	texturas.push(new Texture("Supra","textures/Supra/Material__0_Diffuse.png"));
+	texturas.push(new Texture("SupraNeumaticos","textures/Supra/BBW_diffuse.png"));
+	texturas.push(new Texture("SupraSpecular","textures/Supra/Material__0_Glossiness.png"));
+
 	for(let i = 0; i<texturas.length; i++){
 		texturas[i].setTextura(initTexture(texturas[i].getDir()));
 	}

@@ -52,14 +52,7 @@ var light;
 var light2;
 var light3;
 
-var texture;
-var enrejado;
-var fuego;
-var mitsubishi;
-var porsche1;
-var enrejadoMLE;
-var ruedasMLE;
-
+var texturas = [];
 
 var cameraMouseControls;
 /*Esta funcion se ejecuta al cargar la pagina. Carga todos los objetos para que luego sean dibujados, asi como los valores iniciales
@@ -77,8 +70,7 @@ async function onLoad() {
 	createShaderPrograms();//Creacion de los shaderPrograms
 	setShaderCookTorrance();//Seteo un shaderProgram
 	loadMaterials(); //Cargo los materiales a los dropdown menu
-
-	initTexture(); //Creo las texturas
+	createTextures();
 
 	//Creo autos
 	// ferrari = new Car("Ferrari"); //Creo el auto
@@ -106,7 +98,7 @@ async function onLoad() {
 	// lexus.setTextures(lexus_textures);
 	//
 	camaro = new Car("Camaro");
-	let camaro_textures = [camaroTexture,null,null,camaroLlantas,null,camaroPlaca,null,null,null,null,null];
+	let camaro_textures = ["Camaro",null,null,"CamaroLlantas",null,"CamaroPlaca",null,null,null,null,null];
 	let camaro_colors = ["Scarlet","Polished Bronze","Glass","Chrome","Caucho","Scarlet","Chrome","Silver2","Chrome","Silver2","Brass","Silver2","Caucho","Pearl"];
 	camaro.setColors(camaro_colors);
 	camaro.setOBJ(parsedOBJ_Camaro);
@@ -123,7 +115,7 @@ async function onLoad() {
 	// // bugatti.setScale([0.002,0.002,0.002]);
 	//
 	lamborghini = new Car("Lamborghini");
-	let lamborghini_textures = [enrejado,null,null,null,null,null,enrejado,fuego,enrejado,enrejado,enrejado];
+	let lamborghini_textures = ["BMW",null,null,null,null,null,null,null,null,null,null];
 	let lamborghini_colors = ["Chrome","Caucho","Glass","Bronze","Scarlet","Scarlet","Caucho","Scarlet","Caucho","Caucho","Caucho"];
 	lamborghini.setColors(lamborghini_colors);
 	lamborghini.setTextures(lamborghini_textures);
@@ -145,7 +137,7 @@ async function onLoad() {
 
 
 	corvette = new Car("Corvette");
-	let corvette_textures = [corvetteTexture,null,null,corvetteWheel,corvetteTexture,null,null,null];
+	let corvette_textures = ["Corvette",null,null,"CorvetteWheel","Corvette",null,null,null];
 	let corvette_colors = ["Chrome","Glass","Caucho","Bronze","Scarlet","Scarlet","Caucho","Scarlet","Caucho","Caucho","Caucho"];
 	corvette.setColors(corvette_colors);
 	corvette.setTextures(corvette_textures);
@@ -165,28 +157,28 @@ async function onLoad() {
 	// rx.setOBJ(parsedOBJ_RX);
 
 	lancer = new Car("Lancer");
-	let lancer_textures = [mitsubishi,enrejadoMLE,ruedasMLE,null,null,null,null,ruedasMLE,null,null,null];
+	let lancer_textures = ["Mitsubishi","EnrejadoMLE","RuedasMLE",null,null,null,null,null,null,null,null];
 	let lancer_colors = ["Chrome","Chrome","Glass","Glass","Scarlet","Scarlet","Caucho","Caucho","Caucho","Caucho","Caucho"];
 	lancer.setColors(lancer_colors);
 	lancer.setTextures(lancer_textures);
 	lancer.setOBJ(parsedOBJ_Lancer);
 
 	porsche = new Car("Porsche");
-	let porsche_textures = [porsche1,porsche1,ruedasPorsche,ruedasPorsche,null,null,enrejado,fuego,enrejado,enrejado,enrejado];
+	let porsche_textures = ["Porsche","Porsche","RuedasPorsche","RuedasPorsche",null,null,null,null,null,null,null];
 	let porsche_colors = ["Chrome","Glass","Bronze","Caucho","Scarlet","Scarlet","Caucho","Scarlet","Caucho","Caucho","Caucho"];
 	porsche.setColors(porsche_colors);
 	porsche.setTextures(porsche_textures);
 	porsche.setOBJ(parsedOBJ_Porsche);
 
 	audiCarrera = new Car("AudiCarrera");
-	let audi_textures = [audiTexture,null,null,corvetteTexture,corvetteTexture,null,enrejado,fuego,enrejado,enrejado,enrejado];
+	let audi_textures = ["Audi",null,null,null,null,null,null,null,null,null,null];
 	let audi_colors = ["Chrome","Default","Default","Default","Default","Default","Default","Default","Default","Default","Default"];
 	audiCarrera.setColors(audi_colors);
 	audiCarrera.setTextures(audi_textures);
 	audiCarrera.setOBJ(parsedOBJ_AudiCarrera);
 
 	supra = new Car("Supra");
-	let supra_textures = [supraTexture,null,supraNeumaticos,supraNeumaticos,null,null,null,null,null,null];
+	let supra_textures = ["Supra",null,"SupraNeumaticos","SupraNeumaticos",null,null,null,null,null,null];
 	let supra_colors = ["Chrome","Chrome","Chrome","Caucho","Default","Default","Default","Default","Default"];
 	supra.setColors(supra_colors);
 	supra.setTextures(supra_textures);
@@ -234,7 +226,9 @@ async function onLoad() {
 	// createVAO(obj_ball3);
 	//Seteo materiales
 	obj_piso.setMaterial(getMaterialByName("Ceramic"));
-	obj_piso.setTexture(texture);
+	obj_piso.setTexture(getTextureByName("Marmol"));
+	obj_piso.setTexture2(getTextureByName("SnowWhite"));
+	console.log(obj_piso.getTexture());
 	// obj_ball.setMaterial(getMaterialByName("Default"));
 	// obj_ball2.setMaterial(getMaterialByName("Default"));
 	// obj_ball3.setMaterial(getMaterialByName("Default"));
@@ -248,10 +242,8 @@ async function onLoad() {
 	gl.enable(gl.DEPTH_TEST);//Activo esta opcion para que dibuje segun la posicion en Z. Si hay dos fragmentos con las mismas x,y pero distinta zIndex
 	transformObjects();//Aplico transformaciones iniciales a cada objeto
 	cameraMouseControls = new CameraMouseControls(camaraEsferica, canvas);
-	supra.getObjects()[0].setTexture(supraTexture);
-	supra.getObjects()[0].setTexture2(supraTextureSpecular) ;
-	console.log(supra.getObjects()[0].getTexture());
-	console.log(supra.getObjects()[0].getTexture2());
+
+	supra.getObjects()[0].setTexture2(getTextureByName("SupraSpecular")) ;
 	//Dibujara los que esten mas cerca de la pantalla.
 	requestAnimationFrame(onRender)//Pido que inicie la animacion ejecutando onRender
 }
@@ -327,109 +319,14 @@ function transformCars(name,traslate){
 }
 
 /*Metodo auxiliar para inciar texturas*/
-function initTexture(){
-	texture = gl.createTexture();
-	enrejado = gl.createTexture();
-	fuego = gl.createTexture();
-	mitsubishi = gl.createTexture();
-	porsche1 = gl.createTexture();
-	enrejadoMLE = gl.createTexture();
-	ruedasMLE = gl.createTexture();
-	ruedasPorsche = gl.createTexture();
-	camaroTexture = gl.createTexture();
-	camaroPlaca = gl.createTexture();
-	camaroLlantas = gl.createTexture();
-	corvetteTexture = gl.createTexture();
-	corvetteWheel = gl.createTexture();
-	audiTexture = gl.createTexture();
-	supraTexture = gl.createTexture();
-	supraNeumaticos = gl.createTexture();
-	supraTextureSpecular = gl.createTexture();
-	texture.image = new Image();
-	enrejado.image = new Image();
-	fuego.image = new Image();
-	mitsubishi.image = new Image();
-	porsche1.image = new Image();
-	enrejadoMLE.image = new Image();
-	ruedasMLE.image = new Image();
-	ruedasPorsche.image = new Image();
-	camaroTexture.image = new Image();
-	camaroPlaca.image = new Image();
-	camaroLlantas.image = new Image();
-	corvetteTexture.image = new Image();
-	corvetteWheel.image = new Image();
-	audiTexture.image = new Image();
-	supraTexture.image = new Image();
-	supraNeumaticos.image = new Image();
-	supraTextureSpecular.image = new Image();
-	texture.image.onload = function(){
-		handleLoadedTexture(texture);
+function initTexture(dir){
+	let textura = gl.createTexture();
+	textura.image = new Image();
+	textura.image.onload = function(){
+		handleLoadedTexture(textura);
 	}
-	enrejado.image.onload = function(){
-		handleLoadedTexture(enrejado);
-	}
-	fuego.image.onload = function(){
-		handleLoadedTexture(fuego);
-	}
-	mitsubishi.image.onload = function(){
-		handleLoadedTexture(mitsubishi)
-	}
-	porsche1.image.onload = function(){
-		handleLoadedTexture(porsche1);
-	}
-	enrejadoMLE.image.onload= function(){
-		handleLoadedTexture(enrejadoMLE);
-	}
-	ruedasMLE.image.onload = function(){
-		handleLoadedTexture(ruedasMLE);
-	}
-	ruedasPorsche.image.onload = function(){
-		handleLoadedTexture(ruedasPorsche);
-	}
-	camaroTexture.image.onload = function(){
-		handleLoadedTexture(camaroTexture);
-	}
-	camaroPlaca.image.onload = function(){
-		handleLoadedTexture(camaroPlaca);
-	}
-	camaroLlantas.image.onload = function(){
-		handleLoadedTexture(camaroLlantas);
-	}
-	corvetteTexture.image.onload = function(){
-		handleLoadedTexture(corvetteTexture);
-	}
-	corvetteWheel.image.onload = function(){
-		handleLoadedTexture(corvetteWheel);
-	}
-	audiTexture.image.onload = function(){
-		handleLoadedTexture(audiTexture);
-	}
-	supraTexture.image.onload = function(){
-		handleLoadedTexture(supraTexture);
-	}
-	supraNeumaticos.image.onload = function(){
-		handleLoadedTexture(supraNeumaticos);
-	}
-	supraTextureSpecular.image.onload = function(){
-		handleLoadedTexture(supraTextureSpecular);
-	}
-	fuego.image.src = "textures/fuego.png";
-	texture.image.src = "textures/fondo-textura-marmol-textura-marmoles-tailandia-marmol-natural-abstracto-blanco-negro-gris-diseno_1253-914.jpg";
-	enrejado.image.src = "textures/BMWM3GTR.jpg";
-	mitsubishi.image.src = "textures/Mitsubishi/MLE-texture.jpg";
-	porsche1.image.src = "textures/Porsche/skin07/0000.bmp";
-	enrejadoMLE.image.src = "textures/Mitsubishi/MLE-opacity.jpg"
-	ruedasMLE.image.src = "textures/Mitsubishi/MLE-wheel.jpg"
-	ruedasPorsche.image.src = "textures/Porsche/car/0000.bmp"
-	camaroTexture.image.src = "textures/Camaro/Lines1.png"
-	camaroPlaca.image.src = "textures/Camaro/plaque2.jpg"
-	camaroLlantas.image.src = "textures/Camaro/CAMARO RIM.png"
-	corvetteTexture.image.src = "textures/Corvette/albedo_esterno.jpg"
-	audiTexture.image.src = "textures/WEILL_Thomas_DIFF.png"
-	corvetteWheel.image.src = "textures/Corvette/wheels.png"
-	supraTexture.image.src = "textures/Supra/Material__0_Diffuse.png";
-	supraNeumaticos.image.src = "textures/Supra/BBW_diffuse.png";
-	supraTextureSpecular.image.src = "textures/Supra/Material__0_Glossiness.png";
+	textura.image.src = dir;
+	return textura;
 }
 
 /*Metodo auxiliar para iniciar texturas*/
@@ -460,7 +357,7 @@ function createCar(car,parsedOBJ_arr){
 	for(let i = 0 ; i<parsedOBJ_arr.length; i++){
 		let objeto = new Object(parsedOBJ_arr[i]);
 		createVAO(objeto);
-		objeto.setTexture(textures[i]);
+		objeto.setTexture(getTextureByName(textures[i]));
 		if(i<colors.length)
 			objeto.setMaterial(getMaterialByName(colors[i]));
 		else
