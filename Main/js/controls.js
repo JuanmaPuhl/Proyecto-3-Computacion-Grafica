@@ -64,6 +64,26 @@ function getMaterialByIndex(index){
 	return materials[index];
 }
 
+function createTextures(){
+	texturas.push(new Texture("SnowWhite","textures/white.png"));
+	texturas.push(new Texture("Marmol","textures/fondo-textura-marmol-textura-marmoles-tailandia-marmol-natural-abstracto-blanco-negro-gris-diseno_1253-914.jpg"));
+	texturas.push(new Texture("Fuego","textures/fuego.png"));
+	texturas.push(new Texture("Metal","textures/metal.jpg"));
+	texturas.push(new Texture("Alfombra","textures/78874761-antecedentes-de-la-alfombra-roja-material-patrón-textura-suelo.jpg"));
+	for(let i = 0; i<texturas.length; i++){
+		texturas[i].setTextura(initTexture(texturas[i].getDir()));
+	}
+}
+
+function getTextureByName(name){
+	for(let i=0; i<texturas.length; i++){
+		if(texturas[i].getName()==name){
+			return texturas[i].getTextura();
+
+		}
+	}
+	return texturas[0].getTextura();
+}
 /*Metodo auxiliar que convierte luz en color kelvin a rgb*/
 function colorLuz(num){
 	//Algoritmo http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/

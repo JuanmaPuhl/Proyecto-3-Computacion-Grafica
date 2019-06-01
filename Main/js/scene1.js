@@ -47,63 +47,70 @@ var light2;
 
 
 var light3;
-
-var enrejado ;
-var fuego;
-var texture;
-
+var texturas = [];
 var cameraMouseControls;
 var cameraAnimated = false;
 /*Esta funcion se ejecuta al cargar la pagina. Carga todos los objetos para que luego sean dibujados, asi como los valores iniciales
 de las variables a utilizar*/
-function onLoad() {
+async function onLoad() {
 	let canvas = document.getElementById('webglCanvas');
 	gl = canvas.getContext('webgl2');
 
 	//Cargo los objetos a la escena
-	onModelLoad();
+	await onModelLoad();
 	//cargarSliders();//Cargo los sliders
 	//Creacion de MATERIALES
+	createTextures();
 	crearMateriales();
 
+
 	createShaderPrograms();
-	setShaderBlinnPhong();
+	setShaderCookTorrance();
 	initTexture();
 	obj_ball = new Object(parsedOBJ10);
 	obj_ball.setVao(VAOHelper.create(obj_ball.getIndices(),[
 		new VertexAttributeInfo(obj_ball.getPositions(), posLocation, 3),
-		new VertexAttributeInfo(obj_ball.getNormals(), vertexNormal_location, 3)
+		new VertexAttributeInfo(obj_ball.getNormals(), vertexNormal_location, 3),
+		new VertexAttributeInfo(obj_ball.getTextures(),texLocation,2)
 	]));
 	obj_ball.setMaterial(getMaterialByName("Default"));
 
 	obj_ball2 = new Object(parsedOBJ);
 	obj_ball2.setVao(VAOHelper.create(obj_ball2.getIndices(),[
 		new VertexAttributeInfo(obj_ball2.getPositions(), posLocation, 3),
-		new VertexAttributeInfo(obj_ball2.getNormals(), vertexNormal_location, 3)
+		new VertexAttributeInfo(obj_ball2.getNormals(), vertexNormal_location, 3),
+		new VertexAttributeInfo(obj_ball2.getTextures(),texLocation,2)
 	]));
 	obj_ball2.setMaterial(getMaterialByName("Default"));
 
 	obj_ball3 = new Object(parsedOBJ11);
 	obj_ball3.setVao(VAOHelper.create(obj_ball3.getIndices(),[
 		new VertexAttributeInfo(obj_ball3.getPositions(), posLocation, 3),
-		new VertexAttributeInfo(obj_ball3.getNormals(), vertexNormal_location, 3)
+		new VertexAttributeInfo(obj_ball3.getNormals(), vertexNormal_location, 3),
+		new VertexAttributeInfo(obj_ball3.getTextures(),texLocation,2)
 	]));
 	obj_ball3.setMaterial(getMaterialByName("Default"));
 
-
 	obj_piso = new Object(parsedOBJ3);
-	obj_piso.setMaterial(getMaterialByName("Rock"));
+	obj_piso.setMaterial(getMaterialByName("Ceramic"));
 	obj_piso.setVao(VAOHelper.create(obj_piso.getIndices(), [
     new VertexAttributeInfo(obj_piso.getPositions(), posLocation, 3),
-    new VertexAttributeInfo(obj_piso.getNormals(), vertexNormal_location, 3)
+    new VertexAttributeInfo(obj_piso.getNormals(), vertexNormal_location, 3),
+		new VertexAttributeInfo(obj_piso.getTextures(),texLocation,2)
   ]));
+	obj_piso.setTexture(getTextureByName("Marmol"));
+	obj_piso.setTexture2(getTextureByName("SnowWhite"));
+
+
 
   obj_axis = new Object(parsedOBJ2);
   obj_axis.setMaterial(getMaterialByName("Jade"));
   obj_axis.setVao(VAOHelper.create(obj_axis.getIndices(), [
     new VertexAttributeInfo(obj_axis.getPositions(), posLocation, 3),
-    new VertexAttributeInfo(obj_axis.getNormals(), vertexNormal_location, 3)
+    new VertexAttributeInfo(obj_axis.getNormals(), vertexNormal_location, 3),
+		new VertexAttributeInfo(obj_axis.getTextures(),texLocation,2)
   ]));
+	obj_axis.setTexture2(getTextureByName("SnowWhite"));
 
 	for(let i = 0; i<6; i++){ //Pelotas
     let arr = [];
@@ -115,13 +122,12 @@ function onLoad() {
   				new VertexAttributeInfo(arr[j].getNormals(), vertexNormal_location, 3),
 					new VertexAttributeInfo(arr[j].getTextures(), texLocation,2)
   			]));
-				arr[j].setTexture(texture);
-
+				arr[j].setTexture(getTextureByName("Alfombra"));
+				arr[j].setTexture2(getTextureByName("Fuego"));
       }
     balls.push(arr);
     arr = [];
 	}
-
 	createLights();
 	loadLights();
 	light = lights[0];
@@ -139,11 +145,12 @@ function onLoad() {
 	// let far = 10.0;//Establezco la distancia maxima que renderizare
 	// projMatrix=camaraEsferica.createPerspectiveMatrix(fov,near,far,aspect);//Calculo la matriz de proyeccion
 	projMatrix = camaraEsferica.projectionMatrix;
-cameraMouseControls = new CameraMouseControls(camaraEsferica, canvas);
+	cameraMouseControls = new CameraMouseControls(camaraEsferica, canvas);
 
 	gl.enable(gl.DEPTH_TEST);//Activo esta opcion para que dibuje segun la posicion en Z. Si hay dos fragmentos con las mismas x,y pero distinta zIndex
 	//Dibujara los que esten mas cerca de la pantalla.
 	setObjects();
+
 	requestAnimationFrame(onRender)//Pido que inicie la animacion ejecutando onRender
 }
 
@@ -160,7 +167,7 @@ function onRender(now){
 	then = now; //Actualizo el valor
 	count++;
 	if(now - last> 1){
-		console.log("FPS: "+count);
+		document.getElementById("fps").innerText = "FPS: "+count;
 		count = 0;
 		last = now;
 	}
@@ -187,26 +194,15 @@ function onRender(now){
 	requestAnimationFrame(onRender); //Continua el bucle
 }
 
-function initTexture(){
-	texture = gl.createTexture();
-	enrejado = gl.createTexture();
-	fuego = gl.createTexture();
-	texture.image = new Image();
-	enrejado.image = new Image();
-	fuego.image = new Image();
-	texture.image.onload = function(){
-		handleLoadedTexture(texture);
+function initTexture(dir){
+	let textura;
+	textura = gl.createTexture();
+	textura.image = new Image();
+	textura.image.onload = function(){
+		handleLoadedTexture(textura);
 	}
-	enrejado.image.onload = function(){
-		handleLoadedTexture(enrejado);
-	}
-	fuego.image.onload = function(){
-		handleLoadedTexture(fuego);
-	}
-	fuego.image.src = "textures/fuego.png";
-	texture.image.src = "textures/texture1_256.jpg";
-	enrejado.image.src = "textures/carbon-fiber.jpg";
-	console.log(texture.image);
+	textura.image.src = dir;
+	return textura;
 }
 
 function handleLoadedTexture(texture){
@@ -337,11 +333,13 @@ function transformPiso(){
 }
 
 /*Funcion para cargar los objetos*/
-function onModelLoad() {
+async function onModelLoad() {
 	//parsedOBJ = OBJParser.parseFile(teapot);
-	parsedOBJ = OBJParser.parseFile(ball);
-  parsedOBJ2 = OBJParser.parseFile(axis);
-	parsedOBJ3 = OBJParser.parseFile(caja);
-	parsedOBJ10 = OBJParser.parseFile(cone);
-	parsedOBJ11 = OBJParser.parseFile(arrow);
+	const a = await parseFile("../Modelos/ball.obj");
+	parsedOBJ = a;
+	console.log(parsedOBJ);
+  parsedOBJ2 = await parseFile("../Modelos/axis.obj");
+	parsedOBJ3 = await parseFile("../Modelos/caja.obj");
+	parsedOBJ10 = await parseFile("../Modelos/cone.obj");
+	parsedOBJ11 = await parseFile("../Modelos/arrow.obj");
 }

@@ -248,6 +248,10 @@ async function onLoad() {
 	gl.enable(gl.DEPTH_TEST);//Activo esta opcion para que dibuje segun la posicion en Z. Si hay dos fragmentos con las mismas x,y pero distinta zIndex
 	transformObjects();//Aplico transformaciones iniciales a cada objeto
 	cameraMouseControls = new CameraMouseControls(camaraEsferica, canvas);
+	supra.getObjects()[0].setTexture(supraTexture);
+	supra.getObjects()[0].setTexture2(supraTextureSpecular) ;
+	console.log(supra.getObjects()[0].getTexture());
+	console.log(supra.getObjects()[0].getTexture2());
 	//Dibujara los que esten mas cerca de la pantalla.
 	requestAnimationFrame(onRender)//Pido que inicie la animacion ejecutando onRender
 }
@@ -255,7 +259,7 @@ async function onLoad() {
 /*Este metodo se llama constantemente gracias al metodo requestAnimationFrame(). En los sliders no
 se llama al onRender, sino que unicamente actualiza valores. Luego el onRender recupera esos valores y transforma
 los objetos como corresponda.*/
-var toDraw=["Porsche","Camaro","Corvette"];//Arreglo con los nombres de los autos a dibujar
+var toDraw=["Porsche","Supra","Corvette"];//Arreglo con los nombres de los autos a dibujar
 var last = 0; //Variables para contar fps
 var count = 0;
 var deltaTime;
@@ -340,6 +344,7 @@ function initTexture(){
 	audiTexture = gl.createTexture();
 	supraTexture = gl.createTexture();
 	supraNeumaticos = gl.createTexture();
+	supraTextureSpecular = gl.createTexture();
 	texture.image = new Image();
 	enrejado.image = new Image();
 	fuego.image = new Image();
@@ -356,6 +361,7 @@ function initTexture(){
 	audiTexture.image = new Image();
 	supraTexture.image = new Image();
 	supraNeumaticos.image = new Image();
+	supraTextureSpecular.image = new Image();
 	texture.image.onload = function(){
 		handleLoadedTexture(texture);
 	}
@@ -404,6 +410,9 @@ function initTexture(){
 	supraNeumaticos.image.onload = function(){
 		handleLoadedTexture(supraNeumaticos);
 	}
+	supraTextureSpecular.image.onload = function(){
+		handleLoadedTexture(supraTextureSpecular);
+	}
 	fuego.image.src = "textures/fuego.png";
 	texture.image.src = "textures/fondo-textura-marmol-textura-marmoles-tailandia-marmol-natural-abstracto-blanco-negro-gris-diseno_1253-914.jpg";
 	enrejado.image.src = "textures/BMWM3GTR.jpg";
@@ -419,7 +428,8 @@ function initTexture(){
 	audiTexture.image.src = "textures/WEILL_Thomas_DIFF.png"
 	corvetteWheel.image.src = "textures/Corvette/wheels.png"
 	supraTexture.image.src = "textures/Supra/Material__0_Diffuse.png";
-	supraNeumaticos.image.src = "textures/Supra/BBW_diffuse.png"
+	supraNeumaticos.image.src = "textures/Supra/BBW_diffuse.png";
+	supraTextureSpecular.image.src = "textures/Supra/Material__0_Glossiness.png";
 }
 
 /*Metodo auxiliar para iniciar texturas*/

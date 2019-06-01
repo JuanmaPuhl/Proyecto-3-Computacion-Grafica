@@ -14,13 +14,22 @@ class Object{
     this.material = null;
     this.textures = this.parsedOBJ.textures;
     this.texture = null;
+    this.texture2 = null;
   }
+  setTexture2(texture2){
+    this.texture2 = texture2;
+  }
+
   setTexture(texture){
     this.texture = texture;
   }
 
   getTexture(){
     return this.texture;
+  }
+
+  getTexture2(){
+    return this.texture2;
   }
   /*-------------------SETTERS-------------------*/
   setCenter(center){

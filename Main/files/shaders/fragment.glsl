@@ -17,9 +17,10 @@ uniform float F0;
 uniform mat4 viewMatrix;
 uniform float rugosidad;
 uniform sampler2D imagen;
+uniform sampler2D imagen2;
 uniform float p;
 uniform float sigma;
-
+vec3 coefSpecular;
 struct Light{
   vec4 posL;
   vec4 dirL;
@@ -27,7 +28,7 @@ struct Light{
   vec3 ia;
   int type;
 };
-
+vec3 coefDifuso;
 
 uniform Light lights[10];
 
@@ -87,9 +88,9 @@ vec3 calcularAportePuntual(Light l, vec3 N , vec3 V){
 
   float value = orenNayar(N,V,L,H);
   if(componente1*componente2!=0.0)
-    return ka+ia*((texture(imagen,fTexCoor).rgb)*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    return ka+ia*(coefDifuso*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     return ka+ia*(texture(imagen,fTexCoor).rgb) * value;
+     return ka+ia*coefDifuso * value;
 }
 
 vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
@@ -134,9 +135,9 @@ vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
 
     float value = orenNayar(N,V,L,H);
     if(componente1*componente2!=0.0)
-      toReturn = ka+ia*((texture(imagen,fTexCoor).rgb)*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+      toReturn = ka+ia*(coefDifuso*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
     else
-       toReturn = ka+ia*(texture(imagen,fTexCoor).rgb) * value;
+       toReturn = ka+ia*coefDifuso * value;
   }
 
     return toReturn;
@@ -183,13 +184,15 @@ vec3 calcularAporteDireccional(Light l, vec3 N , vec3 V){
 
   float value = orenNayar(N,V,S,H);
   if(componente1*componente2!=0.0)
-    return ka+ia*((texture(imagen,fTexCoor).rgb)*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    return ka+ia*(coefDifuso*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     return ka+ia*kd * value;
+     return ka+ia*coefDifuso * value;
 }
 
 
 void main(){
+    coefDifuso = vec3(texture(imagen,fTexCoor)* texture(imagen2,fTexCoor));
+    coefSpecular = vec3(texture(imagen2,fTexCoor));
     vec3 N = normalize(vNE);
     vec3 V = normalize(vVE);
     colorFrag = vec4(0.0);

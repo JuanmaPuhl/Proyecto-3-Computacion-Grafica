@@ -41,6 +41,7 @@ function setShaderCookTorrance(){
   u_sigma = gl.getUniformLocation(shaderProgram, 'sigma');
   texLocation = gl.getAttribLocation(shaderProgram, 'vertexTextureCoordinates');
   u_sampler = gl.getUniformLocation(shaderProgram, 'imagen');
+  u_sampler2 = gl.getUniformLocation(shaderProgram, 'imagen2');
   u_MVP = gl.getUniformLocation(shaderProgram, 'MVP');
 }
 

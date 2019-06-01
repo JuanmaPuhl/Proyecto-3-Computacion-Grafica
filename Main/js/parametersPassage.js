@@ -94,7 +94,7 @@ function drawBlinnPhong(object){
   gl.bindVertexArray(null);
   gl.useProgram(null);
 }
-
+var entero = 0
 /*Funcion para dibujar con Cook Torrance*/
 function drawCookTorrance(object){
   setShaderCookTorrance();
@@ -104,8 +104,22 @@ function drawCookTorrance(object){
 	passLight(2,light2);
 	passLight(3,light3);
 	gl.activeTexture(gl.TEXTURE0);
+	// if(entero==0){
+	// 	console.log(object.getTexture().image)
+	// 	entero =1;
+	// }
+
 	gl.bindTexture(gl.TEXTURE_2D,object.getTexture());
 	gl.uniform1i(shaderProgram.samplerUniform,0);
+	gl.uniform1i(u_sampler,0);
+	gl.activeTexture(gl.TEXTURE1);
+	gl.bindTexture(gl.TEXTURE_2D,object.getTexture2());
+	// if(entero==1){
+	// 	console.log(object.getTexture2().image);
+	// 	entero=2;
+	// }
+	gl.uniform1i(shaderProgram.samplerUniform2,0);
+	gl.uniform1i(u_sampler,1);
   let matrix = object.getObjectMatrix();
   gl.uniformMatrix4fv(u_modelMatrix, false, matrix);
   let MV = mat4.create();
