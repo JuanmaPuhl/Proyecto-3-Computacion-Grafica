@@ -228,11 +228,10 @@ async function onLoad() {
 	obj_piso.setMaterial(getMaterialByName("Ceramic"));
 	obj_piso.setTexture(getTextureByName("Marmol"));
 	obj_piso.setTexture2(getTextureByName("SnowWhite"));
-	console.log(obj_piso.getTexture());
 	// obj_ball.setMaterial(getMaterialByName("Default"));
 	// obj_ball2.setMaterial(getMaterialByName("Default"));
 	// obj_ball3.setMaterial(getMaterialByName("Default"));
-
+	console.log(corvette.getObjects()[1].getTexture());
 
 	/*Creacion de camara*/
 	//camaraEsferica= new sphericalCamera(glMatrix.toRadian(angle[4]),glMatrix.toRadian(angle[5]),3,target,up);
@@ -316,29 +315,6 @@ function transformCars(name,traslate){
 		transformAudi(traslate);
 	if(nombre == "Supra")
 		transformSupra(traslate);
-}
-
-/*Metodo auxiliar para inciar texturas*/
-function initTexture(dir){
-	let textura = gl.createTexture();
-	textura.image = new Image();
-	textura.image.onload = function(){
-		handleLoadedTexture(textura);
-	}
-	textura.image.src = dir;
-	return textura;
-}
-
-/*Metodo auxiliar para iniciar texturas*/
-function handleLoadedTexture(texture){
-	gl.bindTexture(gl.TEXTURE_2D,texture);
-	gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);
-	gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,texture.image);
-	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
-	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);
-	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
-	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
-	gl.bindTexture(gl.TEXTURE_2D,null);
 }
 
 /*Metodo auxiliar para crear VAOS*/

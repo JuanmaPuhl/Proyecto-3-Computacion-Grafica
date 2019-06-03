@@ -92,14 +92,41 @@ function createTextures(){
 }
 
 function getTextureByName(name){
-	for(let i=0; i<texturas.length; i++){
-		if(texturas[i].getName()==name){
-			return texturas[i].getTextura();
+	if(name!=null){
+		for(let i=0; i<texturas.length; i++){
+			if(texturas[i].getName()==name){
+				return texturas[i].getTextura();
 
+			}
 		}
+		return texturas[0].getTextura();
 	}
-	return texturas[0].getTextura();
+	return null;
 }
+
+function initTexture(dir){
+	let textura;
+	textura = gl.createTexture();
+	textura.image = new Image();
+	textura.image.onload = function(){
+		handleLoadedTexture(textura);
+	}
+	textura.image.src = dir;
+	return textura;
+}
+
+function handleLoadedTexture(texture){
+	gl.bindTexture(gl.TEXTURE_2D,texture);
+	gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);
+	gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,texture.image);
+	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
+	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);
+	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+	gl.bindTexture(gl.TEXTURE_2D,null);
+}
+
+
 /*Metodo auxiliar que convierte luz en color kelvin a rgb*/
 function colorLuz(num){
 	//Algoritmo http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/

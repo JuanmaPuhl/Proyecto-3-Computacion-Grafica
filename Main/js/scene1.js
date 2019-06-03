@@ -9,14 +9,9 @@ var parsedOBJ11 = null;
 //Uniform values.
 var viewMatrix = mat4.create();
 var projMatrix = mat4.create();
-
 var angle = [];
 //Variables para generar la camara esferica
 var camaraEsferica;
-var eye = [2, 2, 2];
-var target = [0, 0, 0];
-var up = [0, 1, 0];
-
 //Guardo los sliders para resetear todo a sus posiciones iniciales
 //Se cargaran cuando el usuario mueva algun slider
 var slider=[];
@@ -27,10 +22,8 @@ var rotationAngle=[];
 var animated = [];
 var then = 0;
 var rotationSpeed = 30;
-
 //MATERIALES
 var materials = [];
-
 //OBJETOS
 var balls = [];
 var obj_axis;
@@ -41,11 +34,7 @@ var obj_ball3;
 //LUCES
 var lights = [];
 var light;
-
-
 var light2;
-
-
 var light3;
 var texturas = [];
 var cameraMouseControls;
@@ -58,12 +47,9 @@ async function onLoad() {
 
 	//Cargo los objetos a la escena
 	await onModelLoad();
-	//cargarSliders();//Cargo los sliders
 	//Creacion de MATERIALES
 	createTextures();
 	crearMateriales();
-
-
 	createShaderPrograms();
 	setShaderCookTorrance();
 	initTexture();
@@ -101,8 +87,6 @@ async function onLoad() {
 	obj_piso.setTexture(getTextureByName("Marmol"));
 	obj_piso.setTexture2(getTextureByName("SnowWhite"));
 
-
-
   obj_axis = new Object(parsedOBJ2);
   obj_axis.setMaterial(getMaterialByName("Jade"));
   obj_axis.setVao(VAOHelper.create(obj_axis.getIndices(), [
@@ -136,14 +120,7 @@ async function onLoad() {
 	gl.clearColor(0.05, 0.05, 0.05, 1.0); //Cambio el color de fondo
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	/*Creacion de camara*/
-	//camaraEsferica= new sphericalCamera(glMatrix.toRadian(angle[4]),glMatrix.toRadian(angle[5]),3,target,up);
 	camaraEsferica = new sphericalCamera();
-	// viewMatrix=camaraEsferica.createViewMatrix();//Calculo la matriz de vista
-	// let fov = glMatrix.toRadian(angle[3]); //Establezco el campo de vision inicial
-	// let aspect = canvas.width / canvas.height;//Establezco la relacion de aspecto
-	// let near = 0.1;//Establezco la distancia minima que renderizare
-	// let far = 10.0;//Establezco la distancia maxima que renderizare
-	// projMatrix=camaraEsferica.createPerspectiveMatrix(fov,near,far,aspect);//Calculo la matriz de proyeccion
 	projMatrix = camaraEsferica.projectionMatrix;
 	cameraMouseControls = new CameraMouseControls(camaraEsferica, canvas);
 
@@ -153,8 +130,6 @@ async function onLoad() {
 
 	requestAnimationFrame(onRender)//Pido que inicie la animacion ejecutando onRender
 }
-
-
 
 /*Este metodo se llama constantemente gracias al metodo requestAnimationFrame(). En los sliders no
 se llama al onRender, sino que unicamente actualiza valores. Luego el onRender recupera esos valores y transforma
@@ -171,12 +146,8 @@ function onRender(now){
 		count = 0;
 		last = now;
 	}
-
-	/*Reinicio Matrices*/
-
 	/*Comienzo a preparar para dibujar*/
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
 	refreshCamera(deltaTime * rotationSpeed); //Refresco la camara
 	for(let i = 0; i<balls.length; i++){
     let arr = balls[i];
@@ -190,32 +161,8 @@ function onRender(now){
 	drawObject(obj_ball3);
 	drawObject(obj_piso);
   //drawObject(obj_axis);
-
 	requestAnimationFrame(onRender); //Continua el bucle
 }
-
-function initTexture(dir){
-	let textura;
-	textura = gl.createTexture();
-	textura.image = new Image();
-	textura.image.onload = function(){
-		handleLoadedTexture(textura);
-	}
-	textura.image.src = dir;
-	return textura;
-}
-
-function handleLoadedTexture(texture){
-	gl.bindTexture(gl.TEXTURE_2D,texture);
-	gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);
-	gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,texture.image);
-	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
-	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);
-	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
-	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
-	gl.bindTexture(gl.TEXTURE_2D,null);
-}
-
 
 function refreshCamera(value){
 	if(cameraAnimated){
@@ -334,10 +281,7 @@ function transformPiso(){
 
 /*Funcion para cargar los objetos*/
 async function onModelLoad() {
-	//parsedOBJ = OBJParser.parseFile(teapot);
-	const a = await parseFile("../Modelos/ball.obj");
-	parsedOBJ = a;
-	console.log(parsedOBJ);
+	parsedOBJ = await parseFile("../Modelos/ball.obj");
   parsedOBJ2 = await parseFile("../Modelos/axis.obj");
 	parsedOBJ3 = await parseFile("../Modelos/caja.obj");
 	parsedOBJ10 = await parseFile("../Modelos/cone.obj");

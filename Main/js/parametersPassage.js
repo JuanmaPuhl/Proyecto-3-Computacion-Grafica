@@ -104,20 +104,14 @@ function drawCookTorrance(object){
 	passLight(2,light2);
 	passLight(3,light3);
 	gl.activeTexture(gl.TEXTURE0);
-	// if(entero==0){
-	// 	console.log(object.getTexture().image)
-	// 	entero =1;
-	// }
-
 	gl.bindTexture(gl.TEXTURE_2D,object.getTexture());
 	gl.uniform1i(shaderProgram.samplerUniform,0);
 	gl.uniform1i(u_sampler,0);
 	gl.activeTexture(gl.TEXTURE1);
-	gl.bindTexture(gl.TEXTURE_2D,object.getTexture2());
-	// if(entero==1){
-	// 	console.log(object.getTexture2().image);
-	// 	entero=2;
-	// }
+	if(object.getTexture2()==null && object.getTexture()!=null)
+		gl.bindTexture(gl.TEXTURE_2D,getTextureByName("SnowWhite"));
+	else
+		gl.bindTexture(gl.TEXTURE_2D,object.getTexture2());
 	gl.uniform1i(shaderProgram.samplerUniform2,0);
 	gl.uniform1i(u_sampler,1);
   let matrix = object.getObjectMatrix();
