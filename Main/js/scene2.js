@@ -53,7 +53,7 @@ var light2;
 var light3;
 
 var texturas = [];
-
+var normalMappingActivado =1;
 var cameraMouseControls;
 /*Esta funcion se ejecuta al cargar la pagina. Carga todos los objetos para que luego sean dibujados, asi como los valores iniciales
 de las variables a utilizar*/
@@ -168,8 +168,10 @@ async function onLoad() {
 	porsche = new Car("Porsche");
 	let porsche_textures = ["Porsche","Porsche","RuedasPorsche","RuedasPorsche",null,null,null,null,null,null,null];
 	let porsche_colors = ["Chrome","Glass","Bronze","Caucho","Scarlet","Scarlet","Caucho","Scarlet","Caucho","Caucho","Caucho"];
+	let porsche_normalTextures = [null,null,"normalsPorsche","normalsPorsche",null,null,null,null,null];
 	porsche.setColors(porsche_colors);
 	porsche.setTextures(porsche_textures);
+	porsche.setNormalTextures(porsche_normalTextures);
 	porsche.setOBJ(parsedOBJ_Porsche);
 
 	audiCarrera = new Car("AudiCarrera");
@@ -180,10 +182,12 @@ async function onLoad() {
 	audiCarrera.setOBJ(parsedOBJ_AudiCarrera);
 
 	supra = new Car("Supra");
-	let supra_textures = ["Supra",null,"SupraNeumaticos","SupraNeumaticos",null,null,null,null,null,null];
+	let supra_textures = ["Supra",null,"SnowWhite","SnowWhite",null,null,null,null,null,null];
 	let supra_colors = ["Chrome","Chrome","Chrome","Caucho","Default","Default","Default","Default","Default"];
+	let supra_normalTextures = [null,null,"normalsNeumaticos","normalsNeumaticos",null,null,null,null,null];
 	supra.setColors(supra_colors);
 	supra.setTextures(supra_textures);
+	supra.setNormalTextures(supra_normalTextures);
 	supra.setOBJ(parsedOBJ_Supra);
 
 
@@ -244,7 +248,7 @@ async function onLoad() {
 	// obj_ball.setMaterial(getMaterialByName("Default"));
 	// obj_ball2.setMaterial(getMaterialByName("Default"));
 	// obj_ball3.setMaterial(getMaterialByName("Default"));
-
+	console.log(porsche.getObjects()[2].getNormalsTexture());
 	/*Creacion de camara*/
 	//camaraEsferica= new sphericalCamera(glMatrix.toRadian(angle[4]),glMatrix.toRadian(angle[5]),3,target,up);
 	camaraEsferica = new sphericalCamera();
@@ -345,10 +349,12 @@ function createVAO(object){
 function createCar(car,parsedOBJ_arr){
 	let colors = car.getColors();
 	let textures = car.getTextures();
+	let normalTextures = car.getNormalTextures();
 	for(let i = 0 ; i<parsedOBJ_arr.length; i++){
 		let objeto = new Object(parsedOBJ_arr[i]);
 		createVAO(objeto);
 		objeto.setTexture(getTextureByName(textures[i]));
+		objeto.setNormalsTexture(getTextureByName(normalTextures[i]));
 		if(i<colors.length)
 			objeto.setMaterial(getMaterialByName(colors[i]));
 		else

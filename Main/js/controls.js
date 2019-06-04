@@ -91,6 +91,8 @@ function createTextures(){
 	texturas.push(new Texture("Papel Aluminio","textures/68_crumpled aluminium foil paper texture-seamless.jpg"));
 	texturas.push(new Texture("Carton Corrugado","textures/115_retaining wall stone blocks texture-seamless.jpg"));
 	texturas.push(new Texture("cartonNormals","textures/paredNormals2.png"));
+	texturas.push(new Texture("normalsNeumaticos","textures/Supra/BBW_normal.png"));
+	texturas.push(new Texture("normalsPorsche","textures/Porsche/car/wheels_normals.png"));
 
 	for(let i = 0; i<texturas.length; i++){
 		texturas[i].setTextura(initTexture(texturas[i].getDir()));

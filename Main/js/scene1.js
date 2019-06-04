@@ -114,9 +114,9 @@ async function onLoad() {
 					new VertexAttributeInfo(arr[j].getTextures(), texLocation,2),
 					new VertexAttributeInfo(arr[j].getTangents(),u_vertexTangents,3)
   			]));
-				arr[j].setTexture(getTextureByName("SnowWhite"));
+				arr[j].setTexture(getTextureByName("Marmol Azul"));
 				arr[j].setTexture2(getTextureByName("Carton Corrugado"));
-				arr[j].setNormalsTexture(getTextureByName("cartonNormals"));
+				// arr[j].setNormalsTexture(getTextureByName("cartonNormals"));
       }
     balls.push(arr);
     arr = [];

@@ -9,6 +9,15 @@ class Car {
     this.scale = [1,1,1];
     this.traslation = [0,0,0];
     this.rotation = 0;
+    this.normalTextures = [];
+  }
+
+  setNormalTextures(textures){
+    this.normalTextures = textures;
+  }
+
+  getNormalTextures(){
+    return this.normalTextures;
   }
 
   setScale(scale){

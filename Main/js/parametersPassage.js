@@ -89,7 +89,11 @@ function drawBlinnPhong(object){
 	gl.uniform1i(shaderProgram.samplerUniform,0);
 	gl.uniform1i(u_normalsTexture,1);
 
-	gl.uniform1f(u_normalMapping,normalMappingActivado);
+	if(object.getNormalsTexture()==null)
+		gl.uniform1f(u_normalMapping,0.0);
+	else {
+		gl.uniform1f(u_normalMapping,normalMappingActivado);
+	}
   let matrix = object.getObjectMatrix();
   gl.uniformMatrix4fv(u_modelMatrix, false, matrix);
   let MV = mat4.create();
