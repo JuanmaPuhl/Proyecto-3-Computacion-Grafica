@@ -53,7 +53,7 @@ var light2;
 var light3;
 
 var texturas = [];
-var normalMappingActivado =1;
+var normalMappingActivado =0;
 var cameraMouseControls;
 /*Esta funcion se ejecuta al cargar la pagina. Carga todos los objetos para que luego sean dibujados, asi como los valores iniciales
 de las variables a utilizar*/
