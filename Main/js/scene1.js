@@ -39,6 +39,7 @@ var light3;
 var texturas = [];
 var cameraMouseControls;
 var cameraAnimated = false;
+var normalMappingActivado = 0;
 /*Esta funcion se ejecuta al cargar la pagina. Carga todos los objetos para que luego sean dibujados, asi como los valores iniciales
 de las variables a utilizar*/
 async function onLoad() {
@@ -79,16 +80,19 @@ async function onLoad() {
 		new VertexAttributeInfo(obj_ball3.getTextures(),texLocation,2)
 	]));
 	obj_ball3.setMaterial(getMaterialByName("Default"));
-
 	obj_piso = new Object(parsedOBJ3);
-	obj_piso.setMaterial(getMaterialByName("Ceramic"));
+	obj_piso.setMaterial(getMaterialByName("Caucho"));
 	obj_piso.setVao(VAOHelper.create(obj_piso.getIndices(), [
     new VertexAttributeInfo(obj_piso.getPositions(), posLocation, 3),
     new VertexAttributeInfo(obj_piso.getNormals(), vertexNormal_location, 3),
-		new VertexAttributeInfo(obj_piso.getTextures(),texLocation,2)
+		new VertexAttributeInfo(obj_piso.getTextures(),texLocation,2),
+		new VertexAttributeInfo(obj_piso.getTangents(),u_vertexTangents,3)
   ]));
-	obj_piso.setTexture(getTextureByName("Marmol"));
-	obj_piso.setTexture2(getTextureByName("SnowWhite"));
+	obj_piso.setTexture(getTextureByName("Carton Corrugado"));
+	obj_piso.setTexture2(getTextureByName("Marmol Azul"));
+	obj_piso.setNormalsTexture(getTextureByName("cartonNormals"));
+	console.log("La textura de normales del piso es : " + obj_piso.getNormalsTexture().image.src);
+
 
   obj_axis = new Object(parsedOBJ2);
   obj_axis.setMaterial(getMaterialByName("Jade"));
@@ -107,10 +111,12 @@ async function onLoad() {
   			arr[j].setVao(VAOHelper.create(arr[j].getIndices(), [
   				new VertexAttributeInfo(arr[j].getPositions(), posLocation, 3),
   				new VertexAttributeInfo(arr[j].getNormals(), vertexNormal_location, 3),
-					new VertexAttributeInfo(arr[j].getTextures(), texLocation,2)
+					new VertexAttributeInfo(arr[j].getTextures(), texLocation,2),
+					new VertexAttributeInfo(arr[j].getTangents(),u_vertexTangents,3)
   			]));
-				arr[j].setTexture(getTextureByName("Carton Corrugado"));
-				arr[j].setTexture2(getTextureByName("SnowWhite"));
+				arr[j].setTexture(getTextureByName("SnowWhite"));
+				arr[j].setTexture2(getTextureByName("Carton Corrugado"));
+				arr[j].setNormalsTexture(getTextureByName("cartonNormals"));
       }
     balls.push(arr);
     arr = [];
@@ -286,7 +292,9 @@ function transformPiso(){
 async function onModelLoad() {
 	parsedOBJ = await parseFile("../Modelos/ball.obj");
   parsedOBJ2 = await parseFile("../Modelos/axis.obj");
+	console.log("Voy a crear el piso");
 	parsedOBJ3 = await parseFile("../Modelos/caja.obj");
+	console.log("Ya cargue el piso");
 	parsedOBJ10 = await parseFile("../Modelos/cone.obj");
 	parsedOBJ11 = await parseFile("../Modelos/arrow.obj");
 }

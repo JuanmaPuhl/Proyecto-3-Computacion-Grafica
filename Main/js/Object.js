@@ -2,19 +2,21 @@ class Object{
 
   constructor(parsedOBJ){
     this.parsedOBJ = parsedOBJ;
-    this.indices = this.parsedOBJ.indices;
-    this.positions = this.parsedOBJ.positions;
-    this.colors = this.parsedOBJ.positions;
-    this.normals = this.parsedOBJ.normals;
+    this.indices = this.parsedOBJ.indexTriangles;
+    this.positions = this.parsedOBJ.vertexPositions;
+    this.colors = this.parsedOBJ.vertexPositions;
+    this.normals = this.parsedOBJ.vertexNormals;
     this.indexCount = this.indices.length;
     this.objectMatrix = mat4.create();
     this.animated = false;
     this.vao = null;
     this.center = Utils.boundingBoxCenter(this.positions);
     this.material = null;
-    this.textures = this.parsedOBJ.textures;
+    this.textures = this.parsedOBJ.vertexTextureCoordinates;
     this.texture = null;
     this.texture2 = null;
+    this.tangents = this.parsedOBJ.vertexTangents;
+    this.normalsTexture = null;
   }
   setTexture2(texture2){
     this.texture2 = texture2;
@@ -23,7 +25,13 @@ class Object{
   setTexture(texture){
     this.texture = texture;
   }
+  setNormalsTexture(texture){
+    this.normalsTexture = texture;
+  }
 
+  getNormalsTexture(){
+    return this.normalsTexture;
+  }
   getTexture(){
     return this.texture;
   }
@@ -98,5 +106,8 @@ class Object{
     return this.animated;
   }
 
+  getTangents(){
+    return this.tangents;
+  }
 
 }

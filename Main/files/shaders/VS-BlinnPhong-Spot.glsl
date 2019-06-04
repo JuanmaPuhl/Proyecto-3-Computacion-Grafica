@@ -15,6 +15,8 @@ in vec2 vertexTextureCoordinates;
 
 out vec2 fTexCoor;
 
+in vec3 vertexTangent;
+out mat3 TBNMatrix;
 out vec3 vNE; //Normal del vertice en coordenadas del ojo
 //out vec3 vLE; //Direccion de la luz al vertice en coordenadas del ojo
 out vec3 vVE; //Direccion del ojo al vertice en coordenadas del ojo
@@ -28,6 +30,12 @@ void main(){
     vVE = -vertex_pos_eye;
     vec3 vertex_normal_eye = (normalMatrix * vec4(vertexNormal,0.0)).xyz; //normal del vertice en coordenadas del ojo
     vNE = vertex_normal_eye;
+
+    vec3 N = vec3(normalMatrix * vec4(vertexNormal, 0));
+    vec3 T = vec3(normalMatrix * vec4(vertexTangent, 0));
+    vec3 B = cross(N, T);
+
+    TBNMatrix = mat3(T, B, N);
     //vec3 light_direction = posL.xyz - vertex_pos_eye; //direccion de la luz al vertice
     //vLE = light_direction;
     //vSD = dirL.xyz;

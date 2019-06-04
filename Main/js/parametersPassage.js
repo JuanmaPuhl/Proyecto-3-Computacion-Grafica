@@ -2,16 +2,16 @@
 /*Funcion que dicta que materiales se dibujan con cada modelo*/
 function drawObject(object){
 	if(object.getMaterial().getType()=="Metal"){
-    drawCookTorrance(object);
+    drawBlinnPhong(object);
 	}
 	if(object.getMaterial().getType()=="Plastic"){
-		drawOrenNayar(object);
+		drawBlinnPhong(object);
 	}
 	if(object.getMaterial().getType()=="Glass"){
-    drawCookTorrance(object);
+    drawBlinnPhong(object);
 	}
   if(object.getMaterial().getType()=="Satin"){
-    drawCookTorranceShirley(object);
+    drawBlinnPhong(object);
   }
 }
 
@@ -62,7 +62,7 @@ function passLight(index,light){
 
 /*En las siguientes funciones se sigue el mismo procedimiento,
 Se setea el shaderProgram, se pasan las luces asi como el resto de uniforms*/
-
+var entero = 0;
 /*Funcion para dibujar con Blinn Phong*/
 function drawBlinnPhong(object){
   setShaderBlinnPhong();
@@ -71,9 +71,25 @@ function drawBlinnPhong(object){
 	passLight(2,light2);
 	passLight(3,light3);
   passCamera();
+	if(entero == 0){
+		console.log(object.getTexture());
+		entero = 1;
+	}
 	gl.activeTexture(gl.TEXTURE0);
 	gl.bindTexture(gl.TEXTURE_2D,object.getTexture());
 	gl.uniform1i(shaderProgram.samplerUniform,0);
+	gl.uniform1i(u_sampler,0);
+
+	if(entero == 1){
+		console.log(object.getNormalsTexture());
+		entero = 2;
+	}
+	gl.activeTexture(gl.TEXTURE1);
+	gl.bindTexture(gl.TEXTURE_2D,object.getNormalsTexture());
+	gl.uniform1i(shaderProgram.samplerUniform,0);
+	gl.uniform1i(u_normalsTexture,1);
+
+	gl.uniform1f(u_normalMapping,normalMappingActivado);
   let matrix = object.getObjectMatrix();
   gl.uniformMatrix4fv(u_modelMatrix, false, matrix);
   let MV = mat4.create();

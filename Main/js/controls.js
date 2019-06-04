@@ -89,7 +89,8 @@ function createTextures(){
 	texturas.push(new Texture("Marmol Negro","textures/58926.jpg"));
 	texturas.push(new Texture("Marmol Azul","textures/2082906.jpg"));
 	texturas.push(new Texture("Papel Aluminio","textures/68_crumpled aluminium foil paper texture-seamless.jpg"));
-	texturas.push(new Texture("Carton Corrugado","textures/40_corrugated cardboard texture-seamless.jpg"));
+	texturas.push(new Texture("Carton Corrugado","textures/115_retaining wall stone blocks texture-seamless.jpg"));
+	texturas.push(new Texture("cartonNormals","textures/paredNormals2.png"));
 
 	for(let i = 0; i<texturas.length; i++){
 		texturas[i].setTextura(initTexture(texturas[i].getDir()));
@@ -124,10 +125,10 @@ function handleLoadedTexture(texture){
 	gl.bindTexture(gl.TEXTURE_2D,texture);
 	gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);
 	gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,texture.image);
-	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
-	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);
-	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
-	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+	// gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
+	gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+	// gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+	// gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
 	gl.bindTexture(gl.TEXTURE_2D,null);
 }
 
@@ -242,27 +243,27 @@ function createLights(){
 	var light_position = [0.0,2.0,0.0,1.0];
 	var light_intensity = [[0.01,0.01,0.01],[1.0,1.0,1.0],[1.0,1.0,1.0]];
 	var light_direction = [0.0,-1.0,0.0,0.0];
-	var light_angle = Math.cos(glMatrix.toRadian(30));
+	var light_angle = Math.cos(glMatrix.toRadian(13));
 
 	var light2;
-	var light_position2 = [0.0,2.0,1.0,1.0];
+	var light_position2 = [0.0,2.0,1.5,1.0];
 	var light_intensity2 = [[0.01,0.01,0.01],[1.0,1.0,1.0],[1.0,1.0,1.0]];
 	var light_direction2 = [0.0,-1.0,0.0,0.0];
-	var light_angle2 = Math.cos(glMatrix.toRadian(15));
+	var light_angle2 = Math.cos(glMatrix.toRadian(13));
 
 	var light3;
-	var light_position3 = [0.0,2.0,-1.0,1.0];
+	var light_position3 = [0.0,2.0,-1.5,1.0];
 	var light_intensity3 = [[0.01,0.01,0.01],[1.0,1.0,1.0],[1.0,1.0,1.0]];
-	var light_direction3 = [1.0,0.1,0.0,0.0];
-	var light_angle3 = Math.cos(glMatrix.toRadian(30));
+	var light_direction3 = [0.0,-1.0,0.0,0.0];
+	var light_angle3 = Math.cos(glMatrix.toRadian(13));
 
 
 	light = new Light(light_position , light_intensity , light_angle,light_direction);//Creo la luz
-	light.setType(0);
+	light.setType(1);
 	light2 = new Light(light_position2 , light_intensity2 , light_angle2,light_direction2);//Creo la luz
-	light2.setType(1);
+	light2.setType(0);
 	light3 = new Light(light_position3 , light_intensity3 , light_angle3,light_direction3);//Creo la luz
-	light3.setType(2);
+	light3.setType(0);
 	lights.push(light);
 	lights.push(light2);
 	lights.push(light3);
@@ -270,11 +271,11 @@ function createLights(){
 	l.setType(0);
 	lights.push(l);
 
-	l = new Light([0.0,0.02,1.5,1.0],[[1.0,0.0,0.0],[1.0,0.0,0.0],[1.0,0.0,0.0]],Math.cos(glMatrix.toRadian(75)),[0.0,-1.0,0.0,0.0]);
+	l = new Light([0.0,0.02,1.5,1.0],[[0.0,1.0,0.0],[1.0,0.0,0.0],[1.0,0.0,0.0]],Math.cos(glMatrix.toRadian(75)),[0.0,-1.0,0.0,0.0]);
 	l.setType(0);
 	lights.push(l);
 
-	l = new Light([0.0,0.02,-1.5,1.0],[[1.0,0.0,0.0],[1.0,0.0,0.0],[1.0,0.0,0.0]],Math.cos(glMatrix.toRadian(75)),[0.0,-1.0,0.0,0.0]);
+	l = new Light([0.0,0.02,-1.5,1.0],[[0.0,0.0,1.0],[1.0,0.0,0.0],[1.0,0.0,0.0]],Math.cos(glMatrix.toRadian(75)),[0.0,-1.0,0.0,0.0]);
 	l.setType(0);
 	lights.push(l);
 }
@@ -565,4 +566,13 @@ function changeCar(value,index){ //Obtengo tanto el valor como el numero del aut
 
 function showFPS(){
 
+}
+
+function enableNormalMapping(){
+	if(normalMappingActivado)
+		normalMappingActivado = 0;
+	else {
+		normalMappingActivado = 1;
+	}
+	console.log("ACTIVE/DESACTIVE NORMALMAPPING");
 }

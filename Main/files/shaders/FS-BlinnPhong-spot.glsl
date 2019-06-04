@@ -9,15 +9,16 @@ uniform vec3 kd;
 uniform vec3 ks;
 uniform float coefEspec;
 uniform mat4 viewMatrix;
-
+uniform float normalMapping;
 
 in vec3 vNE; //Normal del vertice en coordenadas del ojo
 //in vec3 vLE; //Direccion de la luz al vertice en coordenadas del ojo
 in vec3 vVE; //Direccion del ojo al vertice en coordenadas del ojo
 //in vec3 vSD; //Direccion del spot
 in vec2 fTexCoor;
+in mat3 TBNMatrix;
 uniform sampler2D imagen;
-
+uniform sampler2D normalsTexture;
 struct Light{
   vec4 posL;
   vec4 dirL;
@@ -27,6 +28,7 @@ struct Light{
 };
 
 
+vec3 sampledNormal;
 uniform Light lights[10];
 
 out vec4 colorFrag;
@@ -106,7 +108,14 @@ vec3 calcularAporteDireccional(Light l, vec3 N , vec3 V){
 
 void main()
 {
-    vec3 N = normalize(vNE);
+  vec3 N = vec3(0.0);
+  sampledNormal = vec3(texture(normalsTexture, fTexCoor));
+  if(normalMapping == 1.0){
+    N = TBNMatrix * (sampledNormal * 2.0 - 1.0);
+  }
+  else{
+    N = normalize(vNE);
+  }
     //vec3 L = normalize(vLE);
     vec3 V = normalize(vVE);
     colorFrag = vec4(0.0);

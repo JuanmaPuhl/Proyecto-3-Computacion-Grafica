@@ -33,6 +33,7 @@
 	<LINK REL=StyleSheet HREF="style.css" TYPE="text/css" MEDIA=screen>
 </head>
 <body onload='onLoad();'>
+	<button type="button" onclick="enableNormalMapping()">NormalMapping</button>
 	<span id="fps">FPS : 0</span>
 	<div id='myDiv'>
 		<h1>Escena</h1>
@@ -48,9 +49,9 @@
 				<tr>
 					<td>Posicion Luz Spot</td>
 					<td>
-						<input type="text" id="textInputX" value="0" onchange="setLightPosition(1)">
-						<input type="text" id="textInputY" value="2" onchange="setLightPosition(1)">
-						<input type="text" id="textInputZ" value="0" onchange="setLightPosition(1)">
+						<input type="range" id="textInputX1" min="-10" max="10" value="0" class="slider" step= "0.1" oninput="setLightPosition(1)">
+						<input type="text" id="textInputY1" value="2" onchange="setLightPosition(1)">
+						<input type="text" id="textInputZ1" value="0" onchange="setLightPosition(1)">
 					</td>
 				</tr>
 				<tr>
