@@ -85,6 +85,11 @@ function createTextures(){
 	texturas.push(new Texture("Supra","textures/Supra/Material__0_Diffuse.png"));
 	texturas.push(new Texture("SupraNeumaticos","textures/Supra/BBW_diffuse.png"));
 	texturas.push(new Texture("SupraSpecular","textures/Supra/Material__0_Glossiness.png"));
+	texturas.push(new Texture("Acuarela","textures/fondo-abstracto-acuarela_24719-153.jpg"));
+	texturas.push(new Texture("Marmol Negro","textures/58926.jpg"));
+	texturas.push(new Texture("Marmol Azul","textures/2082906.jpg"));
+	texturas.push(new Texture("Papel Aluminio","textures/68_crumpled aluminium foil paper texture-seamless.jpg"));
+	texturas.push(new Texture("Carton Corrugado","textures/40_corrugated cardboard texture-seamless.jpg"));
 
 	for(let i = 0; i<texturas.length; i++){
 		texturas[i].setTextura(initTexture(texturas[i].getDir()));

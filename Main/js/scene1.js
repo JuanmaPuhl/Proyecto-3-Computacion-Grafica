@@ -52,6 +52,9 @@ async function onLoad() {
 	crearMateriales();
 	createShaderPrograms();
 	setShaderCookTorrance();
+	setShaderOrenNayar();
+	setShaderCookTorranceShirley();
+	setShaderBlinnPhong();
 	initTexture();
 	obj_ball = new Object(parsedOBJ10);
 	obj_ball.setVao(VAOHelper.create(obj_ball.getIndices(),[
@@ -100,14 +103,14 @@ async function onLoad() {
     let arr = [];
       for(let j=0; j<4; j++){
         arr.push(new Object(parsedOBJ));
-  			arr[j].setMaterial(getMaterialByIndex(i));
+  			arr[j].setMaterial(getMaterialByName("Caucho"));
   			arr[j].setVao(VAOHelper.create(arr[j].getIndices(), [
   				new VertexAttributeInfo(arr[j].getPositions(), posLocation, 3),
   				new VertexAttributeInfo(arr[j].getNormals(), vertexNormal_location, 3),
 					new VertexAttributeInfo(arr[j].getTextures(), texLocation,2)
   			]));
-				arr[j].setTexture(getTextureByName("Alfombra"));
-				arr[j].setTexture2(getTextureByName("Fuego"));
+				arr[j].setTexture(getTextureByName("Carton Corrugado"));
+				arr[j].setTexture2(getTextureByName("SnowWhite"));
       }
     balls.push(arr);
     arr = [];
