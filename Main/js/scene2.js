@@ -69,9 +69,11 @@ async function onLoad() {
 	crearMateriales();//Creacion de MATERIALES
 	createShaderPrograms();//Creacion de los shaderPrograms
 	setShaderCookTorrance();//Seteo un shaderProgram
+	setShaderOrenNayar();
+	setShaderCookTorranceShirley();
 	loadMaterials(); //Cargo los materiales a los dropdown menu
 	createTextures();
-
+	setShaderBlinnPhong();
 	//Creo autos
 	// ferrari = new Car("Ferrari"); //Creo el auto
 	// let ferrari_textures = [null,null,null,null,null,null,enrejado,fuego,enrejado,enrejado,enrejado]; //Creo un arreglo con las texturas a utilizar HARDCODE

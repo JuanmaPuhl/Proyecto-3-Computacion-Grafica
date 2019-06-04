@@ -57,6 +57,9 @@ function passLight(index,light){
 	gl.uniform1i(u_type, light.getType());
 }
 
+
+
+
 /*En las siguientes funciones se sigue el mismo procedimiento,
 Se setea el shaderProgram, se pasan las luces asi como el resto de uniforms*/
 
@@ -97,7 +100,8 @@ function drawBlinnPhong(object){
 var entero = 0
 /*Funcion para dibujar con Cook Torrance*/
 function drawCookTorrance(object){
-  setShaderCookTorrance();
+  //setShaderCookTorrance();
+	shaderProgram = shaderProgramCookTorrance;
   gl.useProgram(shaderProgram);
   passCamera();
 	passLight(1,light);
@@ -106,36 +110,36 @@ function drawCookTorrance(object){
 	gl.activeTexture(gl.TEXTURE0);
 	gl.bindTexture(gl.TEXTURE_2D,object.getTexture());
 	gl.uniform1i(shaderProgram.samplerUniform,0);
-	gl.uniform1i(u_sampler,0);
+	gl.uniform1i(u_samplerCT,0);
 	gl.activeTexture(gl.TEXTURE1);
 	if(object.getTexture2()==null && object.getTexture()!=null)
 		gl.bindTexture(gl.TEXTURE_2D,getTextureByName("SnowWhite"));
 	else
 		gl.bindTexture(gl.TEXTURE_2D,object.getTexture2());
 	gl.uniform1i(shaderProgram.samplerUniform2,0);
-	gl.uniform1i(u_sampler,1);
+	gl.uniform1i(u_samplerCT,1);
   let matrix = object.getObjectMatrix();
-  gl.uniformMatrix4fv(u_modelMatrix, false, matrix);
+  gl.uniformMatrix4fv(u_modelMatrixCT, false, matrix);
   let MV = mat4.create();
   mat4.multiply(MV , viewMatrix , matrix);
-  gl.uniformMatrix4fv(u_MV, false, MV);
+  gl.uniformMatrix4fv(u_MVCT, false, MV);
   mat4.invert(MV,MV);
   mat4.transpose(MV,MV);
-  gl.uniformMatrix4fv(u_normalMatrix, false, MV);
+  gl.uniformMatrix4fv(u_normalMatrixCT, false, MV);
 	let MVP = mat4.create();
 	mat4.multiply(MVP,viewMatrix,matrix);
 	mat4.multiply(MVP,projMatrix,MVP);
-	gl.uniformMatrix4fv(u_MVP,false,MVP);
+	gl.uniformMatrix4fv(u_MVPCT,false,MVP);
   let material = object.getMaterial();
   /*-----------------------PASO LOS VALORES DEL MATERIAL--------------------*/
-  gl.uniform3fv(u_ka,material.getKa());
-  gl.uniform3fv(u_kd,material.getKd());
-  gl.uniform3fv(u_ks,material.getKs());
-  gl.uniform1f(u_coefEspec,material.getShininess());
-	gl.uniform1f(u_F0,material.getF0());
-	gl.uniform1f(u_rugosidad,material.getRugosidad());
-	gl.uniform1f(u_ro,1.0);
-	gl.uniform1f(u_sigma,90.0);
+  gl.uniform3fv(u_kaCT,material.getKa());
+  gl.uniform3fv(u_kdCT,material.getKd());
+  gl.uniform3fv(u_ksCT,material.getKs());
+  gl.uniform1f(u_coefEspecCT,material.getShininess());
+	gl.uniform1f(u_F0CT,material.getF0());
+	gl.uniform1f(u_rugosidadCT,material.getRugosidad());
+	gl.uniform1f(u_roCT,1.0);
+	gl.uniform1f(u_sigmaCT,90.0);
   gl.bindVertexArray(object.getVao());//Asocio el vao del planeta
   gl.drawElements(gl.TRIANGLES, object.getIndexCount(), gl.UNSIGNED_INT, 0);//Dibuja planeta
   gl.bindVertexArray(null);
@@ -144,7 +148,8 @@ function drawCookTorrance(object){
 
 /*Funcion para dibujar con Oren Nayar*/
 function drawOrenNayar(object){
-  setShaderOrenNayar();
+  //setShaderOrenNayar();
+	shaderProgram = shaderProgramOrenNayar;
   gl.useProgram(shaderProgram);
   passCamera();
 	passLight(1,light);
@@ -154,24 +159,24 @@ function drawOrenNayar(object){
 	gl.bindTexture(gl.TEXTURE_2D,object.getTexture());
 	gl.uniform1i(shaderProgram.samplerUniform,0);
   let matrix = object.getObjectMatrix();
-  gl.uniformMatrix4fv(u_modelMatrix, false, matrix);
+  gl.uniformMatrix4fv(u_modelMatrixON, false, matrix);
   let MV = mat4.create();
   mat4.multiply(MV , viewMatrix , matrix);
-  gl.uniformMatrix4fv(u_MV, false, MV);
+  gl.uniformMatrix4fv(u_MVON, false, MV);
   mat4.invert(MV,MV);
   mat4.transpose(MV,MV);
-  gl.uniformMatrix4fv(u_normalMatrix, false, MV);
+  gl.uniformMatrix4fv(u_normalMatrixON, false, MV);
 	let MVP = mat4.create();
 	mat4.multiply(MVP,viewMatrix,matrix);
 	mat4.multiply(MVP,projMatrix,MVP);
-	gl.uniformMatrix4fv(u_MVP,false,MVP);
-  gl.uniform1f(u_ro,1.0);
-  gl.uniform1f(u_sigma,90.0);
+	gl.uniformMatrix4fv(u_MVPON,false,MVP);
+  gl.uniform1f(u_roON,1.0);
+  gl.uniform1f(u_sigmaON,90.0);
   let material = object.getMaterial();
   /*-----------------------PASO LOS VALORES DEL MATERIAL--------------------*/
-  gl.uniform3fv(u_ka,material.getKa());
-  gl.uniform3fv(u_kd,material.getKd());
-  gl.uniform3fv(u_ks,material.getKs());
+  gl.uniform3fv(u_kaON,material.getKa());
+  gl.uniform3fv(u_kdON,material.getKd());
+  gl.uniform3fv(u_ksON,material.getKs());
   gl.bindVertexArray(object.getVao());//Asocio el vao del planeta
   gl.drawElements(gl.TRIANGLES, object.getIndexCount(), gl.UNSIGNED_INT, 0);//Dibuja planeta
   gl.bindVertexArray(null);
@@ -180,7 +185,8 @@ function drawOrenNayar(object){
 
 /*Funcion para dibujar con Shirley*/
 function drawCookTorranceShirley(object){
-  setShaderCookTorranceShirley();
+  //setShaderCookTorranceShirley();
+	shaderProgram = shaderProgramCookTorranceShirley;
   gl.useProgram(shaderProgram);
   passCamera();
 	passLight(1,light);
@@ -190,26 +196,26 @@ function drawCookTorranceShirley(object){
 	gl.bindTexture(gl.TEXTURE_2D,object.getTexture());
 	gl.uniform1i(shaderProgram.samplerUniform,0);
   let matrix = object.getObjectMatrix();
-  gl.uniformMatrix4fv(u_modelMatrix, false, matrix);
+  gl.uniformMatrix4fv(u_modelMatrixS, false, matrix);
   let MV = mat4.create();
   mat4.multiply(MV , viewMatrix , matrix);
-  gl.uniformMatrix4fv(u_MV, false, MV);
+  gl.uniformMatrix4fv(u_MVS, false, MV);
   mat4.invert(MV,MV);
   mat4.transpose(MV,MV);
-  gl.uniformMatrix4fv(u_normalMatrix, false, MV);
+  gl.uniformMatrix4fv(u_normalMatrixS, false, MV);
 	let MVP = mat4.create();
 	mat4.multiply(MVP,viewMatrix,matrix);
 	mat4.multiply(MVP,projMatrix,MVP);
-	gl.uniformMatrix4fv(u_MVP,false,MVP);
-  gl.uniform1f(u_rugosidad,0.84);
-  gl.uniform1f(u_F0,0.51);
-  gl.uniform1f(u_Nu,2);
-  gl.uniform1f(u_Nv,2);
+	gl.uniformMatrix4fv(u_MVPS,false,MVP);
+  gl.uniform1f(u_rugosidadS,0.84);
+  gl.uniform1f(u_F0S,0.51);
+  gl.uniform1f(u_NuS,2);
+  gl.uniform1f(u_NvS,2);
   let material = object.getMaterial();
   /*-----------------------PASO LOS VALORES DEL MATERIAL--------------------*/
-  gl.uniform3fv(u_ka,material.getKa());
-  gl.uniform3fv(u_kd,material.getKd());
-  gl.uniform3fv(u_ks,material.getKs());
+  gl.uniform3fv(u_kaS,material.getKa());
+  gl.uniform3fv(u_kdS,material.getKd());
+  gl.uniform3fv(u_ksS,material.getKs());
   gl.bindVertexArray(object.getVao());//Asocio el vao del planeta
   gl.drawElements(gl.TRIANGLES, object.getIndexCount(), gl.UNSIGNED_INT, 0);//Dibuja planeta
   gl.bindVertexArray(null);
