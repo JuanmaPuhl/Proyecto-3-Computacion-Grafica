@@ -177,8 +177,10 @@ async function onLoad() {
 	audiCarrera = new Car("AudiCarrera");
 	let audi_textures = ["Audi",null,null,null,null,null,null,null,null,null,null];
 	let audi_colors = ["Chrome","Default","Default","Default","Default","Default","Default","Default","Default","Default","Default"];
+	let audi_normalTextures = ["normalHand"];
 	audiCarrera.setColors(audi_colors);
 	audiCarrera.setTextures(audi_textures);
+	audiCarrera.setNormalTextures(audi_normalTextures);
 	audiCarrera.setOBJ(parsedOBJ_AudiCarrera);
 
 	supra = new Car("Supra");
@@ -259,8 +261,6 @@ async function onLoad() {
 	gl.enable(gl.DEPTH_TEST);//Activo esta opcion para que dibuje segun la posicion en Z. Si hay dos fragmentos con las mismas x,y pero distinta zIndex
 	transformObjects();//Aplico transformaciones iniciales a cada objeto
 	cameraMouseControls = new CameraMouseControls(camaraEsferica, canvas);
-
-	supra.getObjects()[0].setTexture2(getTextureByName("SupraSpecular")) ;
 	//Dibujara los que esten mas cerca de la pantalla.
 	requestAnimationFrame(onRender)//Pido que inicie la animacion ejecutando onRender
 }
@@ -462,7 +462,7 @@ async function onModelLoad() {
 	parsedOBJ_Corvette = [corvetteA,corvetteB,corvetteC,corvetteD,corvetteE];
 
 
-	const audiA = await parseFile("../Modelos/audiCarrera.obj");
+	const audiA = await parseFile("../Modelos/hand.obj");
 	console.log("Audi R18 Cargado");
 	parsedOBJ_AudiCarrera = [audiA];
 

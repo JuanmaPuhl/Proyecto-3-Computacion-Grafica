@@ -80,7 +80,7 @@ function createTextures(){
 	texturas.push(new Texture("CamaroPlaca","textures/Camaro/plaque2.jpg"));
 	texturas.push(new Texture("CamaroLlantas","textures/Camaro/CAMARO RIM.png"));
 	texturas.push(new Texture("Corvette","textures/Corvette/albedo_esterno.jpg"));
-	texturas.push(new Texture("Audi","textures/WEILL_Thomas_DIFF.png"));
+	texturas.push(new Texture("Audi","textures/hand.jpg"));
 	texturas.push(new Texture("CorvetteWheel","textures/Corvette/wheels.png"));
 	texturas.push(new Texture("Supra","textures/Supra/Material__0_Diffuse.png"));
 	texturas.push(new Texture("SupraNeumaticos","textures/Supra/BBW_diffuse.png"));
@@ -93,7 +93,7 @@ function createTextures(){
 	texturas.push(new Texture("cartonNormals","textures/paredNormals2.png"));
 	texturas.push(new Texture("normalsNeumaticos","textures/Supra/BBW_normal.png"));
 	texturas.push(new Texture("normalsPorsche","textures/Porsche/car/wheels_normals.png"));
-
+	texturas.push(new Texture("normalHand","textures/hand-normals.jpg"));
 	for(let i = 0; i<texturas.length; i++){
 		texturas[i].setTextura(initTexture(texturas[i].getDir()));
 	}
@@ -235,6 +235,37 @@ function cargarSliders(){
 	angle[2] = 91-slider[2].defaultValue; //Este es el angulo del slider del zoom
 }
 
+function createLightsScene1(){
+	var light;
+	var light_position = [0.0,2.0,0.0,1.0];
+	var light_intensity = [[0.01,0.01,0.01],[1.0,1.0,1.0],[1.0,1.0,1.0]];
+	var light_direction = [0.0,-1.0,0.0,0.0];
+	var light_angle = Math.cos(glMatrix.toRadian(13));
+
+	var light2;
+	var light_position2 = [0.0,2.0,1.5,1.0];
+	var light_intensity2 = [[0.01,0.01,0.01],[1.0,1.0,1.0],[1.0,1.0,1.0]];
+	var light_direction2 = [0.0,-1.0,0.0,0.0];
+	var light_angle2 = Math.cos(glMatrix.toRadian(13));
+
+	var light3;
+	var light_position3 = [0.0,2.0,-1.5,1.0];
+	var light_intensity3 = [[0.01,0.01,0.01],[1.0,1.0,1.0],[1.0,1.0,1.0]];
+	var light_direction3 = [0.0,-1.0,0.0,0.0];
+	var light_angle3 = Math.cos(glMatrix.toRadian(13));
+
+
+	light = new Light(light_position , light_intensity , light_angle,light_direction);//Creo la luz
+	light.setType(1);
+	light2 = new Light(light_position2 , light_intensity2 , light_angle2,light_direction2);//Creo la luz
+	light2.setType(0);
+	light3 = new Light(light_position3 , light_intensity3 , light_angle3,light_direction3);//Creo la luz
+	light3.setType(0);
+	lights.push(light);
+	lights.push(light2);
+	lights.push(light3);
+}
+
 
 /*Metodo auxiliar para crear las luces. Puede hacerse mas simplificado*/
 function createLights(){
@@ -261,7 +292,7 @@ function createLights(){
 
 
 	light = new Light(light_position , light_intensity , light_angle,light_direction);//Creo la luz
-	light.setType(1);
+	light.setType(0);
 	light2 = new Light(light_position2 , light_intensity2 , light_angle2,light_direction2);//Creo la luz
 	light2.setType(0);
 	light3 = new Light(light_position3 , light_intensity3 , light_angle3,light_direction3);//Creo la luz

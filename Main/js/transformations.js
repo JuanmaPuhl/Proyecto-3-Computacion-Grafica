@@ -236,7 +236,7 @@ function transformAudi(index){
 	for(let i = 0; i<arr.length; i++){
 		arr[i].resetObjectMatrix();
 		//translateToOrigin(arr[i]);
-		scaleObject(arr[i],[0.222,0.222,0.222]);
+		//scaleObject(arr[i],[0.222,0.222,0.222]);
 		rotateObject(arr[i],90);
 		// translateObject(arr[i],[0,-0.282,1])
 		// translateToOrigin(arr[i]);

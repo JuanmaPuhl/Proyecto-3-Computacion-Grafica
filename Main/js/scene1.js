@@ -89,7 +89,7 @@ async function onLoad() {
 		new VertexAttributeInfo(obj_piso.getTangents(),u_vertexTangents,3)
   ]));
 	obj_piso.setTexture(getTextureByName("Carton Corrugado"));
-	obj_piso.setTexture2(getTextureByName("Marmol Azul"));
+	obj_piso.setTexture2(getTextureByName("SnowWhite"));
 	obj_piso.setNormalsTexture(getTextureByName("cartonNormals"));
 	console.log("La textura de normales del piso es : " + obj_piso.getNormalsTexture().image.src);
 
@@ -114,14 +114,14 @@ async function onLoad() {
 					new VertexAttributeInfo(arr[j].getTextures(), texLocation,2),
 					new VertexAttributeInfo(arr[j].getTangents(),u_vertexTangents,3)
   			]));
-				arr[j].setTexture(getTextureByName("Marmol Azul"));
-				arr[j].setTexture2(getTextureByName("Carton Corrugado"));
-				// arr[j].setNormalsTexture(getTextureByName("cartonNormals"));
+				arr[j].setTexture(getTextureByName("Carton Corrugado"));
+				arr[j].setTexture2(getTextureByName("SnowWhite"));
+				arr[j].setNormalsTexture(getTextureByName("cartonNormals"));
       }
     balls.push(arr);
     arr = [];
 	}
-	createLights();
+	createLightsScene1();
 	loadLights();
 	light = lights[0];
 	light2 = lights[1];
@@ -274,9 +274,9 @@ function transformBalls(){
     let arr = balls[i];
     for(let j = 0; j<arr.length; j++){
       arr[j].resetObjectMatrix();
-			translateObject(arr[j],[-11 ,7.5,-19]);
+			translateObject(arr[j],[-11 ,2,-19]);
 			translateObject(arr[j],[7.5*j,0,7.5*i]);
-			scaleObject(arr[j],[0.03,0.03,0.03])
+			scaleObject(arr[j],[0.08,0.08,0.08])
     }
 	}
 }
@@ -285,7 +285,7 @@ function transformPiso(){
 	translateToOrigin(obj_piso);
 	scaleObject(obj_piso,[1,1,1]);
 	scaleObject(obj_piso,[5,1,5]);
-	translateObject(obj_piso,[0,-	0.9,0]);
+	translateObject(obj_piso,[0,-	1.15,0]);
 }
 
 /*Funcion para cargar los objetos*/
