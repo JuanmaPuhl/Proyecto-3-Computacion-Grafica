@@ -66,7 +66,7 @@ function transformCamaro(index){
 		//translateToOrigin(arr[0]);
 		scaleObject(arr[i],[0.065,0.065,0.065]);
 		rotateObject(arr[i],90);
-		translateObject(arr[i],[0.04,0.05,index]);
+		translateObject(arr[i],[0.04,0.125,index]);
 		//translateObject(arr[i],[0,0.0,1]);
 	}
 }
@@ -81,7 +81,7 @@ function transformLamborghini(index){
 		translateToOrigin(arr[i]);
 		scaleObject(arr[i],[0.2,0.2,0.2]);
 		rotateObject(arr[i],180);
-		translateObject(arr[i],[0,0,index])
+		translateObject(arr[i],[0,0.125,index])
 	}
 }
 
@@ -150,7 +150,7 @@ function transformNissan(index){
 		// translateToOrigin(arr[i]);
 		// scaleObject(arr[i],[0.2,0.2,0.2]);
 		// rotateObject(arr[i],180);
-		translateObject(arr[i],[0,0,index])
+		translateObject(arr[i],[0,0.125,index])
 	}
 }
 
@@ -165,7 +165,7 @@ function transformArdita(index){
 		// translateToOrigin(arr[i]);
 		// scaleObject(arr[i],[0.2,0.2,0.2]);
 		// rotateObject(arr[i],180);
-		translateObject(arr[i],[0,0,index])
+		translateObject(arr[i],[0,0.125,index])
 	}
 }
 
@@ -180,7 +180,7 @@ function transformRX(index){
 		// translateToOrigin(arr[i]);
 		// scaleObject(arr[i],[0.2,0.2,0.2]);
 		// rotateObject(arr[i],180);
-		translateObject(arr[i],[0,0,index])
+		translateObject(arr[i],[0,0.125,index])
 	}
 }
 
@@ -196,7 +196,7 @@ function transformLancer(index){
 		// translateToOrigin(arr[i]);
 		// scaleObject(arr[i],[0.2,0.2,0.2]);
 		// rotateObject(arr[i],180);
-		translateObject(arr[i],[0,0,index])
+		translateObject(arr[i],[0,0.125,index])
 	}
 }
 
@@ -212,7 +212,7 @@ function transformPorsche(index){
 		// translateToOrigin(arr[i]);
 		// scaleObject(arr[i],[0.2,0.2,0.2]);
 		// rotateObject(arr[i],180);
-		translateObject(arr[i],[0,0,index])
+		translateObject(arr[i],[0,0.15,index])
 	}
 }
 
@@ -227,7 +227,7 @@ function transformCorvette(index){
 		// translateToOrigin(arr[i]);
 		// scaleObject(arr[i],[0.2,0.2,0.2]);
 		// rotateObject(arr[i],180);
-		translateObject(arr[i],[0,-0.15,index])
+		translateObject(arr[i],[0,0.02,index])
 	}
 }
 
@@ -242,7 +242,7 @@ function transformAudi(index){
 		// translateToOrigin(arr[i]);
 		// scaleObject(arr[i],[0.2,0.2,0.2]);
 		// rotateObject(arr[i],180);
-		translateObject(arr[i],[0,-0.15,index])
+		translateObject(arr[i],[0,-0.0,index])
 	}
 }
 
@@ -257,7 +257,7 @@ function transformSupra(index){
 		// translateToOrigin(arr[i]);
 		// scaleObject(arr[i],[0.2,0.2,0.2]);
 		// rotateObject(arr[i],180);
-		translateObject(arr[i],[0,-0.125,index])
+		translateObject(arr[i],[0,0.025,index])
 	}
 }
 
@@ -313,4 +313,16 @@ function transformBall(){
 	else {
 		translateObject(obj_ball3,0.0,100.0,0.0);
 	}
+}
+
+function transformBase(){
+	translateToOrigin(obj_base);
+	scaleObject(obj_base,[0.75,0.75,0.75]);
+	translateObject(obj_base,[0,-0.055,0]);
+	translateToOrigin(obj_base2);
+	scaleObject(obj_base2,[0.75,0.75,0.75]);
+	translateObject(obj_base2,[0,-0.055,1.5]);
+	translateToOrigin(obj_base3);
+	scaleObject(obj_base3,[0.75,0.75,0.75]);
+	translateObject(obj_base3,[0,-0.055,-1.5]);
 }

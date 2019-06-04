@@ -266,6 +266,17 @@ function createLights(){
 	lights.push(light);
 	lights.push(light2);
 	lights.push(light3);
+	let l = new Light([0.0,0.02,0.0,1.0],[[1.0,0.0,0.0],[1.0,0.0,0.0],[1.0,0.0,0.0]],Math.cos(glMatrix.toRadian(75)),[0.0,-1.0,0.0,0.0]);
+	l.setType(0);
+	lights.push(l);
+
+	l = new Light([0.0,0.02,1.5,1.0],[[1.0,0.0,0.0],[1.0,0.0,0.0],[1.0,0.0,0.0]],Math.cos(glMatrix.toRadian(75)),[0.0,-1.0,0.0,0.0]);
+	l.setType(0);
+	lights.push(l);
+
+	l = new Light([0.0,0.02,-1.5,1.0],[[1.0,0.0,0.0],[1.0,0.0,0.0],[1.0,0.0,0.0]],Math.cos(glMatrix.toRadian(75)),[0.0,-1.0,0.0,0.0]);
+	l.setType(0);
+	lights.push(l);
 }
 
 /*Metodo para cambiar las luces segun los valores preestablecidos en los sliders*/

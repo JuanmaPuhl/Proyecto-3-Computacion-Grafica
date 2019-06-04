@@ -215,7 +215,9 @@ async function onLoad() {
 	// obj_ball2 = new Object(parsedOBJ3);
 	// obj_ball3 = new Object(parsedOBJ5);
 	obj_piso = new Object(parsedOBJ4);
-
+	obj_base = new Object(parsedOBJ_Base);
+	obj_base2 = new Object(parsedOBJ_Base);
+	obj_base3 = new Object(parsedOBJ_Base);
 	createLights();//Creo las luces
 	loadLights();//Las cargo
 	light = lights[0];
@@ -223,17 +225,25 @@ async function onLoad() {
 	light3 = lights[2];
 	//Creo VAOS
 	createVAO(obj_piso);
+	createVAO(obj_base);
+	createVAO(obj_base2);
+	createVAO(obj_base3);
 	// createVAO(obj_ball);
 	// createVAO(obj_ball2);
 	// createVAO(obj_ball3);
 	//Seteo materiales
 	obj_piso.setMaterial(getMaterialByName("Ceramic"));
+	obj_base.setMaterial(getMaterialByName("Ceramic"));
+	obj_base2.setMaterial(getMaterialByName("Ceramic"));
+	obj_base3.setMaterial(getMaterialByName("Ceramic"));
+	obj_base.setTexture(getTextureByName("SnowWhite"));
+	obj_base2.setTexture(getTextureByName("SnowWhite"));
+	obj_base3.setTexture(getTextureByName("SnowWhite"));
 	obj_piso.setTexture(getTextureByName("Marmol"));
 	obj_piso.setTexture2(getTextureByName("SnowWhite"));
 	// obj_ball.setMaterial(getMaterialByName("Default"));
 	// obj_ball2.setMaterial(getMaterialByName("Default"));
 	// obj_ball3.setMaterial(getMaterialByName("Default"));
-	console.log(corvette.getObjects()[1].getTexture());
 
 	/*Creacion de camara*/
 	//camaraEsferica= new sphericalCamera(glMatrix.toRadian(angle[4]),glMatrix.toRadian(angle[5]),3,target,up);
@@ -270,9 +280,9 @@ function onRender(now){
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	refreshCamera(deltaTime * rotationSpeed); //Refresco la camara
 //	obj_ball.resetObjectMatrix();
-	transformCars(toDraw[0],1); //acomodo los autos de manera que se dibujen correctamente en el orden dado en el arreglo
+	transformCars(toDraw[0],1.5); //acomodo los autos de manera que se dibujen correctamente en el orden dado en el arreglo
 	transformCars(toDraw[1],0);
-	transformCars(toDraw[2],-1);
+	transformCars(toDraw[2],-1.5);
 	drawCars(toDraw); //dibujo los autos en el arreglo
 
 //	transformBall();//Transformo indicadores de luces
@@ -280,6 +290,9 @@ function onRender(now){
 	// drawObject(obj_ball2);
 	// drawObject(obj_ball3);
 	drawObject(obj_piso); //Dibujo piso
+	drawObject(obj_base);
+	drawObject(obj_base2);
+	drawObject(obj_base3);
 	requestAnimationFrame(onRender); //Continua el bucle
 }
 
@@ -349,6 +362,7 @@ function createCar(car,parsedOBJ_arr){
 function transformObjects(){
 	/*Actualizo las transformaciones para cada uno de los objetos*/
 	transformPiso();
+	transformBase();
 	//transformBall();
 }
 
@@ -452,4 +466,5 @@ async function onModelLoad() {
 	console.log("Toyota Supra Cargado");
 	parsedOBJ_Supra = [supraA,supraB,supraC,supraD];
 
+	parsedOBJ_Base = await parseFile("../Modelos/baseAuto.obj");
 }

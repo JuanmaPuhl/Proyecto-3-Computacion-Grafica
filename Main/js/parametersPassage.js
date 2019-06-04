@@ -104,9 +104,12 @@ function drawCookTorrance(object){
 	shaderProgram = shaderProgramCookTorrance;
   gl.useProgram(shaderProgram);
   passCamera();
-	passLight(1,light);
-	passLight(2,light2);
-	passLight(3,light3);
+	for(let i = 0; i<lights.length; i++){
+		passLight(i+1,lights[i]);
+	}
+	// passLight(1,light);
+	// passLight(2,light2);
+	// passLight(3,light3);
 	gl.activeTexture(gl.TEXTURE0);
 	gl.bindTexture(gl.TEXTURE_2D,object.getTexture());
 	gl.uniform1i(shaderProgram.samplerUniform,0);
@@ -152,9 +155,12 @@ function drawOrenNayar(object){
 	shaderProgram = shaderProgramOrenNayar;
   gl.useProgram(shaderProgram);
   passCamera();
-	passLight(1,light);
-	passLight(2,light2);
-	passLight(3,light3);
+	for(let i = 0; i<lights.length; i++){
+		passLight(i+1,lights[i]);
+	}
+	// passLight(1,light);
+	// passLight(2,light2);
+	// passLight(3,light3);
 	gl.activeTexture(gl.TEXTURE0);
 	gl.bindTexture(gl.TEXTURE_2D,object.getTexture());
 	gl.uniform1i(shaderProgram.samplerUniform,0);
@@ -189,9 +195,12 @@ function drawCookTorranceShirley(object){
 	shaderProgram = shaderProgramCookTorranceShirley;
   gl.useProgram(shaderProgram);
   passCamera();
-	passLight(1,light);
-	passLight(2,light2);
-	passLight(3,light3);
+	for(let i = 0; i<lights.length; i++){
+		passLight(i+1,lights[i]);
+	}
+	// passLight(1,light);
+	// passLight(2,light2);
+	// passLight(3,light3);
 	gl.activeTexture(gl.TEXTURE0);
 	gl.bindTexture(gl.TEXTURE_2D,object.getTexture());
 	gl.uniform1i(shaderProgram.samplerUniform,0);
