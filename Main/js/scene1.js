@@ -107,16 +107,16 @@ async function onLoad() {
     let arr = [];
       for(let j=0; j<4; j++){
         arr.push(new Object(parsedOBJ));
-  			arr[j].setMaterial(getMaterialByName("Caucho"));
+  			arr[j].setMaterial(getMaterialByName("Chrome"));
   			arr[j].setVao(VAOHelper.create(arr[j].getIndices(), [
   				new VertexAttributeInfo(arr[j].getPositions(), posLocation, 3),
   				new VertexAttributeInfo(arr[j].getNormals(), vertexNormal_location, 3),
 					new VertexAttributeInfo(arr[j].getTextures(), texLocation,2),
 					new VertexAttributeInfo(arr[j].getTangents(),u_vertexTangents,3)
   			]));
-				arr[j].setTexture(getTextureByName("Carton Corrugado"));
+				arr[j].setTexture(getTextureByName("Papel"));
 				arr[j].setTexture2(getTextureByName("SnowWhite"));
-				arr[j].setNormalsTexture(getTextureByName("cartonNormals"));
+				arr[j].setNormalsTexture(getTextureByName("normales"));
       }
     balls.push(arr);
     arr = [];

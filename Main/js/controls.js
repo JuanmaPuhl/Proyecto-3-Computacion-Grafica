@@ -94,7 +94,8 @@ function createTextures(){
 	texturas.push(new Texture("normalsNeumaticos","textures/Supra/BBW_normal.png"));
 	texturas.push(new Texture("normalsPorsche","textures/Porsche/car/wheels_normals.png"));
 	texturas.push(new Texture("normalHand","textures/hand-normals.jpg"));
-	texturas.push(new Texture("normales","textures/normal.png"));
+	texturas.push(new Texture("normales","textures/nueva.png"));
+	texturas.push(new Texture("Papel","textures/59_interior 3D wall panel texture-seamless.jpg"));
 	for(let i = 0; i<texturas.length; i++){
 		texturas[i].setTextura(initTexture(texturas[i].getDir()));
 	}
