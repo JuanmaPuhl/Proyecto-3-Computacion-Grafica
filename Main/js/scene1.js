@@ -274,9 +274,9 @@ function transformBalls(){
     let arr = balls[i];
     for(let j = 0; j<arr.length; j++){
       arr[j].resetObjectMatrix();
-			translateObject(arr[j],[-11 ,2,-19]);
-			translateObject(arr[j],[7.5*j,0,7.5*i]);
-			scaleObject(arr[j],[0.08,0.08,0.08])
+			translateObject(arr[j],[-1.25 ,0.5,-1.9]);
+			translateObject(arr[j],[0.75*j,0,0.75*i]);
+			//scaleObject(arr[j],[0.08,0.08,0.08])
     }
 	}
 }
@@ -290,7 +290,7 @@ function transformPiso(){
 
 /*Funcion para cargar los objetos*/
 async function onModelLoad() {
-	parsedOBJ = await parseFile("../Modelos/ball.obj");
+	parsedOBJ = await parseFile("../Modelos/ball2.obj");
   parsedOBJ2 = await parseFile("../Modelos/axis.obj");
 	console.log("Voy a crear el piso");
 	parsedOBJ3 = await parseFile("../Modelos/caja.obj");
