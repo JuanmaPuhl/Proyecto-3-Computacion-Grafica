@@ -237,6 +237,7 @@ async function onLoad() {
 	// createVAO(obj_ball3);
 	//Seteo materiales
 	obj_piso.setMaterial(getMaterialByName("Ceramic"));
+
 	obj_base.setMaterial(getMaterialByName("Ceramic"));
 	obj_base2.setMaterial(getMaterialByName("Ceramic"));
 	obj_base3.setMaterial(getMaterialByName("Ceramic"));
@@ -244,6 +245,7 @@ async function onLoad() {
 	obj_base2.setTexture(getTextureByName("SnowWhite"));
 	obj_base3.setTexture(getTextureByName("SnowWhite"));
 	obj_piso.setTexture(getTextureByName("Marmol"));
+	//obj_piso.setNormalsTexture(getTextureByName("cartonNormals"));
 	obj_piso.setTexture2(getTextureByName("SnowWhite"));
 	// obj_ball.setMaterial(getMaterialByName("Default"));
 	// obj_ball2.setMaterial(getMaterialByName("Default"));

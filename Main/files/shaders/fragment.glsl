@@ -30,6 +30,11 @@ struct Light{
 };
 vec3 coefDifuso;
 
+uniform float normalMapping;
+in mat3 TBNMatrix;
+uniform sampler2D normalsTexture;
+vec3 sampledNormal;
+
 uniform Light lights[10];
 
 float orenNayar(vec3 N, vec3 V, vec3 L, vec3 H){
@@ -198,7 +203,16 @@ vec3 calcularAporteDireccional(Light l, vec3 N , vec3 V){
 void main(){
     coefDifuso = vec3(texture(imagen,fTexCoor)* texture(imagen2,fTexCoor));
     coefSpecular = vec3(texture(imagen2,fTexCoor));
-    vec3 N = normalize(vNE);
+
+    vec3 N = vec3(0.0);
+    sampledNormal = vec3(texture(normalsTexture, fTexCoor));
+    if(normalMapping == 1.0){
+      N = TBNMatrix * (sampledNormal * 2.0 - 1.0);
+    }
+    else{
+      N = normalize(vNE);
+    }
+    //vec3 N = normalize(vNE);
     vec3 V = normalize(vVE);
     colorFrag = vec4(0.0);
     int cant = lights.length();

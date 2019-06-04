@@ -47,6 +47,9 @@ function setShaderCookTorrance(){
   u_samplerCT = gl.getUniformLocation(shaderProgram, 'imagen');
   u_sampler2CT = gl.getUniformLocation(shaderProgram, 'imagen2');
   u_MVPCT = gl.getUniformLocation(shaderProgram, 'MVP');
+  u_normalsTextureCT = gl.getUniformLocation(shaderProgram,'normalsTexture');
+  u_vertexTangentsCT = gl.getAttribLocation(shaderProgram,'vertexTangent');
+  u_normalMappingCT = gl.getUniformLocation(shaderProgram,'normalMapping');
   console.log("Ya cargue todo lo de Cook Torrance");
 }
 

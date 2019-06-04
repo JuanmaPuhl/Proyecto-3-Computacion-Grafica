@@ -2,16 +2,16 @@
 /*Funcion que dicta que materiales se dibujan con cada modelo*/
 function drawObject(object){
 	if(object.getMaterial().getType()=="Metal"){
-    drawBlinnPhong(object);
+    drawCookTorrance(object);
 	}
 	if(object.getMaterial().getType()=="Plastic"){
-		drawBlinnPhong(object);
+		drawCookTorrance(object);
 	}
 	if(object.getMaterial().getType()=="Glass"){
-    drawBlinnPhong(object);
+    drawCookTorrance(object);
 	}
   if(object.getMaterial().getType()=="Satin"){
-    drawBlinnPhong(object);
+    drawCookTorrance(object);
   }
 }
 
@@ -141,6 +141,17 @@ function drawCookTorrance(object){
 		gl.bindTexture(gl.TEXTURE_2D,object.getTexture2());
 	gl.uniform1i(shaderProgram.samplerUniform2,0);
 	gl.uniform1i(u_samplerCT,1);
+
+	gl.activeTexture(gl.TEXTURE2);
+	gl.bindTexture(gl.TEXTURE_2D,object.getNormalsTexture());
+	gl.uniform1i(shaderProgram.samplerUniform,0);
+	gl.uniform1i(u_normalsTextureCT,2);
+	if(object.getNormalsTexture()==null)
+		gl.uniform1f(u_normalMappingCT,0.0);
+	else {
+		gl.uniform1f(u_normalMappingCT,normalMappingActivado);
+	}
+
   let matrix = object.getObjectMatrix();
   gl.uniformMatrix4fv(u_modelMatrixCT, false, matrix);
   let MV = mat4.create();
