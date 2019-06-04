@@ -33,7 +33,8 @@ vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
   vec3 S = normalize(vec3(dirL));
   vec3 toReturn = ka;
   float f0N = 0.0;
-  if(max(dot(S,-L),0.0) > limit){
+  float angle = acos(max(dot(S,-L),0.0));
+  float inlight = smoothstep(radians(degrees(acos(limit))+10.0),acos(limit),angle);
     float A = 1.0 - 0.5 * sigma/(pow(sigma,2.0)+0.33);
     float B = 0.45 * (sigma/(pow(sigma,2.0)+0.09));
     float cosR = max(dot(N,V),0.0);
@@ -44,8 +45,8 @@ vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
     float b = min(anguloR,anguloI);
     float cosPHI = dot( normalize(V-N*(cosR)), normalize(L - N*(cosI)) );
     f0N = (p/PI)*cosI*(A+(B*max(0.0,cosPHI))*sin(a)*tan(b));
-	  toReturn = ka +coefDifuso * ia* f0N;
-  }
+	  toReturn = ka +inlight*coefDifuso * ia* f0N;
+
   return toReturn;
 }
 

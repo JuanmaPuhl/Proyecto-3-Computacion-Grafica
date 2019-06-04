@@ -19,6 +19,7 @@ function setShaderBlinnPhong(){
   u_coefEspec = gl.getUniformLocation(shaderProgram, 'coefEspec');
   u_MV = gl.getUniformLocation(shaderProgram, 'MV');
   u_sampler = gl.getUniformLocation(shaderProgram, 'imagen');
+  u_MVP = gl.getUniformLocation(shaderProgram, 'MVP');
 }
 
 /*Funcion para setear uniforms de CookTorrance*/

@@ -47,7 +47,8 @@ vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
   vec3 H = normalize(V+L);
   vec3 S = normalize(vec3(dirL));
   vec3 toReturn = ka;
-  if(max(dot(S,-L),0.0) > limit){
+  float angle = acos(max(dot(S,-L),0.0));
+  float inlight = smoothstep(radians(degrees(acos(limit))+10.0),acos(limit),angle);
     float difusoBlPh = max(dot(L,N),0.0) ;
     float specBlPh = pow(max(dot(N,H),0.0),coefEspec);
 
@@ -89,8 +90,8 @@ vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
     float SegundoTermino = 1.0-pow((1.0- NdotL/2.0),5.0);
     float TercerTermino = 1.0-pow((1.0- NdotV/2.0),5.0);
     vec3 DifusoAshShi = PrimerTermino*SegundoTermino*TercerTermino;
-    toReturn =  ka+ia*(DifusoAshShi + SpecularAshiShi) * NdotL;
-  }
+    toReturn =  ka+ia*(inlight * DifusoAshShi + inlight * SpecularAshiShi) * NdotL;
+
   return toReturn;
 }
 

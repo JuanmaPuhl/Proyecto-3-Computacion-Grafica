@@ -502,9 +502,6 @@ function setNewAngle(index,value){
 	light = lights[0];
 	light2 = lights[1];
 	light3 = lights[2];
-	console.log(index);
-	console.log(parseFloat(value));
-	console.log("Cambio angulo" + lights[index].getAngle());
 }
 
 
@@ -550,7 +547,6 @@ function loadCars(){
 function changeCar(value,index){ //Obtengo tanto el valor como el numero del auto a cambiar
 	if(toDraw[0]!=value && toDraw[1]!=value && toDraw[2]!=value ){ //Si ese auto no esta siendo dibujado en otra posicion...
 		toDraw[index-1]=value;//Seteo en la posicion elegida el auto nuevo (Arreglo de autos a dibujar)
-		console.log("Cambio auto" + value);
 		changeMaterial(document.getElementById("select"+index).value,index);//Cambio el material del auto segun el valor actual del material
 	}
 

@@ -107,7 +107,8 @@ vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
   float titaH = max(dot(N,H),0.0);
   float titaI = max(dot(N,L),0.0);
   //Variables de la atenuacion geometrica
-  if(max(dot(S,-L),0.0) > limit){
+  float angle = acos(max(dot(S,-L),0.0));
+  float inlight = smoothstep(radians(degrees(acos(limit))+10.0),acos(limit),angle);
     float Beckmann;
     //Termino de Fresnel
     float Fres = pow(1.0 - titaH, 5.0);
@@ -135,10 +136,14 @@ vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
 
     float value = orenNayar(N,V,L,H);
     if(componente1*componente2!=0.0)
-      toReturn = ka+ia*(coefDifuso*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+      toReturn = ka+ia*(inlight * coefDifuso*value + inlight * ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
     else
-       toReturn = ka+ia*coefDifuso * value;
-  }
+       toReturn = ka+ia*inlight*coefDifuso * value;
+
+
+
+
+
 
     return toReturn;
 }

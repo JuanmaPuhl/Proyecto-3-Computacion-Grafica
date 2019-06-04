@@ -44,14 +44,19 @@ vec3 calcularAporteSpot(Light l, vec3 N , vec3 V){
 
   float diffuse = 0.0;
   float specular = 0.0;
-  if(max(dot(S,-L),0.0) > limit){
-      diffuse = max(dot(L,N),0.0);
-      specular = pow(max(dot(N,H),0.0),coefEspec);
-      if (dot(L,N) < 0.0){
-          specular = 0.0;
-      }
-  }
-  return ka+mix(kd,texture(imagen,fTexCoor).rgb,0.5)*diffuse+ks*specular;
+  // if(max(dot(S,-L),0.0) > limit){
+  //     diffuse = max(dot(L,N),0.0);
+  //     specular = pow(max(dot(N,H),0.0),coefEspec);
+  //     if (dot(L,N) < 0.0){
+  //         specular = 0.0;
+  //     }
+  // }
+  float angle = acos(max(dot(S,-L),0.0));
+  float inlight = smoothstep(radians(degrees(acos(limit))+10.0),acos(limit),angle);
+  diffuse = inlight * max(dot(L,N),0.0);
+  specular = inlight * pow(max(dot(N,H),0.0),coefEspec);
+
+  return ka +  ia  * (texture(imagen,fTexCoor).rgb *  diffuse +  ks  * specular);
 }
 
 vec3 calcularAportePuntual(Light l, vec3 N , vec3 V){
@@ -73,7 +78,7 @@ vec3 calcularAportePuntual(Light l, vec3 N , vec3 V){
       specular = 0.0;
   }
 
-  return ka+mix(kd,texture(imagen,fTexCoor).rgb,0.5)*diffuse+ks*specular;
+  return ka+ia*(texture(imagen,fTexCoor).rgb*diffuse+ks*specular);
 }
 
 vec3 calcularAporteDireccional(Light l, vec3 N , vec3 V){
@@ -96,7 +101,7 @@ vec3 calcularAporteDireccional(Light l, vec3 N , vec3 V){
       specular = 0.0;
   }
 
-  return ka+ mix(kd,texture(imagen,fTexCoor).rgb,0.5)*diffuse+ks*specular;
+  return ka+ia*(texture(imagen,fTexCoor).rgb*diffuse+ks*specular);
 }
 
 void main()
