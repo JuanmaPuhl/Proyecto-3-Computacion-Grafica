@@ -36,6 +36,8 @@ function crearMateriales(){
 	materials.push(new Material("Plastic","Rock",[0.0,0.0,0.0],[0.95466,0.078,0.0],[0.00,0.0,0.0],0.0,2.81,0.05));
 
 	materials.push(new Material("Glass","Glass",[0.0,0.0,0.0],[0.0,0.0,0.0],[1.0,1.0,1.0],500.2,0.08,0.05));
+
+	materials.push(new Material("Metal","StandColor",[0.1,0.1,0.1],[0,0,0],[1,1,1],100,0.01,0.01));
 }
 
 /*Funcion auxiliar para obtener un material segun su nombre. Este es el que se usa mas a lo largo del proyecto*/
@@ -96,6 +98,11 @@ function createTextures(){
 	texturas.push(new Texture("normalHand","textures/hand-normals.jpg"));
 	texturas.push(new Texture("normales","textures/nueva.png"));
 	texturas.push(new Texture("Papel","textures/59_interior 3D wall panel texture-seamless.jpg"));
+	texturas.push(new Texture("LogoToyota","textures/Logos Autos/Toyota.png"));
+	texturas.push(new Texture("LogoPorsche","textures/Logos Autos/Porsche.png"));
+	texturas.push(new Texture("LogoChevrolet","textures/Logos Autos/Chevrolet.png"));
+	texturas.push(new Texture("LogoMitsubishi","textures/Logos Autos/Mitsubishi.png"));
+
 	for(let i = 0; i<texturas.length; i++){
 		texturas[i].setTextura(initTexture(texturas[i].getDir()));
 	}
@@ -595,6 +602,7 @@ function changeCar(value,index){ //Obtengo tanto el valor como el numero del aut
 	if(toDraw[0]!=value && toDraw[1]!=value && toDraw[2]!=value ){ //Si ese auto no esta siendo dibujado en otra posicion...
 		toDraw[index-1]=value;//Seteo en la posicion elegida el auto nuevo (Arreglo de autos a dibujar)
 		changeMaterial(document.getElementById("select"+index).value,index);//Cambio el material del auto segun el valor actual del material
+		modificar = true;
 	}
 
 }

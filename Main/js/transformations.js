@@ -315,6 +315,15 @@ function transformBall(){
 	}
 }
 
+function transformStand(){
+	translateToOrigin(obj_Stand);
+	translateObject(obj_Stand,[-1,0.5,0]);
+	translateToOrigin(obj_Stand2);
+	translateObject(obj_Stand2,[-1,0.5,1.5]);
+	translateToOrigin(obj_Stand3);
+	translateObject(obj_Stand3,[-1,0.5,-1.5]);
+}
+
 function transformBase(){
 	translateToOrigin(obj_base);
 	scaleObject(obj_base,[0.75,0.75,0.75]);

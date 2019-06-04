@@ -193,6 +193,7 @@ async function onLoad() {
 	supra.setOBJ(parsedOBJ_Supra);
 
 
+
 	//Una vez que termine de crearlos los meto en el arreglo para mejor manejo
 	//obj_cars.push(lexus);
 	//obj_cars.push(bmw);
@@ -220,6 +221,9 @@ async function onLoad() {
 	// obj_ball = new Object(parsedOBJ2);
 	// obj_ball2 = new Object(parsedOBJ3);
 	// obj_ball3 = new Object(parsedOBJ5);
+	obj_Stand = new Object(parsedOBJ_Stand);
+	obj_Stand2 = new Object(parsedOBJ_Stand);
+	obj_Stand3 = new Object(parsedOBJ_Stand);
 	obj_piso = new Object(parsedOBJ4);
 	obj_base = new Object(parsedOBJ_Base);
 	obj_base2 = new Object(parsedOBJ_Base);
@@ -234,12 +238,17 @@ async function onLoad() {
 	createVAO(obj_base);
 	createVAO(obj_base2);
 	createVAO(obj_base3);
+	createVAO(obj_Stand);
+	createVAO(obj_Stand2);
+	createVAO(obj_Stand3);
 	// createVAO(obj_ball);
 	// createVAO(obj_ball2);
 	// createVAO(obj_ball3);
 	//Seteo materiales
 	obj_piso.setMaterial(getMaterialByName("Ceramic"));
-
+	obj_Stand.setMaterial(getMaterialByName("StandColor"));
+	obj_Stand2.setMaterial(getMaterialByName("StandColor"));
+	obj_Stand3.setMaterial(getMaterialByName("StandColor"));
 	obj_base.setMaterial(getMaterialByName("Ceramic"));
 	obj_base2.setMaterial(getMaterialByName("Ceramic"));
 	obj_base3.setMaterial(getMaterialByName("Ceramic"));
@@ -247,6 +256,9 @@ async function onLoad() {
 	obj_base2.setTexture(getTextureByName("SnowWhite"));
 	obj_base3.setTexture(getTextureByName("SnowWhite"));
 	obj_piso.setTexture(getTextureByName("Marmol"));
+	obj_Stand.setTexture(getTextureByName("LogoToyota"));
+	obj_Stand2.setTexture(getTextureByName("LogoPorsche"));
+	obj_Stand3.setTexture(getTextureByName("LogoChevrolet"));
 	//obj_piso.setNormalsTexture(getTextureByName("cartonNormals"));
 	obj_piso.setTexture2(getTextureByName("SnowWhite"));
 	// obj_ball.setMaterial(getMaterialByName("Default"));
@@ -264,7 +276,7 @@ async function onLoad() {
 	//Dibujara los que esten mas cerca de la pantalla.
 	requestAnimationFrame(onRender)//Pido que inicie la animacion ejecutando onRender
 }
-
+var modificar = true;
 /*Este metodo se llama constantemente gracias al metodo requestAnimationFrame(). En los sliders no
 se llama al onRender, sino que unicamente actualiza valores. Luego el onRender recupera esos valores y transforma
 los objetos como corresponda.*/
@@ -286,9 +298,14 @@ function onRender(now){
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	refreshCamera(deltaTime * rotationSpeed); //Refresco la camara
 //	obj_ball.resetObjectMatrix();
-	transformCars(toDraw[0],1.5); //acomodo los autos de manera que se dibujen correctamente en el orden dado en el arreglo
-	transformCars(toDraw[1],0);
-	transformCars(toDraw[2],-1.5);
+	if(modificar){
+		transformCars(toDraw[0],1.5); //acomodo los autos de manera que se dibujen correctamente en el orden dado en el arreglo
+		transformCars(toDraw[1],0);
+		transformCars(toDraw[2],-1.5);
+		cambiarStand(toDraw);
+		modificar = false;
+	}
+
 	drawCars(toDraw); //dibujo los autos en el arreglo
 
 //	transformBall();//Transformo indicadores de luces
@@ -299,8 +316,64 @@ function onRender(now){
 	drawObject(obj_base);
 	drawObject(obj_base2);
 	drawObject(obj_base3);
+	drawObject(obj_Stand);
+	drawObject(obj_Stand2);
+	drawObject(obj_Stand3);
 	requestAnimationFrame(onRender); //Continua el bucle
 }
+
+function cambiarStand(autos){
+	let nom1 = autos[0];
+	let nom2 = autos[1];
+	let nom3 = autos[2];
+	console.log(nom1);
+	console.log(nom2);
+	console.log(nom3);
+
+
+	let nomTextura1 = "Logo"+nom1;
+	let nomTextura2 = "Logo"+nom2;
+	let nomTextura3 = "Logo"+nom3;
+	console.log(nom1 == "Camaro");
+	if(nom1 == "Camaro" || nom1 == "Corvette"){
+		console.log("ENTRE");
+		nomTextura1 = "LogoChevrolet";
+	}
+	if(nom2 == "Camaro" || nom2 == "Corvette")
+		nomTextura2 = "LogoChevrolet";
+	if(nom3 == "Camaro" || nom3 == "Corvette")
+		nomTextura3 = "LogoChevrolet";
+
+	if(nom1 == "Lancer")
+		nomTextura1 = "LogoMitsubishi";
+	if(nom2 == "Lancer")
+		nomTextura2 = "LogoMitsubishi";
+	if(nom3 == "Lancer")
+		nomTextura3 = "LogoMitsubishi";
+
+	if(nom1 == "Supra")
+		nomTextura1 = "LogoToyota";
+	if(nom2 == "Supra")
+		nomTextura2 = "LogoToyota";
+	if(nom3 == "Supra")
+		nomTextura3 = "LogoToyota";
+
+	console.log(nomTextura1);
+	console.log(nomTextura2);
+	console.log(nomTextura3);
+	obj_Stand.setTexture(getTextureByName(nomTextura2));
+	obj_Stand2.setTexture(getTextureByName(nomTextura1));
+	obj_Stand3.setTexture(getTextureByName(nomTextura3));
+}
+
+function getCarByName(str){
+	for(let i=0; i<obj_cars.length; i++){
+		if(obj_cars[i].getName()==str)
+			return obj_cars[i];
+	}
+	return obj_cars[0];
+}
+
 
 /*metodo auxiliar para elegir el metodo correcto de transformacion*/
 function transformCars(name,traslate){
@@ -371,6 +444,7 @@ function transformObjects(){
 	/*Actualizo las transformaciones para cada uno de los objetos*/
 	transformPiso();
 	transformBase();
+	transformStand();
 	//transformBall();
 }
 
@@ -475,4 +549,6 @@ async function onModelLoad() {
 	parsedOBJ_Supra = [supraA,supraB,supraC,supraD];
 
 	parsedOBJ_Base = await parseFile("../Modelos/baseAuto.obj");
+
+	parsedOBJ_Stand = await parseFile("../Modelos/StandLogo.obj");
 }
