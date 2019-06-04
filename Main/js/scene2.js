@@ -228,6 +228,7 @@ async function onLoad() {
 	obj_base = new Object(parsedOBJ_Base);
 	obj_base2 = new Object(parsedOBJ_Base);
 	obj_base3 = new Object(parsedOBJ_Base);
+	obj_girl = new Object(parsedOBJ_Girl);
 	createLights();//Creo las luces
 	loadLights();//Las cargo
 	light = lights[0];
@@ -241,11 +242,13 @@ async function onLoad() {
 	createVAO(obj_Stand);
 	createVAO(obj_Stand2);
 	createVAO(obj_Stand3);
+	createVAO(obj_girl);
 	// createVAO(obj_ball);
 	// createVAO(obj_ball2);
 	// createVAO(obj_ball3);
 	//Seteo materiales
 	obj_piso.setMaterial(getMaterialByName("Ceramic"));
+	obj_girl.setMaterial(getMaterialByName("Caucho"));
 	obj_Stand.setMaterial(getMaterialByName("StandColor"));
 	obj_Stand2.setMaterial(getMaterialByName("StandColor"));
 	obj_Stand3.setMaterial(getMaterialByName("StandColor"));
@@ -259,6 +262,7 @@ async function onLoad() {
 	obj_Stand.setTexture(getTextureByName("LogoToyota"));
 	obj_Stand2.setTexture(getTextureByName("LogoPorsche"));
 	obj_Stand3.setTexture(getTextureByName("LogoChevrolet"));
+	obj_girl.setTexture(getTextureByName("Girl"));
 	//obj_piso.setNormalsTexture(getTextureByName("cartonNormals"));
 	obj_piso.setTexture2(getTextureByName("SnowWhite"));
 	// obj_ball.setMaterial(getMaterialByName("Default"));
@@ -312,6 +316,7 @@ function onRender(now){
 	// drawObject(obj_ball); //dibujo indicadores de luces
 	// drawObject(obj_ball2);
 	// drawObject(obj_ball3);
+	drawObject(obj_girl);
 	drawObject(obj_piso); //Dibujo piso
 	drawObject(obj_base);
 	drawObject(obj_base2);
@@ -445,6 +450,7 @@ function transformObjects(){
 	transformPiso();
 	transformBase();
 	transformStand();
+	transformGirl();
 	//transformBall();
 }
 
@@ -551,4 +557,5 @@ async function onModelLoad() {
 	parsedOBJ_Base = await parseFile("../Modelos/baseAuto.obj");
 
 	parsedOBJ_Stand = await parseFile("../Modelos/StandLogo.obj");
+	parsedOBJ_Girl = await parseFile("../Modelos/girl.obj");
 }

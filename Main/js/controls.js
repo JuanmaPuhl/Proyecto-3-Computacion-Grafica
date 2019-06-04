@@ -102,6 +102,7 @@ function createTextures(){
 	texturas.push(new Texture("LogoPorsche","textures/Logos Autos/Porsche.png"));
 	texturas.push(new Texture("LogoChevrolet","textures/Logos Autos/Chevrolet.png"));
 	texturas.push(new Texture("LogoMitsubishi","textures/Logos Autos/Mitsubishi.png"));
+	texturas.push(new Texture("Girl","textures/All_Baked_V3.png"));
 
 	for(let i = 0; i<texturas.length; i++){
 		texturas[i].setTextura(initTexture(texturas[i].getDir()));

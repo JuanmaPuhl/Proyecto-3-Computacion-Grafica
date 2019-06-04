@@ -35,6 +35,16 @@ function rotateObjectZ(object,angle){
 	mat4.multiply(matrix,rotationMatrix,matrix);
 }
 
+function transformGirl(){
+	obj_girl.resetObjectMatrix();
+	translateToOrigin(obj_girl);
+	rotateObject(obj_girl,45)
+	scaleObject(obj_girl,[0.0022,0.0022,0.0022]);
+	translateObject(obj_girl,[0,0.2,-0.3]);
+}
+
+
+
 /*Funcion para escalar el planeta*/
 function transformFerrari(index){
 	let arr = ferrari.getObjects();
