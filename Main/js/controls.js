@@ -105,6 +105,7 @@ function createTextures(){
 	texturas.push(new Texture("LogoToyota_normal","textures/Logos Autos/Toyota_normal.png"));
 	texturas.push(new Texture("Girl","textures/All_Baked_V3.png"));
 	texturas.push(new Texture("Rayo",""));
+	texturas.push(new Texture("LogoPorsche_normal","textures/Logos Autos/Porsche_normal.png"));
 
 	for(let i = 0; i<texturas.length; i++){
 		texturas[i].setTextura(initTexture(texturas[i].getDir()));
@@ -304,11 +305,11 @@ function createLights(){
 
 
 	light = new Light(light_position , light_intensity , light_angle,light_direction);//Creo la luz
-	light.setType(0);
+	light.setType(1);
 	light2 = new Light(light_position2 , light_intensity2 , light_angle2,light_direction2);//Creo la luz
 	light2.setType(0);
 	light3 = new Light(light_position3 , light_intensity3 , light_angle3,light_direction3);//Creo la luz
-	light3.setType(2);
+	light3.setType(0);
 	lights.push(light);
 	lights.push(light2);
 	lights.push(light3);

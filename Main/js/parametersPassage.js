@@ -2,6 +2,7 @@
 /*Funcion que dicta que materiales se dibujan con cada modelo*/
 function drawObject(object){
 	if(object.getMaterial().getType()=="Metal"){
+		if(object.getTexture()!=null)
 		if(object.getTexture().getName()=="Rayo")
     	drawRayos(object);
 		else {
@@ -155,11 +156,11 @@ function drawCookTorrance(object){
 	gl.uniform1i(u_samplerCT,1);
 
 	gl.activeTexture(gl.TEXTURE2);
-	if(object.getNormalsTexture() != null){
+	if(object.getNormalsTexture() != null && normalMappingActivado){
 		gl.bindTexture(gl.TEXTURE_2D,object.getNormalsTexture().getTextura());
 	}
 		else {
-			gl.bindTexture(gl.TEXTURE_2D,null);
+		gl.bindTexture(gl.TEXTURE_2D,null);
 		}
 	gl.uniform1i(shaderProgram.samplerUniform,0);
 	gl.uniform1i(u_normalsTextureCT,2);
