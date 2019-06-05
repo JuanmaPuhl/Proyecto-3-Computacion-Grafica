@@ -121,6 +121,5 @@ function createShaderPrograms(){
   shaderProgramCookTorrance =  ShaderProgramHelper.create(vertexShaderSource, fragmentShaderSource);
   shaderProgramOrenNayar = ShaderProgramHelper.create(VS_OrenNayar,FS_OrenNayar);
   shaderProgramCookTorranceShirley = ShaderProgramHelper.create(VS_CookTorranceShirley, FS_CookTorranceShirley);
-  console.log("Hola");
   shaderProgramProcedural1 = ShaderProgramHelper.create(VS_degradacion,fs_degradacion);
 }
