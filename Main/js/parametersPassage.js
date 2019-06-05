@@ -2,13 +2,17 @@
 /*Funcion que dicta que materiales se dibujan con cada modelo*/
 function drawObject(object){
 	if(object.getMaterial().getType()=="Metal"){
-    drawDegradacion(object);
+		if(object.getTexture().getName()=="Rayo")
+    	drawRayos(object);
+		else {
+			drawCookTorrance(object);
+		}
 	}
 	if(object.getMaterial().getType()=="Plastic"){
-		drawDegradacion(object);
+		drawCookTorrance(object);
 	}
 	if(object.getMaterial().getType()=="Glass"){
-    drawDegradacion(object);
+    drawCookTorrance(object);
 	}
   if(object.getMaterial().getType()=="Satin"){
     drawDegradacion(object);
@@ -76,16 +80,16 @@ function drawBlinnPhong(object){
 		entero = 1;
 	}
 	gl.activeTexture(gl.TEXTURE0);
-	gl.bindTexture(gl.TEXTURE_2D,object.getTexture());
+	gl.bindTexture(gl.TEXTURE_2D,object.getTexture().getTextura());
 	gl.uniform1i(shaderProgram.samplerUniform,0);
 	gl.uniform1i(u_sampler,0);
 
 	if(entero == 1){
-		console.log(object.getNormalsTexture());
+		console.log(object.getNormalsTexture().getTextura());
 		entero = 2;
 	}
 	gl.activeTexture(gl.TEXTURE1);
-	gl.bindTexture(gl.TEXTURE_2D,object.getNormalsTexture());
+	gl.bindTexture(gl.TEXTURE_2D,object.getNormalsTexture().getTextura());
 	gl.uniform1i(shaderProgram.samplerUniform,0);
 	gl.uniform1i(u_normalsTexture,1);
 
@@ -131,19 +135,31 @@ function drawCookTorrance(object){
 	// passLight(2,light2);
 	// passLight(3,light3);
 	gl.activeTexture(gl.TEXTURE0);
-	gl.bindTexture(gl.TEXTURE_2D,object.getTexture());
+	if(object.getTexture()!=null)
+		gl.bindTexture(gl.TEXTURE_2D,object.getTexture().getTextura());
+		else {
+			gl.bindTexture(gl.TEXTURE_2D,null);
+		}
 	gl.uniform1i(shaderProgram.samplerUniform,0);
 	gl.uniform1i(u_samplerCT,0);
 	gl.activeTexture(gl.TEXTURE1);
 	if(object.getTexture2()==null && object.getTexture()!=null)
-		gl.bindTexture(gl.TEXTURE_2D,getTextureByName("SnowWhite"));
+		gl.bindTexture(gl.TEXTURE_2D,getTextureByName("SnowWhite").getTextura());
 	else
-		gl.bindTexture(gl.TEXTURE_2D,object.getTexture2());
+		if(object.getTexture2()!=null)
+		gl.bindTexture(gl.TEXTURE_2D,object.getTexture2().getTextura());
+		else {
+			gl.bindTexture(gl.TEXTURE_2D,null);
+		}
 	gl.uniform1i(shaderProgram.samplerUniform2,0);
 	gl.uniform1i(u_samplerCT,1);
 
 	gl.activeTexture(gl.TEXTURE2);
-	gl.bindTexture(gl.TEXTURE_2D,object.getNormalsTexture());
+	if(object.getNormalsTexture() != null)
+		gl.bindTexture(gl.TEXTURE_2D,object.getNormalsTexture().getTextura());
+		else {
+			gl.bindTexture(gl.TEXTURE_2D,null);
+		}
 	gl.uniform1i(shaderProgram.samplerUniform,0);
 	gl.uniform1i(u_normalsTextureCT,2);
 	if(object.getNormalsTexture()==null)
@@ -262,33 +278,46 @@ function drawCookTorranceShirley(object){
   gl.useProgram(null);
 }
 
-function drawRayos(object){ 
+function drawRayos(object){
 	shaderProgram = shaderProgramProcedural1;
-	gl.useProgram(shaderProgram);
-	passCamera();
-	//for(let i = 0; i<lights.length; i++){
-	//	passLight(i+1,lights[i]);
-	//}
+  gl.useProgram(shaderProgram);
+  passCamera();
+	for(let i = 0; i<lights.length; i++){
+		passLight(i+1,lights[i]);
+	}
+	// passLight(1,light);
+	// passLight(2,light2);
+	// passLight(3,light3);
+
   let matrix = object.getObjectMatrix();
   gl.uniformMatrix4fv(u_modelMatrixR, false, matrix);
   let MV = mat4.create();
-  gl.uniformMatrix4fv(u_viewMatrixR,false,viewMatrix);
-  gl.uniformMatrix4fv(u_projMatrixR,false,projMatrix);
-  //mat4.multiply(MV , viewMatrix , matrix);
+  mat4.multiply(MV , viewMatrix , matrix);
   gl.uniformMatrix4fv(u_MVR, false, MV);
   mat4.invert(MV,MV);
   mat4.transpose(MV,MV);
   gl.uniformMatrix4fv(u_normalMatrixR, false, MV);
+	let MVP = mat4.create();
+	mat4.multiply(MVP,viewMatrix,matrix);
+	mat4.multiply(MVP,projMatrix,MVP);
+	gl.uniformMatrix4fv(u_MVPR,false,MVP);
   let material = object.getMaterial();
-  gl.uniform1f(u_F0R,material.getF0());
-  gl.uniform1f(u_rugosidadR,material.getRugosidad());
+	gl.uniform3fv(u_kaR,material.getKa());
+	gl.uniform3fv(u_kdR,material.getKd());
+	gl.uniform3fv(u_ksR,material.getKs());
+	gl.uniform1f(u_coefEspecR,material.getShininess());
+	gl.uniform1f(u_roR,1.0);
+	gl.uniform1f(u_sigmaR,90.0);
+  /*-----------------------PASO LOS VALORES DEL MATERIAL--------------------*/
+	gl.uniform1f(u_F0R,material.getF0());
+	gl.uniform1f(u_rugosidadR,material.getRugosidad());
   gl.bindVertexArray(object.getVao());//Asocio el vao del planeta
   gl.drawElements(gl.TRIANGLES, object.getIndexCount(), gl.UNSIGNED_INT, 0);//Dibuja planeta
   gl.bindVertexArray(null);
   gl.useProgram(null);
 }
 
-function drawDegradacion(object){ 
+function drawDegradacion(object){
 	shaderProgram = shaderProgramProcedural2;
 	gl.useProgram(shaderProgram);
 	passCamera();

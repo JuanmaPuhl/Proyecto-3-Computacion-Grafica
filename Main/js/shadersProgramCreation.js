@@ -111,8 +111,13 @@ function setShaderRayos(){
   u_F0R = gl.getUniformLocation(shaderProgram,'F0');
   u_MVR = gl.getUniformLocation(shaderProgram, 'MV');
   texLocationR = gl.getAttribLocation(shaderProgram, 'vertexTextureCoordinates');
-  //u_MVPR = gl.getUniformLocation(shaderProgram, 'MVP');
-
+  u_MVPR = gl.getUniformLocation(shaderProgram, 'MVP');
+  u_kaR = gl.getUniformLocation(shaderProgram, 'ka');
+  u_kdR = gl.getUniformLocation(shaderProgram, 'kd');
+  u_ksR = gl.getUniformLocation(shaderProgram, 'ks');
+  u_coefEspecR = gl.getUniformLocation(shaderProgram, 'coefEspec');
+  u_roR = gl.getUniformLocation(shaderProgram,'p');
+  u_sigmaR = gl.getUniformLocation(shaderProgram, 'sigma');
 }
 
 function setShaderDegradacion(){

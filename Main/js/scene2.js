@@ -168,7 +168,7 @@ async function onLoad() {
 	lancer.setOBJ(parsedOBJ_Lancer);
 
 	porsche = new Car("Porsche");
-	let porsche_textures = ["Porsche","Porsche","RuedasPorsche","RuedasPorsche",null,null,null,null,null,null,null];
+	let porsche_textures = ["Rayo","Porsche","RuedasPorsche","RuedasPorsche",null,null,null,null,null,null,null];
 	let porsche_colors = ["Chrome","Glass","Bronze","Caucho","Scarlet","Scarlet","Caucho","Scarlet","Caucho","Caucho","Caucho"];
 	let porsche_normalTextures = [null,null,"normalsPorsche","normalsPorsche",null,null,null,null,null];
 	porsche.setColors(porsche_colors);
@@ -187,7 +187,7 @@ async function onLoad() {
 
 	supra = new Car("Supra");
 	let supra_textures = ["Supra",null,"SnowWhite","SnowWhite",null,null,null,null,null,null];
-	let supra_colors = ["Chrome","Chrome","Chrome","Caucho","Default","Default","Default","Default","Default"];
+	let supra_colors = ["Chrome","Glass","Chrome","Caucho","Default","Default","Default","Default","Default"];
 	let supra_normalTextures = [null,null,"normalsNeumaticos","normalsNeumaticos",null,null,null,null,null];
 	supra.setColors(supra_colors);
 	supra.setTextures(supra_textures);
