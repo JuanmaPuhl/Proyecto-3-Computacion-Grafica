@@ -276,7 +276,7 @@ function transformBalls(){
       arr[j].resetObjectMatrix();
 			translateObject(arr[j],[-1.25 ,0.5,-1.9]);
 			translateObject(arr[j],[0.75*j,0,0.75*i]);
-			//scaleObject(arr[j],[0.08,0.08,0.08])
+			scaleObject(arr[j],[0.08,0.08,0.08])
     }
 	}
 }

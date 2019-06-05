@@ -207,7 +207,7 @@ void main(){
     vec3 N = vec3(0.0);
     sampledNormal = vec3(texture(normalsTexture, fTexCoor));
     if(normalMapping == 1.0){
-      N = TBNMatrix * (sampledNormal * 2.0 - 1.0);
+      N = normalize(TBNMatrix * (sampledNormal * 2.0 - 1.0));
     }
     else{
       N = normalize(vNE);

@@ -2,16 +2,16 @@
 /*Funcion que dicta que materiales se dibujan con cada modelo*/
 function drawObject(object){
 	if(object.getMaterial().getType()=="Metal"){
-    drawCookTorrance(object);
+    drawRayos(object);
 	}
 	if(object.getMaterial().getType()=="Plastic"){
-		drawCookTorrance(object);
+		drawRayos(object);
 	}
 	if(object.getMaterial().getType()=="Glass"){
-    drawCookTorrance(object);
+    drawRayos(object);
 	}
   if(object.getMaterial().getType()=="Satin"){
-    drawCookTorrance(object);
+    drawRayos(object);
   }
 }
 
@@ -256,6 +256,32 @@ function drawCookTorranceShirley(object){
   gl.uniform3fv(u_kaS,material.getKa());
   gl.uniform3fv(u_kdS,material.getKd());
   gl.uniform3fv(u_ksS,material.getKs());
+  gl.bindVertexArray(object.getVao());//Asocio el vao del planeta
+  gl.drawElements(gl.TRIANGLES, object.getIndexCount(), gl.UNSIGNED_INT, 0);//Dibuja planeta
+  gl.bindVertexArray(null);
+  gl.useProgram(null);
+}
+
+function drawRayos(object){ 
+	shaderProgram = shaderProgramProcedural1;
+	gl.useProgram(shaderProgram);
+	passCamera();
+	//for(let i = 0; i<lights.length; i++){
+	//	passLight(i+1,lights[i]);
+	//}
+  let matrix = object.getObjectMatrix();
+  gl.uniformMatrix4fv(u_modelMatrixR, false, matrix);
+  let MV = mat4.create();
+  gl.uniformMatrix4fv(u_viewMatrixR,false,viewMatrix);
+  gl.uniformMatrix4fv(u_projMatrixR,false,projMatrix);
+  //mat4.multiply(MV , viewMatrix , matrix);
+  gl.uniformMatrix4fv(u_MVR, false, MV);
+  mat4.invert(MV,MV);
+  mat4.transpose(MV,MV);
+  gl.uniformMatrix4fv(u_normalMatrixR, false, MV);
+  let material = object.getMaterial();
+  gl.uniform1f(u_F0R,material.getF0());
+  gl.uniform1f(u_rugosidadR,material.getRugosidad());
   gl.bindVertexArray(object.getVao());//Asocio el vao del planeta
   gl.drawElements(gl.TRIANGLES, object.getIndexCount(), gl.UNSIGNED_INT, 0);//Dibuja planeta
   gl.bindVertexArray(null);

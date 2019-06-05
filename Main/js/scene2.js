@@ -71,6 +71,7 @@ async function onLoad() {
 	setShaderCookTorrance();//Seteo un shaderProgram
 	setShaderOrenNayar();
 	setShaderCookTorranceShirley();
+	setShaderRayos()
 	loadMaterials(); //Cargo los materiales a los dropdown menu
 	createTextures();
 	setShaderBlinnPhong();

@@ -2,6 +2,7 @@ var shaderProgramBLinnPhong  = null;
 var shaderProgramCookTorrance = null;
 var shaderProgramOrenNayar = null;
 var shaderProgramCookTorranceShirley = null;
+var shaderProgramProcedural1 = null;
 
 /*Funcion para setear uniforms de BlinnPhong*/
 function setShaderBlinnPhong(){
@@ -98,10 +99,28 @@ function setShaderCookTorranceShirley(){
   console.log("Ya cargue todo lo de Shirley");
 }
 
+function setShaderRayos(){
+  shaderProgram = shaderProgramProcedural1;
+  posLocationR = gl.getAttribLocation(shaderProgram, 'vertexPosition');
+  vertexNormal_locationR = gl.getAttribLocation(shaderProgram, 'vertexNormal');
+  u_normalMatrixR = gl.getUniformLocation(shaderProgram, 'normalMatrix');
+  u_modelMatrixR = gl.getUniformLocation(shaderProgram, 'modelMatrix');
+  u_viewMatrixR = gl.getUniformLocation(shaderProgram, 'viewMatrix');
+  u_projMatrixR = gl.getUniformLocation(shaderProgram, 'projectionMatrix');
+  u_rugosidadR = gl.getUniformLocation(shaderProgram,'rugosidad');
+  u_F0R = gl.getUniformLocation(shaderProgram,'F0');
+  u_MVR = gl.getUniformLocation(shaderProgram, 'MV');
+  texLocationR = gl.getAttribLocation(shaderProgram, 'vertexTextureCoordinates');
+  //u_MVPR = gl.getUniformLocation(shaderProgram, 'MVP');
+
+}
+
 /*Funcion para crear cada shaderProgram*/
 function createShaderPrograms(){
   shaderProgramBLinnPhong = ShaderProgramHelper.create(VS_BlinnPhong_spot, FS_BlinnPhong_spot);
   shaderProgramCookTorrance =  ShaderProgramHelper.create(vertexShaderSource, fragmentShaderSource);
   shaderProgramOrenNayar = ShaderProgramHelper.create(VS_OrenNayar,FS_OrenNayar);
   shaderProgramCookTorranceShirley = ShaderProgramHelper.create(VS_CookTorranceShirley, FS_CookTorranceShirley);
+  console.log("Hola");
+  shaderProgramProcedural1 = ShaderProgramHelper.create(VS_degradacion,fs_degradacion);
 }
