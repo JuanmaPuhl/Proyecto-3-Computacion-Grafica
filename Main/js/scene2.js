@@ -53,7 +53,7 @@ var light2;
 var light3;
 
 var texturas = [];
-var normalMappingActivado =0;
+var normalMappingActivado =0.0;
 var cameraMouseControls;
 /*Esta funcion se ejecuta al cargar la pagina. Carga todos los objetos para que luego sean dibujados, asi como los valores iniciales
 de las variables a utilizar*/
@@ -71,6 +71,8 @@ async function onLoad() {
 	setShaderCookTorrance();//Seteo un shaderProgram
 	setShaderOrenNayar();
 	setShaderCookTorranceShirley();
+	setShaderRayos()
+	setShaderDegradacion();
 	loadMaterials(); //Cargo los materiales a los dropdown menu
 	createTextures();
 	setShaderBlinnPhong();
@@ -166,7 +168,7 @@ async function onLoad() {
 	lancer.setOBJ(parsedOBJ_Lancer);
 
 	porsche = new Car("Porsche");
-	let porsche_textures = ["Porsche","Porsche","RuedasPorsche","RuedasPorsche",null,null,null,null,null,null,null];
+	let porsche_textures = ["Rayo","Porsche","RuedasPorsche","RuedasPorsche",null,null,null,null,null,null,null];
 	let porsche_colors = ["Chrome","Glass","Bronze","Caucho","Scarlet","Scarlet","Caucho","Scarlet","Caucho","Caucho","Caucho"];
 	let porsche_normalTextures = [null,null,"normalsPorsche","normalsPorsche",null,null,null,null,null];
 	porsche.setColors(porsche_colors);
@@ -184,8 +186,8 @@ async function onLoad() {
 	audiCarrera.setOBJ(parsedOBJ_AudiCarrera);
 
 	supra = new Car("Supra");
-	let supra_textures = ["Supra",null,"SnowWhite","SnowWhite",null,null,null,null,null,null];
-	let supra_colors = ["Chrome","Chrome","Chrome","Caucho","Default","Default","Default","Default","Default"];
+	let supra_textures = ["Supra",null,"SupraNeumaticos","SupraNeumaticos",null,null,null,null,null,null];
+	let supra_colors = ["Chrome","Glass","Caucho","Caucho","Default","Default","Default","Default","Default"];
 	let supra_normalTextures = [null,null,"normalsNeumaticos","normalsNeumaticos",null,null,null,null,null];
 	supra.setColors(supra_colors);
 	supra.setTextures(supra_textures);
@@ -260,7 +262,9 @@ async function onLoad() {
 	obj_base3.setTexture(getTextureByName("SnowWhite"));
 	obj_piso.setTexture(getTextureByName("Marmol"));
 	obj_Stand.setTexture(getTextureByName("LogoToyota"));
+	obj_Stand.setNormalsTexture(getTextureByName("LogoToyota_normal"));
 	obj_Stand2.setTexture(getTextureByName("LogoPorsche"));
+	obj_Stand2.setNormalsTexture(getTextureByName("LogoPorsche_normal"));
 	obj_Stand3.setTexture(getTextureByName("LogoChevrolet"));
 	obj_girl.setTexture(getTextureByName("Girl"));
 	//obj_piso.setNormalsTexture(getTextureByName("cartonNormals"));
@@ -268,7 +272,6 @@ async function onLoad() {
 	// obj_ball.setMaterial(getMaterialByName("Default"));
 	// obj_ball2.setMaterial(getMaterialByName("Default"));
 	// obj_ball3.setMaterial(getMaterialByName("Default"));
-	console.log(porsche.getObjects()[2].getNormalsTexture());
 	/*Creacion de camara*/
 	//camaraEsferica= new sphericalCamera(glMatrix.toRadian(angle[4]),glMatrix.toRadian(angle[5]),3,target,up);
 	camaraEsferica = new sphericalCamera();
@@ -310,6 +313,7 @@ function onRender(now){
 		modificar = false;
 	}
 
+
 	drawCars(toDraw); //dibujo los autos en el arreglo
 
 //	transformBall();//Transformo indicadores de luces
@@ -331,19 +335,13 @@ function cambiarStand(autos){
 	let nom1 = autos[0];
 	let nom2 = autos[1];
 	let nom3 = autos[2];
-	console.log(nom1);
-	console.log(nom2);
-	console.log(nom3);
 
 
 	let nomTextura1 = "Logo"+nom1;
 	let nomTextura2 = "Logo"+nom2;
 	let nomTextura3 = "Logo"+nom3;
-	console.log(nom1 == "Camaro");
-	if(nom1 == "Camaro" || nom1 == "Corvette"){
-		console.log("ENTRE");
+	if(nom1 == "Camaro" || nom1 == "Corvette")
 		nomTextura1 = "LogoChevrolet";
-	}
 	if(nom2 == "Camaro" || nom2 == "Corvette")
 		nomTextura2 = "LogoChevrolet";
 	if(nom3 == "Camaro" || nom3 == "Corvette")
@@ -363,9 +361,6 @@ function cambiarStand(autos){
 	if(nom3 == "Supra")
 		nomTextura3 = "LogoToyota";
 
-	console.log(nomTextura1);
-	console.log(nomTextura2);
-	console.log(nomTextura3);
 	obj_Stand.setTexture(getTextureByName(nomTextura2));
 	obj_Stand2.setTexture(getTextureByName(nomTextura1));
 	obj_Stand3.setTexture(getTextureByName(nomTextura3));
@@ -421,7 +416,8 @@ function createVAO(object){
 	object.setVao(VAOHelper.create(object.getIndices(), [
 		new VertexAttributeInfo(object.getPositions(), posLocation, 3),
 		new VertexAttributeInfo(object.getNormals(), vertexNormal_location, 3),
-		new VertexAttributeInfo(object.getTextures(),texLocation,2)
+		new VertexAttributeInfo(object.getTextures(),texLocation,2),
+		new VertexAttributeInfo(object.getTangents(),u_vertexTangents,3)
 	]));
 }
 

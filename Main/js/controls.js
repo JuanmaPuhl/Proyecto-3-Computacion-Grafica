@@ -37,7 +37,7 @@ function crearMateriales(){
 
 	materials.push(new Material("Glass","Glass",[0.0,0.0,0.0],[0.0,0.0,0.0],[1.0,1.0,1.0],500.2,0.08,0.05));
 
-	materials.push(new Material("Metal","StandColor",[0.1,0.1,0.1],[0,0,0],[1,1,1],100,0.01,0.01));
+	materials.push(new Material("Metal","StandColor",[0.1,0.1,0.1],[0,0,0],[0,0,0],100,0.01,0.01));
 }
 
 /*Funcion auxiliar para obtener un material segun su nombre. Este es el que se usa mas a lo largo del proyecto*/
@@ -102,7 +102,10 @@ function createTextures(){
 	texturas.push(new Texture("LogoPorsche","textures/Logos Autos/Porsche.png"));
 	texturas.push(new Texture("LogoChevrolet","textures/Logos Autos/Chevrolet.png"));
 	texturas.push(new Texture("LogoMitsubishi","textures/Logos Autos/Mitsubishi.png"));
+	texturas.push(new Texture("LogoToyota_normal","textures/Logos Autos/Toyota_normal.png"));
 	texturas.push(new Texture("Girl","textures/All_Baked_V3.png"));
+	texturas.push(new Texture("Rayo",""));
+	texturas.push(new Texture("LogoPorsche_normal","textures/Logos Autos/Porsche_normal.png"));
 
 	for(let i = 0; i<texturas.length; i++){
 		texturas[i].setTextura(initTexture(texturas[i].getDir()));
@@ -113,11 +116,11 @@ function getTextureByName(name){
 	if(name!=null){
 		for(let i=0; i<texturas.length; i++){
 			if(texturas[i].getName()==name){
-				return texturas[i].getTextura();
+				return texturas[i];
 
 			}
 		}
-		return texturas[0].getTextura();
+		return texturas[0];
 	}
 	return null;
 }
@@ -302,7 +305,7 @@ function createLights(){
 
 
 	light = new Light(light_position , light_intensity , light_angle,light_direction);//Creo la luz
-	light.setType(0);
+	light.setType(1);
 	light2 = new Light(light_position2 , light_intensity2 , light_angle2,light_direction2);//Creo la luz
 	light2.setType(0);
 	light3 = new Light(light_position3 , light_intensity3 , light_angle3,light_direction3);//Creo la luz

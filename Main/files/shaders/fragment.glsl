@@ -93,9 +93,9 @@ vec3 calcularAportePuntual(Light l, vec3 N , vec3 V){
 
   float value = orenNayar(N,V,L,H);
   if(componente1*componente2!=0.0)
-    return ka+ia*(coefDifuso*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    return ia*(coefDifuso*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     return ka+ia*coefDifuso * value;
+     return ia*coefDifuso * value;
 }
 
 vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
@@ -141,9 +141,9 @@ vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
 
     float value = orenNayar(N,V,L,H);
     if(componente1*componente2!=0.0)
-      toReturn = ka*coefDifuso+ia*(inlight * coefDifuso*value + inlight * ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+      toReturn = ia*(inlight * coefDifuso*value + inlight * ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
     else
-       toReturn = ka*coefDifuso+ia*inlight*coefDifuso * value;
+       toReturn = ia*inlight*coefDifuso * value;
 
 
 
@@ -194,9 +194,9 @@ vec3 calcularAporteDireccional(Light l, vec3 N , vec3 V){
 
   float value = orenNayar(N,V,S,H);
   if(componente1*componente2!=0.0)
-    return ka+ia*(coefDifuso*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    return ia*(coefDifuso*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     return ka+ia*coefDifuso * value;
+     return ia*coefDifuso * value;
 }
 
 
@@ -207,7 +207,7 @@ void main(){
     vec3 N = vec3(0.0);
     sampledNormal = vec3(texture(normalsTexture, fTexCoor));
     if(normalMapping == 1.0){
-      N = TBNMatrix * (sampledNormal * 2.0 - 1.0);
+      N = normalize(TBNMatrix * (sampledNormal * 2.0 - 1.0));
     }
     else{
       N = normalize(vNE);

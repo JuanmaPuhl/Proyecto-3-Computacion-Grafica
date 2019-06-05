@@ -55,6 +55,8 @@ async function onLoad() {
 	setShaderCookTorrance();
 	setShaderOrenNayar();
 	setShaderCookTorranceShirley();
+	setShaderRayos()
+	setShaderDegradacion();
 	setShaderBlinnPhong();
 	initTexture();
 	obj_ball = new Object(parsedOBJ10);
@@ -91,7 +93,6 @@ async function onLoad() {
 	obj_piso.setTexture(getTextureByName("Carton Corrugado"));
 	obj_piso.setTexture2(getTextureByName("SnowWhite"));
 	obj_piso.setNormalsTexture(getTextureByName("cartonNormals"));
-	console.log("La textura de normales del piso es : " + obj_piso.getNormalsTexture().image.src);
 
 
   obj_axis = new Object(parsedOBJ2);
@@ -114,9 +115,15 @@ async function onLoad() {
 					new VertexAttributeInfo(arr[j].getTextures(), texLocation,2),
 					new VertexAttributeInfo(arr[j].getTangents(),u_vertexTangents,3)
   			]));
-				arr[j].setTexture(getTextureByName("Papel"));
-				arr[j].setTexture2(getTextureByName("SnowWhite"));
-				arr[j].setNormalsTexture(getTextureByName("normales"));
+				if((i+j) % 2==0){
+					arr[j].setTexture(getTextureByName("Papel"));
+					arr[j].setTexture2(getTextureByName("SnowWhite"));
+					arr[j].setNormalsTexture(getTextureByName("normales"));
+				}
+				else {
+					arr[j].setTexture(getTextureByName("Rayo"))
+				}
+
       }
     balls.push(arr);
     arr = [];
@@ -234,7 +241,7 @@ function transformBall(){
 
 	obj_ball2.resetObjectMatrix();
 	translateToOrigin(obj_ball2);
-	scaleObject(obj_ball2,[0.03,0.03,0.03]);
+	scaleObject(obj_ball2,[0.3,0.3,0.3]);
 	if(light2.isEnabled())
 		translateObject(obj_ball2,light2.getLightPosition());
 	else {

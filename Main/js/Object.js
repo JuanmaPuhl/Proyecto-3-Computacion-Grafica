@@ -17,11 +17,17 @@ class Object{
     this.texture2 = null;
     this.tangents = this.parsedOBJ.vertexTangents;
     this.normalsTexture = null;
+    this.textureType = "Normal";
+  }
+  setTextureType(type){
+    this.textureType=type;
   }
   setTexture2(texture2){
     this.texture2 = texture2;
   }
-
+  getTextureType(){
+    return this.textureType;
+  }
   setTexture(texture){
     this.texture = texture;
   }
