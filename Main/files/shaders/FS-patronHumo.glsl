@@ -1,4 +1,4 @@
-var vertexShaderSource = `#version 300 es
+var FS_Humo = `#version 300 es
 #define PHI 3.1415926535897932384626433832795
 precision highp float;
 uniform mat4 modelMatrix;
@@ -120,4 +120,4 @@ void main()
     
 	
     
-}
+}`

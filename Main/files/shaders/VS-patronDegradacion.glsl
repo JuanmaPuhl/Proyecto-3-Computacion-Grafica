@@ -1,4 +1,4 @@
-var VS_degradacion = `#version 300 es
+var VS_Degradacion = `#version 300 es
 
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;

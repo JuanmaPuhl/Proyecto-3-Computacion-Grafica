@@ -1,4 +1,4 @@
-var fs_degradacion = `#version 300 es
+var FS_Degradacion = `#version 300 es
 #define PHI 3.1415926535897932384626433832795
 precision highp float;
 uniform mat4 modelMatrix;
@@ -114,7 +114,7 @@ void main()
    	float CookTorrenceBRDF = (NDF * GeometricShadowing * CK) / (4.0 * NdotL * NdotV);
 	
 	colorFrag= vec4(color,1.0);
-   	colorFrag= vec4(vec3(pattern)/PHI + CookTorrenceBRDF,1.0);
+   	colorFrag= vec4(vec3(pattern)/PHI,1.0);
    
     
 }`

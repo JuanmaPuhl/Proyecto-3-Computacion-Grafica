@@ -72,6 +72,7 @@ async function onLoad() {
 	setShaderOrenNayar();
 	setShaderCookTorranceShirley();
 	setShaderRayos()
+	setShaderDegradacion();
 	loadMaterials(); //Cargo los materiales a los dropdown menu
 	createTextures();
 	setShaderBlinnPhong();

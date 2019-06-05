@@ -1,4 +1,4 @@
-var vertexShaderSource = `#version 300 es
+var VS_Humo = `#version 300 es
 
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
@@ -46,4 +46,4 @@ void main(void){
     
     
     
-}
+}`

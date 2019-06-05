@@ -115,11 +115,28 @@ function setShaderRayos(){
 
 }
 
+function setShaderDegradacion(){
+  shaderProgram = shaderProgramProcedural2;
+  posLocationD = gl.getAttribLocation(shaderProgram, 'vertexPosition');
+  vertexNormal_locationD = gl.getAttribLocation(shaderProgram, 'vertexNormal');
+  u_normalMatrixD = gl.getUniformLocation(shaderProgram, 'normalMatrix');
+  u_modelMatrixD = gl.getUniformLocation(shaderProgram, 'modelMatrix');
+  u_viewMatrixD = gl.getUniformLocation(shaderProgram, 'viewMatrix');
+  u_projMatrixD = gl.getUniformLocation(shaderProgram, 'projectionMatrix');
+  u_rugosidadD = gl.getUniformLocation(shaderProgram,'rugosidad');
+  u_F0D = gl.getUniformLocation(shaderProgram,'F0');
+  u_MVD = gl.getUniformLocation(shaderProgram, 'MV');
+  texLocationD = gl.getAttribLocation(shaderProgram, 'vertexTextureCoordinates');
+  //u_MVPR = gl.getUniformLocation(shaderProgram, 'MVP');
+
+}
+
 /*Funcion para crear cada shaderProgram*/
 function createShaderPrograms(){
   shaderProgramBLinnPhong = ShaderProgramHelper.create(VS_BlinnPhong_spot, FS_BlinnPhong_spot);
   shaderProgramCookTorrance =  ShaderProgramHelper.create(vertexShaderSource, fragmentShaderSource);
   shaderProgramOrenNayar = ShaderProgramHelper.create(VS_OrenNayar,FS_OrenNayar);
   shaderProgramCookTorranceShirley = ShaderProgramHelper.create(VS_CookTorranceShirley, FS_CookTorranceShirley);
-  shaderProgramProcedural1 = ShaderProgramHelper.create(VS_degradacion,fs_degradacion);
+  shaderProgramProcedural1 = ShaderProgramHelper.create(VS_Rayos,FS_Rayos);
+  shaderProgramProcedural2 = ShaderProgramHelper.create(VS_Degradacion,FS_Degradacion);
 }

@@ -1,4 +1,4 @@
-var rayos_vs = `#version 300 es
+var VS_Rayos = `#version 300 es
 
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
