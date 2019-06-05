@@ -155,8 +155,9 @@ function drawCookTorrance(object){
 	gl.uniform1i(u_samplerCT,1);
 
 	gl.activeTexture(gl.TEXTURE2);
-	if(object.getNormalsTexture() != null)
+	if(object.getNormalsTexture() != null){
 		gl.bindTexture(gl.TEXTURE_2D,object.getNormalsTexture().getTextura());
+	}
 		else {
 			gl.bindTexture(gl.TEXTURE_2D,null);
 		}

@@ -261,7 +261,8 @@ async function onLoad() {
 	obj_base2.setTexture(getTextureByName("SnowWhite"));
 	obj_base3.setTexture(getTextureByName("SnowWhite"));
 	obj_piso.setTexture(getTextureByName("Marmol"));
-	obj_Stand.setTexture(getTextureByName("LogoToyota"));
+	obj_Stand.setTexture(getTextureByName("SnowWhite"));
+	obj_Stand.setNormalsTexture(getTextureByName("cartonNormals"));
 	obj_Stand2.setTexture(getTextureByName("LogoPorsche"));
 	obj_Stand3.setTexture(getTextureByName("LogoChevrolet"));
 	obj_girl.setTexture(getTextureByName("Girl"));
@@ -310,7 +311,9 @@ function onRender(now){
 		transformCars(toDraw[2],-1.5);
 		cambiarStand(toDraw);
 		modificar = false;
+		console.log(obj_Stand.getNormalsTexture().getTextura());
 	}
+
 
 	drawCars(toDraw); //dibujo los autos en el arreglo
 
@@ -361,7 +364,7 @@ function cambiarStand(autos){
 	if(nom1 == "Supra")
 		nomTextura1 = "LogoToyota";
 	if(nom2 == "Supra")
-		nomTextura2 = "LogoToyota";
+		nomTextura2 = "SnowWhite";
 	if(nom3 == "Supra")
 		nomTextura3 = "LogoToyota";
 
