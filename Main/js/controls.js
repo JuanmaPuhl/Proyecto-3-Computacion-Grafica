@@ -305,7 +305,7 @@ function createLights(){
 
 
 	light = new Light(light_position , light_intensity , light_angle,light_direction);//Creo la luz
-	light.setType(1);
+	light.setType(0);
 	light2 = new Light(light_position2 , light_intensity2 , light_angle2,light_direction2);//Creo la luz
 	light2.setType(0);
 	light3 = new Light(light_position3 , light_intensity3 , light_angle3,light_direction3);//Creo la luz
@@ -324,6 +324,21 @@ function createLights(){
 	l = new Light([0.0,0.02,-1.5,1.0],[[0.0,0.0,1.0],[1.0,0.0,0.0],[1.0,0.0,0.0]],Math.cos(glMatrix.toRadian(75)),[0.0,-1.0,0.0,0.0]);
 	l.setType(0);
 	lights.push(l);
+
+
+	l = new Light([0.0,0.25,1.5,1.0],[[1,1,1],[0,0,0],[0,0,0]],Math.cos(glMatrix.toRadian(35)),[-1,1,0,0]);
+	l.setType(0);
+	lights.push(l);
+	l = new Light([0.0,0.25,0,1.0],[[1,1,1],[0,0,0],[0,0,0]],Math.cos(glMatrix.toRadian(35)),[-1,1,0,0]);
+	l.setType(0);
+	lights.push(l);
+	l = new Light([0.0,0.25,-1.5,1.0],[[1,1,1],[0,0,0],[0,0,0]],Math.cos(glMatrix.toRadian(35)),[-1,1,0,0]);
+	l.setType(0);
+	lights.push(l);
+	l = new Light([0.0,2,0,1.0],[[0.3,0.3,0.3 ],[0,0,0],[0,0,0]],Math.cos(glMatrix.toRadian(35)),[-1,1,0,0]);
+	l.setType(1);
+	lights.push(l);
+
 }
 
 /*Metodo para cambiar las luces segun los valores preestablecidos en los sliders*/
