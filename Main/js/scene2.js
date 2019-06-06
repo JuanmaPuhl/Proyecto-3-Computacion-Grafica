@@ -77,7 +77,7 @@ async function onLoad() {
 	setShaderRayos()
 	setShaderDegradacion();
 	createTextures();
-	loadMaterials(); //Cargo los materiales a los dropdown menu
+	//loadMaterials(); //Cargo los materiales a los dropdown menu
 	setShaderBlinnPhong();
 
 
@@ -106,12 +106,12 @@ async function onLoad() {
 	// lexus.setOBJ(parsedOBJ_Lexus);
 	// lexus.setTextures(lexus_textures);
 	//
-	camaro = new Car("Camaro");
-	let camaro_textures = ["Camaro",null,null,"CamaroLlantas",null,"CamaroPlaca",null,null,null,null,null];
-	let camaro_colors = ["Scarlet","Polished Bronze","Glass","Chrome","Caucho","Scarlet","Chrome","Silver2","Chrome","Silver2","Brass","Silver2","Caucho","Pearl"];
-	camaro.setColors(camaro_colors);
-	camaro.setOBJ(parsedOBJ_Camaro);
-	camaro.setTextures(camaro_textures);
+	// camaro = new Car("Camaro");
+	// let camaro_textures = ["Camaro",null,null,"CamaroLlantas",null,"CamaroPlaca",null,null,null,null,null];
+	// let camaro_colors = ["Scarlet","Polished Bronze","Glass","Chrome","Caucho","Scarlet","Chrome","Silver2","Chrome","Silver2","Brass","Silver2","Caucho","Pearl"];
+	// camaro.setColors(camaro_colors);
+	// camaro.setOBJ(parsedOBJ_Camaro);
+	// camaro.setTextures(camaro_textures);
 
 	// // bugatti = new Car("Bugatti");
 	// // let bugatti_textures = [enrejado,null,null,null,null,null,enrejado,fuego,enrejado,enrejado,enrejado];
@@ -123,12 +123,12 @@ async function onLoad() {
 	// // bugatti.setTraslation([0.04,0.0,-0.8]);
 	// // bugatti.setScale([0.002,0.002,0.002]);
 	//
-	lamborghini = new Car("Lamborghini");
-	let lamborghini_textures = ["BMW",null,null,null,null,null,null,null,null,null,null];
-	let lamborghini_colors = ["Chrome","Caucho","Glass","Bronze","Scarlet","Scarlet","Caucho","Scarlet","Caucho","Caucho","Caucho"];
-	lamborghini.setColors(lamborghini_colors);
-	lamborghini.setTextures(lamborghini_textures);
-	lamborghini.setOBJ(parsedOBJ_Lamborghini);
+	// lamborghini = new Car("Lamborghini");
+	// let lamborghini_textures = ["BMW",null,null,null,null,null,null,null,null,null,null];
+	// let lamborghini_colors = ["Chrome","Caucho","Glass","Bronze","Scarlet","Scarlet","Caucho","Scarlet","Caucho","Caucho","Caucho"];
+	// lamborghini.setColors(lamborghini_colors);
+	// lamborghini.setTextures(lamborghini_textures);
+	// lamborghini.setOBJ(parsedOBJ_Lamborghini);
 	//
 	// specter = new Car("Specter");
 	// let specter_textures = [null,null,null,null,null,null,enrejado,fuego,enrejado,enrejado,enrejado];
@@ -164,31 +164,32 @@ async function onLoad() {
 	// rx.setColors(rx_colors);
 	// rx.setTextures(rx_textures);
 	// rx.setOBJ(parsedOBJ_RX);
-
-	lancer = new Car("Lancer");
-	let lancer_textures = ["Mitsubishi","EnrejadoMLE","RuedasMLE",null,null,null,null,null,null,null,null];
-	let lancer_colors = ["Chrome","Chrome","Glass","Glass","Scarlet","Scarlet","Caucho","Caucho","Caucho","Caucho","Caucho"];
-	lancer.setColors(lancer_colors);
-	lancer.setTextures(lancer_textures);
-	lancer.setOBJ(parsedOBJ_Lancer);
+	//
+	// lancer = new Car("Lancer");
+	// let lancer_textures = ["Mitsubishi","EnrejadoMLE","RuedasMLE",null,null,null,null,null,null,null,null];
+	// let lancer_colors = ["Chrome","Chrome","Glass","Glass","Scarlet","Scarlet","Caucho","Caucho","Caucho","Caucho","Caucho"];
+	// lancer.setColors(lancer_colors);
+	// lancer.setTextures(lancer_textures);
+	// lancer.setOBJ(parsedOBJ_Lancer);
 
 	porsche = new Car("Porsche");
-	let porsche_textures = ["Degradacion","Porsche","RuedasPorsche","RuedasPorsche",null,null,null,null,null,null,null];
+	let porsche_textures = ["Rayo","Porsche","RuedasPorsche","RuedasPorsche",null,null,null,null,null,null,null];
 	let porsche_colors = ["Chrome","Glass","Bronze","Caucho","Scarlet","Scarlet","Caucho","Scarlet","Caucho","Caucho","Caucho"];
 	let porsche_normalTextures = [null,null,"normalsPorsche","normalsPorsche",null,null,null,null,null];
 	porsche.setColors(porsche_colors);
 	porsche.setTextures(porsche_textures);
 	porsche.setNormalTextures(porsche_normalTextures);
 	porsche.setOBJ(parsedOBJ_Porsche);
+	//
+	// audiCarrera = new Car("AudiCarrera");
+	// let audi_textures = ["Audi",null,null,null,null,null,null,null,null,null,null];
+	// let audi_colors = ["Chrome","Default","Default","Default","Default","Default","Default","Default","Default","Default","Default"];
+	// //let audi_normalTextures = ["normalHand"];
+	// audiCarrera.setColors(audi_colors);
+	// audiCarrera.setTextures(audi_textures);
+	// //audiCarrera.setNormalTextures(audi_normalTextures);
+	// audiCarrera.setOBJ(parsedOBJ_AudiCarrera);
 
-	audiCarrera = new Car("AudiCarrera");
-	let audi_textures = ["Audi",null,null,null,null,null,null,null,null,null,null];
-	let audi_colors = ["Chrome","Default","Default","Default","Default","Default","Default","Default","Default","Default","Default"];
-	let audi_normalTextures = ["normalHand"];
-	audiCarrera.setColors(audi_colors);
-	audiCarrera.setTextures(audi_textures);
-	audiCarrera.setNormalTextures(audi_normalTextures);
-	audiCarrera.setOBJ(parsedOBJ_AudiCarrera);
 
 	supra = new Car("Supra");
 	let supra_textures = ["Supra",null,"SupraNeumaticos","SupraNeumaticos",null,null,null,null,null,null];
@@ -205,17 +206,17 @@ async function onLoad() {
 	//obj_cars.push(lexus);
 	//obj_cars.push(bmw);
 	//obj_cars.push(ferrari);
-	obj_cars.push(camaro);
+	// obj_cars.push(camaro);
 	//obj_cars.push(bugatti);
-	obj_cars.push(lamborghini);
+	// obj_cars.push(lamborghini);
 	//obj_cars.push(specter);
 	// obj_cars.push(nissan);
 	//obj_cars.push(ardita);
 	//obj_cars.push(rx);
-	obj_cars.push(lancer);
+	// obj_cars.push(lancer);
 	obj_cars.push(porsche);
 	obj_cars.push(corvette);
-	obj_cars.push(audiCarrera);
+	// obj_cars.push(audiCarrera);
 	obj_cars.push(supra);
 
 	//Creo para cada auto todos los objetos asociados. Chasis, ruedas etc. Se obtienen del arreglo de parsedOBJ
@@ -223,7 +224,7 @@ async function onLoad() {
 		createCar(obj_cars[i],obj_cars[i].getOBJ());
 	}
 	//Cargo todos los autos en los dropdown
-	loadCars();
+	//loadCars();
 	//Creo Objetos auxiliares
 	// obj_ball = new Object(parsedOBJ2);
 	// obj_ball2 = new Object(parsedOBJ3);
@@ -292,8 +293,9 @@ async function onLoad() {
 	//Dibujara los que esten mas cerca de la pantalla.
 	requestAnimationFrame(onRender)//Pido que inicie la animacion ejecutando onRender
 }
+var timerHumo = 0;
 var ir = true;
-var volver = false;
+var actHumo = true;
 var modificar = true;
 /*Este metodo se llama constantemente gracias al metodo requestAnimationFrame(). En los sliders no
 se llama al onRender, sino que unicamente actualiza valores. Luego el onRender recupera esos valores y transforma
@@ -318,18 +320,20 @@ function onRender(now){
 
 	if(ir){
 	timer+=0.002;
-// 	if(timer>1){
-// 	ir=false;
-// 	volver = true;
-// }
 }
-	// if(volver){
-	// 		timer -=0.002;
-	// 	if(timer<-1){
-	// 		ir=true;
-	// 		volver=false;
-	// 	}
-	// }
+
+
+	if(actHumo){
+		timerHumo +=0.002;
+		if(timerHumo>30)
+			actHumo = false;
+	}
+	else {
+		timerHumo -=0.002;
+		if(timerHumo<0)
+			actHumo = true;
+	}
+
 //	obj_ball.resetObjectMatrix();
 	if(modificar){
 		transformCars(toDraw[0],1.5); //acomodo los autos de manera que se dibujen correctamente en el orden dado en el arreglo
@@ -512,17 +516,17 @@ async function onModelLoad() {
 
 	parsedOBJ4 = await parseFile("../Modelos/caja.obj");
 
-	const a = await parseFile("../Modelos/Mitsubishi/mitsubishi_chasis.obj")
-	const b = await parseFile("../Modelos/Mitsubishi/mitsubishi_enrejados.obj")
-	const c = await parseFile("../Modelos/Mitsubishi/mitsubishi_llantas.obj")
-	const d = await parseFile("../Modelos/Mitsubishi/mitsubishi_vidrios.obj")
-	const e = await parseFile("../Modelos/Mitsubishi/mitsubishi_azul.obj")
-	const f = await parseFile("../Modelos/Mitsubishi/mitsubishi_blanco.obj")
-	const g = await parseFile("../Modelos/Mitsubishi/mitsubishi_rojo.obj")
-	const h = await parseFile("../Modelos/Mitsubishi/mitsubishi_neumaticos.obj");
-	const i = await parseFile("../Modelos/Mitsubishi/mitsubishi_luces.obj");
-	console.log("Mitsubishi Lancer Evolution Cargado");
-	parsedOBJ_Lancer = [a,b,c,d,e,f,g,h,i];
+	// const a = await parseFile("../Modelos/Mitsubishi/mitsubishi_chasis.obj")
+	// const b = await parseFile("../Modelos/Mitsubishi/mitsubishi_enrejados.obj")
+	// const c = await parseFile("../Modelos/Mitsubishi/mitsubishi_llantas.obj")
+	// const d = await parseFile("../Modelos/Mitsubishi/mitsubishi_vidrios.obj")
+	// const e = await parseFile("../Modelos/Mitsubishi/mitsubishi_azul.obj")
+	// const f = await parseFile("../Modelos/Mitsubishi/mitsubishi_blanco.obj")
+	// const g = await parseFile("../Modelos/Mitsubishi/mitsubishi_rojo.obj")
+	// const h = await parseFile("../Modelos/Mitsubishi/mitsubishi_neumaticos.obj");
+	// const i = await parseFile("../Modelos/Mitsubishi/mitsubishi_luces.obj");
+	// console.log("Mitsubishi Lancer Evolution Cargado");
+	// parsedOBJ_Lancer = [a,b,c,d,e,f,g,h,i];
 
 
 	const pa = await parseFile("../Modelos/Porsche/porsche_chasis.obj");
@@ -532,20 +536,20 @@ async function onModelLoad() {
 	console.log("Porsche 911 GTR Cargado");
 	parsedOBJ_Porsche = [pa,pb,pc,pd];
 
-	const ca = await parseFile("../Modelos/Camaro/camaro_chasis.obj");
-	const cb = await parseFile("../Modelos/Camaro/camaro_chevrolet.obj");
-	const cc = await parseFile("../Modelos/Camaro/camaro_vidrios.obj");
-	const cd = await parseFile("../Modelos/Camaro/camaro_llantas.obj");
-	const ce = await parseFile("../Modelos/Camaro/camaro_ruedas.obj");
-	const cf = await parseFile("../Modelos/Camaro/camaro_patentes.obj");
-	const cg = await parseFile("../Modelos/Camaro/camaro_plasticos.obj");
-	const ch = await parseFile("../Modelos/Camaro/camaro_logos.obj");
-	console.log("Chevrolet Camaro 2009 Cargado");
-	parsedOBJ_Camaro = [ca,cb,cc,cd,ce,cf	,cg,ch];
+	// const ca = await parseFile("../Modelos/Camaro/camaro_chasis.obj");
+	// const cb = await parseFile("../Modelos/Camaro/camaro_chevrolet.obj");
+	// const cc = await parseFile("../Modelos/Camaro/camaro_vidrios.obj");
+	// const cd = await parseFile("../Modelos/Camaro/camaro_llantas.obj");
+	// const ce = await parseFile("../Modelos/Camaro/camaro_ruedas.obj");
+	// const cf = await parseFile("../Modelos/Camaro/camaro_patentes.obj");
+	// const cg = await parseFile("../Modelos/Camaro/camaro_plasticos.obj");
+	// const ch = await parseFile("../Modelos/Camaro/camaro_logos.obj");
+	// console.log("Chevrolet Camaro 2009 Cargado");
+	// parsedOBJ_Camaro = [ca,cb,cc,cd,ce,cf	,cg,ch];
 
-	const la = await parseFile("../Modelos/BMW2/bmw_chasis.obj");
-	console.log("Lamborghini Aventador Cargado");
-	parsedOBJ_Lamborghini = [la];
+	// const la = await parseFile("../Modelos/BMW2/bmw_chasis.obj");
+	// console.log("Lamborghini Aventador Cargado");
+	// parsedOBJ_Lamborghini = [la];
 
 	// const na = await parseFile("../Modelos/Nissan/nissan_chasis.obj");
 	// const nb = await parseFile("../Modelos/Nissan/nissan_vidrios.obj");
@@ -565,9 +569,9 @@ async function onModelLoad() {
 	parsedOBJ_Corvette = [corvetteA,corvetteB,corvetteC,corvetteD,corvetteE];
 
 
-	const audiA = await parseFile("../Modelos/hand.obj");
-	console.log("Audi R18 Cargado");
-	parsedOBJ_AudiCarrera = [audiA];
+	// const audiA = await parseFile("../Modelos/audiCarrera.obj");
+	// console.log("Audi R18 Cargado");
+	// parsedOBJ_AudiCarrera = [audiA];
 
 
 	const supraA = await parseFile("../Modelos/Supra/supra_chasis.obj");

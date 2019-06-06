@@ -83,7 +83,7 @@ function createTextures(){
 	texturas.push(new Texture("CamaroPlaca","textures/Camaro/plaque2.jpg"));
 	texturas.push(new Texture("CamaroLlantas","textures/Camaro/CAMARO RIM.png"));
 	texturas.push(new Texture("Corvette","textures/Corvette/albedo_esterno.jpg"));
-	texturas.push(new Texture("Audi","textures/hand.jpg"));
+	texturas.push(new Texture("Audi","textures/WEILL_Thomas_DIFF.png"));
 	texturas.push(new Texture("CorvetteWheel","textures/Corvette/wheels.png"));
 	texturas.push(new Texture("Supra","textures/Supra/Material__0_Diffuse.png"));
 	texturas.push(new Texture("SupraNeumaticos","textures/Supra/BBW_diffuse.png"));
@@ -114,7 +114,7 @@ function createTextures(){
 	texturas.push(new Texture("PapelAluminio_normal","textures/index.png"));
 	texturas.push(new Texture("Tierra Nubes","textures/4096_clouds.jpg"));
 	texturas.push(new Texture("Tierra Base","textures/4096_earth.jpg"));
-	texturas.push(new Texture("Tierra Noche","textures/4096_night_ligths.jpg"));
+	texturas.push(new Texture("LogoAudi","textures/Logos Autos/Audi.jpg"));
 
 
 	for(let i = 0; i<texturas.length; i++){
