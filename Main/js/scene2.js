@@ -52,6 +52,7 @@ var light;
 var light2;
 var light3;
 
+var timer = 0;
 var texturas = [];
 var normalMappingActivado =0.0;
 var cameraMouseControls;
@@ -291,6 +292,8 @@ async function onLoad() {
 	//Dibujara los que esten mas cerca de la pantalla.
 	requestAnimationFrame(onRender)//Pido que inicie la animacion ejecutando onRender
 }
+var ir = true;
+var volver = false;
 var modificar = true;
 /*Este metodo se llama constantemente gracias al metodo requestAnimationFrame(). En los sliders no
 se llama al onRender, sino que unicamente actualiza valores. Luego el onRender recupera esos valores y transforma
@@ -312,6 +315,21 @@ function onRender(now){
 	/*Comienzo a preparar para dibujar*/
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	refreshCamera(deltaTime * rotationSpeed); //Refresco la camara
+
+	if(ir){
+	timer+=0.002;
+// 	if(timer>1){
+// 	ir=false;
+// 	volver = true;
+// }
+}
+	// if(volver){
+	// 		timer -=0.002;
+	// 	if(timer<-1){
+	// 		ir=true;
+	// 		volver=false;
+	// 	}
+	// }
 //	obj_ball.resetObjectMatrix();
 	if(modificar){
 		transformCars(toDraw[0],1.5); //acomodo los autos de manera que se dibujen correctamente en el orden dado en el arreglo

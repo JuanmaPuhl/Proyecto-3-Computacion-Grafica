@@ -176,14 +176,14 @@ function onRender(now){
 	}
 	if(ir){
 	timer+=0.002;
-	//if(timer>10){
-	//ir=false;
-	//volver = true;
-//}
+// 	if(timer>1){
+// 	ir=false;
+// 	volver = true;
+// }
 }
 	// if(volver){
-	// 		timer -=0.008;
-	// 	if(timer<-10){
+	// 		timer -=0.002;
+	// 	if(timer<-1){
 	// 		ir=true;
 	// 		volver=false;
 	// 	}
