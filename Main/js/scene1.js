@@ -55,7 +55,9 @@ async function onLoad() {
 	setShaderCookTorrance();
 	setShaderOrenNayar();
 	setShaderCookTorranceShirley();
-	setShaderRayos()
+	setShaderRayos();
+	setShaderLava();
+	setShaderHumo();
 	setShaderDegradacion();
 	setShaderBlinnPhong();
 	initTexture();
@@ -121,7 +123,7 @@ async function onLoad() {
 					arr[j].setNormalsTexture(getTextureByName("normales"));
 				}
 				else {
-					arr[j].setTexture(getTextureByName("Rayo"))
+					arr[j].setTexture(getTextureByName("Humo"))
 				}
 
       }
@@ -139,7 +141,7 @@ async function onLoad() {
 	camaraEsferica = new sphericalCamera();
 	projMatrix = camaraEsferica.projectionMatrix;
 	cameraMouseControls = new CameraMouseControls(camaraEsferica, canvas);
-
+	console.log(gl.uTime);
 	gl.enable(gl.DEPTH_TEST);//Activo esta opcion para que dibuje segun la posicion en Z. Si hay dos fragmentos con las mismas x,y pero distinta zIndex
 	//Dibujara los que esten mas cerca de la pantalla.
 	setObjects();

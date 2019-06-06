@@ -105,7 +105,12 @@ function createTextures(){
 	texturas.push(new Texture("LogoToyota_normal","textures/Logos Autos/Toyota_normal.png"));
 	texturas.push(new Texture("Girl","textures/All_Baked_V3.png"));
 	texturas.push(new Texture("Rayo",""));
+	texturas.push(new Texture("Degradacion",""));
+	texturas.push(new Texture("Lava",""));
+	texturas.push(new Texture("Humo",""));
 	texturas.push(new Texture("LogoPorsche_normal","textures/Logos Autos/Porsche_normal.png"));
+	texturas.push(new Texture("LogoChevrolet_normal","textures/Logos Autos/Chevrolet_normal.png"));
+
 
 	for(let i = 0; i<texturas.length; i++){
 		texturas[i].setTextura(initTexture(texturas[i].getDir()));
@@ -212,28 +217,28 @@ function loadMaterials(){
 	let option;
 	let optGroup;
 	let tipoActual = "";
-	for(let i = 0; i<materials.length; i++){
-		if(materials[i].getType()!=tipoActual){//En esta parte creo las subdivisiones para cada tipo de material
-			optGroup = document.createElement("optgroup");
-			tipoActual = materials[i].getType();
-			optGroup.label = tipoActual;
-			selector1.add(optGroup);
-			optGroup = document.createElement("optgroup")
-			optGroup.label = tipoActual;
-			selector2.add(optGroup);
-			optGroup = document.createElement("optgroup")
-			optGroup.label = tipoActual;
-			selector3.add(optGroup);
-		}
+	for(let i = 0; i<texturas.length; i++){
+		// if(materials[i].getType()!=tipoActual){//En esta parte creo las subdivisiones para cada tipo de material
+		// 	optGroup = document.createElement("optgroup");
+		// 	tipoActual = materials[i].getType();
+		// 	optGroup.label = tipoActual;
+		// 	selector1.add(optGroup);
+		// 	optGroup = document.createElement("optgroup")
+		// 	optGroup.label = tipoActual;
+		// 	selector2.add(optGroup);
+		// 	optGroup = document.createElement("optgroup")
+		// 	optGroup.label = tipoActual;
+		// 	selector3.add(optGroup);
+		// }
 		//Aca cargo las propias opciones de materiales
 		option = document.createElement("option");
-		option.text = materials[i].getName();
+		option.text = texturas[i].getName();
 		selector1.add(option);
 		option = document.createElement("option");
-		option.text = materials[i].getName();
+		option.text = texturas[i].getName();
 		selector2.add(option);
 		option = document.createElement("option");
-		option.text = materials[i].getName();
+		option.text = texturas[i].getName();
 		selector3.add(option);
 	}
 }
@@ -511,8 +516,8 @@ function resetScene(){
 /*Metodo auxiliar para cambiar el material a varios autos*/
 function changeMaterial(value,index){
 	let car = getCarByName(toDraw[index-1]);
-	let material = getMaterialByName(value);
-	car.getObjects()[0].setMaterial(material);
+	let material = getTextureByName(value);
+	car.getObjects()[0].setTexture(material);
 }
 
 
@@ -637,4 +642,10 @@ function enableNormalMapping(){
 		normalMappingActivado = 1;
 	}
 	console.log("ACTIVE/DESACTIVE NORMALMAPPING");
+}
+
+var colorRayo=[1.0,0.0,0.0];
+function changeColorTextureRayo(value){
+	let color = convertHexToRgb(value);
+	colorRayo = color;
 }

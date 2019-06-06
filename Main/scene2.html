@@ -22,6 +22,10 @@
 	<script src="files/shaders/FS-patronRayos.glsl"></script>
 	<script src="files/shaders/VS-patronDegradacion.glsl"></script>
 	<script src="files/shaders/FS-patronDegradacion.glsl"></script>
+	<script src="files/shaders/VS-patronLava.glsl"></script>
+	<script src="files/shaders/FS-patronLava.glsl"></script>
+	<script src="files/shaders/VS-patronHumo.glsl"></script>
+	<script src="files/shaders/FS-patronHumo.glsl"></script>
 	<script src="js/CameraMouseControls.js"></script>
 	<script src="js/Light.js"></script>
 	<script src="js/transformations.js"></script>
@@ -170,6 +174,16 @@
 
 					</td>
 				</tr>
+			</table>
+			<table id="myTable">
+				<tr id="myTableRow">
+					<th colspan="3">Textura Procedural</th>
+				</tr>
+				<tr>
+					<td>Rayo</td>
+					<td><input type="color" onchange = "changeColorTextureRayo(this.value)"></td>
+				</tr>
+
 			</table>
 			<button onclick="animateObject(6);">Rotación Automática Cámara</button>
 			<button style="color:white;" onclick="resetScene();">Reset</button>

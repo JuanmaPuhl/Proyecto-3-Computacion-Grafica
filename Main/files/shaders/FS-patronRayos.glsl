@@ -7,9 +7,7 @@ in vec2 fTexCoor;
 in vec3 vNE;
 //in vec3 vLE;
 in vec3 vVE;
-
 out vec4 colorFrag;
-
 struct Light{
   vec4 posL;
   vec4 dirL;
@@ -26,6 +24,8 @@ uniform vec3 ka;
 uniform vec3 kd;
 uniform vec3 ks;
 uniform float coefEspec;
+uniform vec3 colorRayo;
+
 
 vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -154,11 +154,11 @@ vec3 calcularAportePuntual(Light l, vec3 N , vec3 V){
   float componente2 = max(dot(N,L),0.0);
 
   float value = orenNayar(N,V,L,H);
-  vec3 colorRayos = vec3(1.0,0.0,0.0);
+
   if(componente1*componente2!=0.0)
-    toReturn = ia*(colorRayos*color*value +ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    toReturn = ia*(colorRayo*color*value +ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     toReturn =ia*color *colorRayos*value;
+     toReturn =ia*color *colorRayo*value;
   return toReturn;
 }
 
@@ -212,11 +212,10 @@ vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
   float componente2 = max(dot(N,L),0.0);
 
   float value = orenNayar(N,V,L,H);
-  vec3 colorRayos = vec3(1.0,0.0,0.0);
   if(componente1*componente2!=0.0)
-    toReturn = ia*(inlight * colorRayos*color*value + inlight * ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    toReturn = ia*(inlight * colorRayo*color*value + inlight * ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     toReturn =ia*inlight*color *colorRayos*value;
+     toReturn =ia*inlight*color *colorRayo*value;
 
   return toReturn;
 }
@@ -267,11 +266,10 @@ vec3 calcularAporteDireccional(Light l, vec3 N , vec3 V){
   float componente2 = max(dot(N,S),0.0);
 
   float value = orenNayar(N,V,S,H);
-  vec3 colorRayos = vec3(1.0,0.0,0.0);
   if(componente1*componente2!=0.0)
-    toReturn = ia*(colorRayos*color*value +ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    toReturn = ia*(colorRayo*color*value +ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     toReturn =ia*color *colorRayos*value;
+     toReturn =ia*color *colorRayo*value;
 
   return toReturn;
 }

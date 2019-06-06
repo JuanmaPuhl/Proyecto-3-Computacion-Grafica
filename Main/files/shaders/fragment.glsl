@@ -93,9 +93,9 @@ vec3 calcularAportePuntual(Light l, vec3 N , vec3 V){
 
   float value = orenNayar(N,V,L,H);
   if(componente1*componente2!=0.0)
-    return ka*coefDifuso*0.5+ia*(coefDifuso*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    return ka*coefDifuso*0.25+ia*(coefDifuso*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     return ka*coefDifuso*0.5+ia*coefDifuso * value;
+     return ka*coefDifuso*0.25+ia*coefDifuso * value;
 }
 
 vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
@@ -141,9 +141,9 @@ vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
 
     float value = orenNayar(N,V,L,H);
     if(componente1*componente2!=0.0)
-      toReturn = ka*coefDifuso*0.5+ia*(inlight * coefDifuso*value + inlight * ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+      toReturn = ka*coefDifuso*0.25+ia*(inlight * coefDifuso*value + inlight * ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
     else
-       toReturn = ka*coefDifuso*0.5+ia*inlight*coefDifuso * value;
+       toReturn = ka*coefDifuso*0.25+ia*inlight*coefDifuso * value;
     return toReturn;
 }
 
@@ -188,9 +188,9 @@ vec3 calcularAporteDireccional(Light l, vec3 N , vec3 V){
 
   float value = orenNayar(N,V,S,H);
   if(componente1*componente2!=0.0)
-    return ka*coefDifuso*0.5+ia*(coefDifuso*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    return ka*coefDifuso*0.25+ia*(coefDifuso*value + ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     return ka*coefDifuso*0.5+ ia*coefDifuso * value;
+     return ka*coefDifuso*0.25+ ia*coefDifuso * value;
 }
 
 

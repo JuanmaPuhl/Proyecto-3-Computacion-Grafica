@@ -118,6 +118,7 @@ function setShaderRayos(){
   u_coefEspecR = gl.getUniformLocation(shaderProgram, 'coefEspec');
   u_roR = gl.getUniformLocation(shaderProgram,'p');
   u_sigmaR = gl.getUniformLocation(shaderProgram, 'sigma');
+  u_colorRayos = gl.getUniformLocation(shaderProgram, 'colorRayo');
 }
 
 function setShaderDegradacion(){
@@ -132,8 +133,56 @@ function setShaderDegradacion(){
   u_F0D = gl.getUniformLocation(shaderProgram,'F0');
   u_MVD = gl.getUniformLocation(shaderProgram, 'MV');
   texLocationD = gl.getAttribLocation(shaderProgram, 'vertexTextureCoordinates');
-  //u_MVPR = gl.getUniformLocation(shaderProgram, 'MVP');
+  u_MVPD = gl.getUniformLocation(shaderProgram, 'MVP');
+  u_kaD = gl.getUniformLocation(shaderProgram, 'ka');
+  u_kdD = gl.getUniformLocation(shaderProgram, 'kd');
+  u_ksD = gl.getUniformLocation(shaderProgram, 'ks');
+  u_coefEspecD = gl.getUniformLocation(shaderProgram, 'coefEspec');
+  u_roD = gl.getUniformLocation(shaderProgram,'p');
+  u_sigmaD = gl.getUniformLocation(shaderProgram, 'sigma');
+}
 
+function setShaderLava(){
+  shaderProgram = shaderProgramProcedural3;
+  posLocationL = gl.getAttribLocation(shaderProgram, 'vertexPosition');
+  vertexNormal_locationL = gl.getAttribLocation(shaderProgram, 'vertexNormal');
+  u_normalMatrixL = gl.getUniformLocation(shaderProgram, 'normalMatrix');
+  u_modelMatrixL = gl.getUniformLocation(shaderProgram, 'modelMatrix');
+  u_viewMatrixL = gl.getUniformLocation(shaderProgram, 'viewMatrix');
+  u_projMatrixL = gl.getUniformLocation(shaderProgram, 'projectionMatrix');
+  u_rugosidadL = gl.getUniformLocation(shaderProgram,'rugosidad');
+  u_F0L = gl.getUniformLocation(shaderProgram,'F0');
+  u_MVL = gl.getUniformLocation(shaderProgram, 'MV');
+  texLocationL = gl.getAttribLocation(shaderProgram, 'vertexTextureCoordinates');
+  u_MVPL = gl.getUniformLocation(shaderProgram, 'MVP');
+  u_kaL = gl.getUniformLocation(shaderProgram, 'ka');
+  u_kdL = gl.getUniformLocation(shaderProgram, 'kd');
+  u_ksL = gl.getUniformLocation(shaderProgram, 'ks');
+  u_coefEspecL = gl.getUniformLocation(shaderProgram, 'coefEspec');
+  u_roL = gl.getUniformLocation(shaderProgram,'p');
+  u_sigmaL = gl.getUniformLocation(shaderProgram, 'sigma');
+}
+
+function setShaderHumo(){
+  shaderProgram = shaderProgramProcedural4;
+  posLocationH = gl.getAttribLocation(shaderProgram, 'vertexPosition');
+  vertexNormal_locationH = gl.getAttribLocation(shaderProgram, 'vertexNormal');
+  u_normalMatrixH = gl.getUniformLocation(shaderProgram, 'normalMatrix');
+  u_modelMatrixH = gl.getUniformLocation(shaderProgram, 'modelMatrix');
+  u_viewMatrixH = gl.getUniformLocation(shaderProgram, 'viewMatrix');
+  u_projMatrixH = gl.getUniformLocation(shaderProgram, 'projectionMatrix');
+  u_rugosidadH = gl.getUniformLocation(shaderProgram,'rugosidad');
+  u_F0H = gl.getUniformLocation(shaderProgram,'F0');
+  u_MVH = gl.getUniformLocation(shaderProgram, 'MV');
+  texLocationH = gl.getAttribLocation(shaderProgram, 'vertexTextureCoordinates');
+  u_MVPH = gl.getUniformLocation(shaderProgram, 'MVP');
+  u_kaH = gl.getUniformLocation(shaderProgram, 'ka');
+  u_kdH = gl.getUniformLocation(shaderProgram, 'kd');
+  u_ksH = gl.getUniformLocation(shaderProgram, 'ks');
+  u_coefEspecH = gl.getUniformLocation(shaderProgram, 'coefEspec');
+  u_roH = gl.getUniformLocation(shaderProgram,'p');
+  u_sigmaH = gl.getUniformLocation(shaderProgram, 'sigma');
+  uTime = gl.getUniformLocation(shaderProgram, "u_time");
 }
 
 /*Funcion para crear cada shaderProgram*/
@@ -144,4 +193,6 @@ function createShaderPrograms(){
   shaderProgramCookTorranceShirley = ShaderProgramHelper.create(VS_CookTorranceShirley, FS_CookTorranceShirley);
   shaderProgramProcedural1 = ShaderProgramHelper.create(VS_Rayos,FS_Rayos);
   shaderProgramProcedural2 = ShaderProgramHelper.create(VS_Degradacion,FS_Degradacion);
+  shaderProgramProcedural3 = ShaderProgramHelper.create(VS_Lava,FS_Lava);
+  shaderProgramProcedural4 = ShaderProgramHelper.create(VS_Humo,FS_Humo);
 }
