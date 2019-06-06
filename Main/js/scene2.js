@@ -52,6 +52,7 @@ var light;
 var light2;
 var light3;
 
+var timer = 0;
 var texturas = [];
 var normalMappingActivado =0.0;
 var cameraMouseControls;
@@ -70,12 +71,16 @@ async function onLoad() {
 	createShaderPrograms();//Creacion de los shaderPrograms
 	setShaderCookTorrance();//Seteo un shaderProgram
 	setShaderOrenNayar();
+	setShaderLava();
 	setShaderCookTorranceShirley();
+	setShaderHumo();
 	setShaderRayos()
 	setShaderDegradacion();
-	loadMaterials(); //Cargo los materiales a los dropdown menu
 	createTextures();
+	loadMaterials(); //Cargo los materiales a los dropdown menu
 	setShaderBlinnPhong();
+
+
 	//Creo autos
 	// ferrari = new Car("Ferrari"); //Creo el auto
 	// let ferrari_textures = [null,null,null,null,null,null,enrejado,fuego,enrejado,enrejado,enrejado]; //Creo un arreglo con las texturas a utilizar HARDCODE
@@ -168,7 +173,7 @@ async function onLoad() {
 	lancer.setOBJ(parsedOBJ_Lancer);
 
 	porsche = new Car("Porsche");
-	let porsche_textures = ["Rayo","Porsche","RuedasPorsche","RuedasPorsche",null,null,null,null,null,null,null];
+	let porsche_textures = ["Degradacion","Porsche","RuedasPorsche","RuedasPorsche",null,null,null,null,null,null,null];
 	let porsche_colors = ["Chrome","Glass","Bronze","Caucho","Scarlet","Scarlet","Caucho","Scarlet","Caucho","Caucho","Caucho"];
 	let porsche_normalTextures = [null,null,"normalsPorsche","normalsPorsche",null,null,null,null,null];
 	porsche.setColors(porsche_colors);
@@ -223,6 +228,7 @@ async function onLoad() {
 	// obj_ball = new Object(parsedOBJ2);
 	// obj_ball2 = new Object(parsedOBJ3);
 	// obj_ball3 = new Object(parsedOBJ5);
+
 	obj_Stand = new Object(parsedOBJ_Stand);
 	obj_Stand2 = new Object(parsedOBJ_Stand);
 	obj_Stand3 = new Object(parsedOBJ_Stand);
@@ -245,10 +251,12 @@ async function onLoad() {
 	createVAO(obj_Stand2);
 	createVAO(obj_Stand3);
 	createVAO(obj_girl);
+
 	// createVAO(obj_ball);
 	// createVAO(obj_ball2);
 	// createVAO(obj_ball3);
 	//Seteo materiales
+
 	obj_piso.setMaterial(getMaterialByName("Ceramic"));
 	obj_girl.setMaterial(getMaterialByName("Caucho"));
 	obj_Stand.setMaterial(getMaterialByName("StandColor"));
@@ -266,6 +274,7 @@ async function onLoad() {
 	obj_Stand2.setTexture(getTextureByName("LogoPorsche"));
 	obj_Stand2.setNormalsTexture(getTextureByName("LogoPorsche_normal"));
 	obj_Stand3.setTexture(getTextureByName("LogoChevrolet"));
+	obj_Stand3.setNormalsTexture(getTextureByName("LogoChevrolet_normal"));
 	obj_girl.setTexture(getTextureByName("Girl"));
 	//obj_piso.setNormalsTexture(getTextureByName("cartonNormals"));
 	obj_piso.setTexture2(getTextureByName("SnowWhite"));
@@ -283,6 +292,8 @@ async function onLoad() {
 	//Dibujara los que esten mas cerca de la pantalla.
 	requestAnimationFrame(onRender)//Pido que inicie la animacion ejecutando onRender
 }
+var ir = true;
+var volver = false;
 var modificar = true;
 /*Este metodo se llama constantemente gracias al metodo requestAnimationFrame(). En los sliders no
 se llama al onRender, sino que unicamente actualiza valores. Luego el onRender recupera esos valores y transforma
@@ -304,6 +315,21 @@ function onRender(now){
 	/*Comienzo a preparar para dibujar*/
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	refreshCamera(deltaTime * rotationSpeed); //Refresco la camara
+
+	if(ir){
+	timer+=0.002;
+// 	if(timer>1){
+// 	ir=false;
+// 	volver = true;
+// }
+}
+	// if(volver){
+	// 		timer -=0.002;
+	// 	if(timer<-1){
+	// 		ir=true;
+	// 		volver=false;
+	// 	}
+	// }
 //	obj_ball.resetObjectMatrix();
 	if(modificar){
 		transformCars(toDraw[0],1.5); //acomodo los autos de manera que se dibujen correctamente en el orden dado en el arreglo
@@ -328,6 +354,7 @@ function onRender(now){
 	drawObject(obj_Stand);
 	drawObject(obj_Stand2);
 	drawObject(obj_Stand3);
+
 	requestAnimationFrame(onRender); //Continua el bucle
 }
 
@@ -554,4 +581,6 @@ async function onModelLoad() {
 
 	parsedOBJ_Stand = await parseFile("../Modelos/StandLogo.obj");
 	parsedOBJ_Girl = await parseFile("../Modelos/girl.obj");
+
+	parsedOBJ_Pared = await parseFile("../Modelos/pared.obj");
 }

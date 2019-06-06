@@ -11,6 +11,7 @@ function crearMateriales(){
 	materials.push(new Material("Metal","Brass",[0.0,0.0,0.0],[0.780392,0.568627,0.113725],[0.992157,0.941176,0.807843],27.8974,0.2,0.05));
 	materials.push(new Material("Metal","Bronze",[0.0,0.0,0.0],[0.714,0.4284,0.18144],[0.393548,0.271906,0.166721],25.6,0.09,0.1));
 	materials.push(new Material("Metal","Ceramic",[0.0,0.0,0.0],[1.0,0.829,0.829],[0.296648,0.296648,0.296648],100,0.01,0.01));
+	materials.push(new Material("Metal","NoRefleja",[0.0,0.0,0.0],[1.0,0.829,0.829],[0.296648,0.296648,0.296648],100,0.01,0.9));
 	//materials.push(new Material("Plastic","CACA",[0.0,0.0,0.0],[1.0,0.5,0.0],[0.0,0.0,0.0],0.0,0.09,0.1));
 	// materials.push(new Material("Glass","Glass",[0.0,0.0,0.0],[0.0,0.0,0.0],[1.0,1.0,1.0],500.2,0.08,0.05));
 	// materials.push(new Material("Plastic","Caucho",[0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0],0,0.2,0.05));
@@ -70,8 +71,8 @@ function createTextures(){
 	texturas.push(new Texture("SnowWhite","textures/white.png"));
 	texturas.push(new Texture("Marmol","textures/fondo-textura-marmol-textura-marmoles-tailandia-marmol-natural-abstracto-blanco-negro-gris-diseno_1253-914.jpg"));
 	texturas.push(new Texture("Fuego","textures/fuego.png"));
-	texturas.push(new Texture("Metal","textures/metal.jpg"));
-	texturas.push(new Texture("Alfombra","textures/78874761-antecedentes-de-la-alfombra-roja-material-patrón-textura-suelo.jpg"));
+	texturas.push(new Texture("Metal","textures/textura3.jpg"));
+	texturas.push(new Texture("Tigre","textures/textura2 (2).jpg"));
 	texturas.push(new Texture("BMW","textures/BMWM3GTR.jpg"));
 	texturas.push(new Texture("Mitsubishi","textures/Mitsubishi/MLE-texture.jpg"));
 	texturas.push(new Texture("RuedasMLE","textures/Mitsubishi/MLE-wheel.jpg"));
@@ -105,7 +106,16 @@ function createTextures(){
 	texturas.push(new Texture("LogoToyota_normal","textures/Logos Autos/Toyota_normal.png"));
 	texturas.push(new Texture("Girl","textures/All_Baked_V3.png"));
 	texturas.push(new Texture("Rayo",""));
+	texturas.push(new Texture("Degradacion",""));
+	texturas.push(new Texture("Lava",""));
+	texturas.push(new Texture("Humo",""));
 	texturas.push(new Texture("LogoPorsche_normal","textures/Logos Autos/Porsche_normal.png"));
+	texturas.push(new Texture("LogoChevrolet_normal","textures/Logos Autos/Chevrolet_normal.png"));
+	texturas.push(new Texture("PapelAluminio_normal","textures/index.png"));
+	texturas.push(new Texture("Tierra Nubes","textures/4096_clouds.jpg"));
+	texturas.push(new Texture("Tierra Base","textures/4096_earth.jpg"));
+	texturas.push(new Texture("Tierra Noche","textures/4096_night_ligths.jpg"));
+
 
 	for(let i = 0; i<texturas.length; i++){
 		texturas[i].setTextura(initTexture(texturas[i].getDir()));
@@ -212,28 +222,28 @@ function loadMaterials(){
 	let option;
 	let optGroup;
 	let tipoActual = "";
-	for(let i = 0; i<materials.length; i++){
-		if(materials[i].getType()!=tipoActual){//En esta parte creo las subdivisiones para cada tipo de material
-			optGroup = document.createElement("optgroup");
-			tipoActual = materials[i].getType();
-			optGroup.label = tipoActual;
-			selector1.add(optGroup);
-			optGroup = document.createElement("optgroup")
-			optGroup.label = tipoActual;
-			selector2.add(optGroup);
-			optGroup = document.createElement("optgroup")
-			optGroup.label = tipoActual;
-			selector3.add(optGroup);
-		}
+	for(let i = 0; i<texturas.length; i++){
+		// if(materials[i].getType()!=tipoActual){//En esta parte creo las subdivisiones para cada tipo de material
+		// 	optGroup = document.createElement("optgroup");
+		// 	tipoActual = materials[i].getType();
+		// 	optGroup.label = tipoActual;
+		// 	selector1.add(optGroup);
+		// 	optGroup = document.createElement("optgroup")
+		// 	optGroup.label = tipoActual;
+		// 	selector2.add(optGroup);
+		// 	optGroup = document.createElement("optgroup")
+		// 	optGroup.label = tipoActual;
+		// 	selector3.add(optGroup);
+		// }
 		//Aca cargo las propias opciones de materiales
 		option = document.createElement("option");
-		option.text = materials[i].getName();
+		option.text = texturas[i].getName();
 		selector1.add(option);
 		option = document.createElement("option");
-		option.text = materials[i].getName();
+		option.text = texturas[i].getName();
 		selector2.add(option);
 		option = document.createElement("option");
-		option.text = materials[i].getName();
+		option.text = texturas[i].getName();
 		selector3.add(option);
 	}
 }
@@ -250,13 +260,13 @@ function cargarSliders(){
 
 function createLightsScene1(){
 	var light;
-	var light_position = [0.0,2.0,0.0,1.0];
+	var light_position = [0.0,2.0,1.5,1.0];
 	var light_intensity = [[0.01,0.01,0.01],[1.0,1.0,1.0],[1.0,1.0,1.0]];
 	var light_direction = [0.0,-1.0,0.0,0.0];
-	var light_angle = Math.cos(glMatrix.toRadian(13));
+	var light_angle = Math.cos(glMatrix.toRadian(50));
 
 	var light2;
-	var light_position2 = [0.0,2.0,1.5,1.0];
+	var light_position2 = [0.0,2.0,0.0,1.0];
 	var light_intensity2 = [[0.01,0.01,0.01],[1.0,1.0,1.0],[1.0,1.0,1.0]];
 	var light_direction2 = [0.0,-1.0,0.0,0.0];
 	var light_angle2 = Math.cos(glMatrix.toRadian(13));
@@ -269,11 +279,11 @@ function createLightsScene1(){
 
 
 	light = new Light(light_position , light_intensity , light_angle,light_direction);//Creo la luz
-	light.setType(1);
+	light.setType(0);
 	light2 = new Light(light_position2 , light_intensity2 , light_angle2,light_direction2);//Creo la luz
-	light2.setType(0);
+	light2.setType(1);
 	light3 = new Light(light_position3 , light_intensity3 , light_angle3,light_direction3);//Creo la luz
-	light3.setType(0);
+	light3.setType(2);
 	lights.push(light);
 	lights.push(light2);
 	lights.push(light3);
@@ -511,8 +521,8 @@ function resetScene(){
 /*Metodo auxiliar para cambiar el material a varios autos*/
 function changeMaterial(value,index){
 	let car = getCarByName(toDraw[index-1]);
-	let material = getMaterialByName(value);
-	car.getObjects()[0].setMaterial(material);
+	let material = getTextureByName(value);
+	car.getObjects()[0].setTexture(material);
 }
 
 
@@ -637,4 +647,10 @@ function enableNormalMapping(){
 		normalMappingActivado = 1;
 	}
 	console.log("ACTIVE/DESACTIVE NORMALMAPPING");
+}
+
+var colorRayo=[1.0,0.0,0.0];
+function changeColorTextureRayo(value){
+	let color = convertHexToRgb(value);
+	colorRayo = color;
 }
