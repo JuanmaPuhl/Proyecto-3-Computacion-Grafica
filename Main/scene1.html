@@ -55,11 +55,14 @@
 					<th colspan="3">Luz</th>
 				</tr>
 				<tr>
-					<td>Posicion Luz Spot</td>
+					<td>Posicion Luz Puntual</td>
 					<td>
-						<input type="range" id="textInputX1" min="-10" max="10" value="0" class="slider" step= "0.1" oninput="setLightPosition(1)">
-						<input type="text" id="textInputY1" value="2" onchange="setLightPosition(1)">
-						<input type="text" id="textInputZ1" value="0" onchange="setLightPosition(1)">
+						<input type="range" id="textInputX1" min="-5" max="5" value="0" class="slider" step= "0.1" oninput="setLightPosition(1)">
+						<input type="text" id="textInputPuntual" value="0" onchange="setLightPosition(this.value)">
+						<input type="range" id="textInputY1" min="0" max="5" value="2" class="slider" step= "0.1" oninput="setLightPosition(1)">
+						<input type="text" id="textInputPuntual" value="2" onchange="setLightPosition(this.value)">
+						<input type="range" id="textInputZ1" min="-5" max="5" value="0" class="slider" step= "0.1" oninput="setLightPosition(1)">
+						<input type="text" id="textInputPuntual" value="5000" onchange="setLightPosition(this.value)">
 					</td>
 				</tr>
 				<tr>
@@ -76,9 +79,12 @@
 				<tr>
 					<td>Posicion Luz Puntual</td>
 					<td>
-						<input type="text" id="textInputX2" value="0" onchange="setLightPosition(2)">
-						<input type="text" id="textInputY2" value="2" onchange="setLightPosition(2)">
-						<input type="text" id="textInputZ2" value="1" onchange="setLightPosition(2)">
+						<input type="range" id="textInputX2" min="-5" max="5" value="0" class="slider" step= "0.1" oninput="setLightPosition(2)">
+						<input type="text" id="textInputPuntual" value="5000" onchange="setNewValuePuntual(this.value)">
+						<input type="range" id="textInputY2" min="0" max="5" value="2" class="slider" step= "0.1" oninput="setLightPosition(2)">
+						<input type="text" id="textInputPuntual" value="5000" onchange="setNewValuePuntual(this.value)">
+						<input type="range" id="textInputZ2" min="-5" max="5" value="0" class="slider" step= "0.1" oninput="setLightPosition(2)">
+						<input type="text" id="textInputPuntual" value="5000" onchange="setNewValuePuntual(this.value)">
 					</td>
 				</tr>
 				<tr>
@@ -95,9 +101,9 @@
 				<tr>
 					<td>Direccion Luz Direccional</td>
 					<td>
-						<input type="text" id="textInputX3" value="0" onchange="setLightPosition(3)">
-						<input type="text" id="textInputY3" value="-1" onchange="setLightPosition(3)">
-						<input type="text" id="textInputZ3" value="0" onchange="setLightPosition(3)">
+						<input type="range" id="textInputXD3" min="-1" max="1" value="0" class="slider" step= "0.01" oninput="setLightDirection(3)">
+						<input type="range" id="textInputYD3" min="-1" max="1" value="-1" class="slider" step= "0.01" oninput="setLightDirection(3)">
+						<input type="range" id="textInputZD3" min="-1" max="1" value="0" class="slider" step= "0.01" oninput="setLightDirection(3)">
 					</td>
 				</tr>
 				<tr>

@@ -161,17 +161,18 @@ function drawCookTorrance(object){
 		}
 	gl.uniform1i(shaderProgram.samplerUniform,0);
 	gl.uniform1i(u_samplerCT,0);
+
+
 	gl.activeTexture(gl.TEXTURE1);
-	if(object.getTexture2()==null && object.getTexture()!=null)
-		gl.bindTexture(gl.TEXTURE_2D,getTextureByName("SnowWhite").getTextura());
-	else
 		if(object.getTexture2()!=null)
 		gl.bindTexture(gl.TEXTURE_2D,object.getTexture2().getTextura());
 		else {
 			gl.bindTexture(gl.TEXTURE_2D,null);
 		}
 	gl.uniform1i(shaderProgram.samplerUniform2,0);
-	gl.uniform1i(u_samplerCT,1);
+	gl.uniform1i(u_sampler2CT,1);
+
+
 
 	gl.activeTexture(gl.TEXTURE2);
 	if(object.getNormalsTexture() != null && normalMappingActivado){
@@ -399,7 +400,7 @@ function drawLava(object){
 	gl.uniform1f(u_roL,1.0);
 	gl.uniform1f(u_sigmaL,90.0);
 	gl.uniform1f(u_F0L,material.getF0());
-	gl.uniform1f(u_rugosidadL,material.getRugosidad());
+	gl.uniform1f(u_rugosidadL,0.3);
 	gl.uniform1f(uTimeL,timer);
 	gl.bindVertexArray(object.getVao());//Asocio el vao del planeta
 	gl.drawElements(gl.TRIANGLES, object.getIndexCount(), gl.UNSIGNED_INT, 0);//Dibuja planeta

@@ -95,7 +95,6 @@ async function onLoad() {
 		new VertexAttributeInfo(obj_piso.getTangents(),u_vertexTangents,3)
   ]));
 	obj_piso.setTexture(getTextureByName("Carton Corrugado"));
-	obj_piso.setTexture2(getTextureByName("SnowWhite"));
 	obj_piso.setNormalsTexture(getTextureByName("cartonNormals"));
 
 
@@ -121,7 +120,6 @@ async function onLoad() {
   			]));
 				if(i % 6==0){
 					arr[j].setTexture(getTextureByName("Papel"));
-					arr[j].setTexture2(getTextureByName("SnowWhite"));
 					arr[j].setNormalsTexture(getTextureByName("normales"));
 				}
 				else
@@ -134,7 +132,9 @@ async function onLoad() {
 				}
 				else
 				if(i%6==3){
-					arr[j].setTexture(getTextureByName("SnowWhite"));
+					arr[j].setMaterial(getMaterialByName("NoRefleja"));
+					arr[j].setTexture(getTextureByName("Tierra Base"));
+					arr[j].setTexture2(getTextureByName("Tierra Nubes"));
 				}
 				else {
 					if(i%6==4){
