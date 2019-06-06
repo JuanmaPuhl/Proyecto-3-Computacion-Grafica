@@ -40,6 +40,7 @@ var texturas = [];
 var cameraMouseControls;
 var cameraAnimated = false;
 var normalMappingActivado = 0;
+var timer = 0;
 /*Esta funcion se ejecuta al cargar la pagina. Carga todos los objetos para que luego sean dibujados, asi como los valores iniciales
 de las variables a utilizar*/
 async function onLoad() {
@@ -141,14 +142,14 @@ async function onLoad() {
 	camaraEsferica = new sphericalCamera();
 	projMatrix = camaraEsferica.projectionMatrix;
 	cameraMouseControls = new CameraMouseControls(camaraEsferica, canvas);
-	console.log(gl.uTime);
 	gl.enable(gl.DEPTH_TEST);//Activo esta opcion para que dibuje segun la posicion en Z. Si hay dos fragmentos con las mismas x,y pero distinta zIndex
 	//Dibujara los que esten mas cerca de la pantalla.
 	setObjects();
 
 	requestAnimationFrame(onRender)//Pido que inicie la animacion ejecutando onRender
 }
-
+var ir =true;
+var volver = false;
 /*Este metodo se llama constantemente gracias al metodo requestAnimationFrame(). En los sliders no
 se llama al onRender, sino que unicamente actualiza valores. Luego el onRender recupera esos valores y transforma
 los objetos como corresponda.*/
@@ -173,6 +174,22 @@ function onRender(now){
       drawObject(arr[j]);
     }
 	}
+	if(ir){
+	timer+=0.002;
+	//if(timer>10){
+	//ir=false;
+	//volver = true;
+//}
+}
+	// if(volver){
+	// 		timer -=0.008;
+	// 	if(timer<-10){
+	// 		ir=true;
+	// 		volver=false;
+	// 	}
+	// }
+
+
 	transformBall();
 	drawObject(obj_ball);
 	drawObject(obj_ball2);
