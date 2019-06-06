@@ -41,6 +41,7 @@ var cameraMouseControls;
 var cameraAnimated = false;
 var normalMappingActivado = 0;
 var timer = 0;
+var timerHumo = 0;
 /*Esta funcion se ejecuta al cargar la pagina. Carga todos los objetos para que luego sean dibujados, asi como los valores iniciales
 de las variables a utilizar*/
 async function onLoad() {
@@ -118,19 +119,39 @@ async function onLoad() {
 					new VertexAttributeInfo(arr[j].getTextures(), texLocation,2),
 					new VertexAttributeInfo(arr[j].getTangents(),u_vertexTangents,3)
   			]));
-				if((i+j) % 2==0){
+				if(i % 6==0){
 					arr[j].setTexture(getTextureByName("Papel"));
 					arr[j].setTexture2(getTextureByName("SnowWhite"));
 					arr[j].setNormalsTexture(getTextureByName("normales"));
 				}
-				else {
-					arr[j].setTexture(getTextureByName("Humo"))
+				else
+				if(i % 6==1){
+					arr[j].setTexture(getTextureByName("Lava"))
 				}
-
+				else
+				if(i % 6==2){
+					arr[j].setTexture(getTextureByName("Acuarela"));
+				}
+				else
+				if(i%6==3){
+					arr[j].setTexture(getTextureByName("SnowWhite"));
+				}
+				else {
+					if(i%6==4){
+						arr[j].setTexture(getTextureByName("Humo"));
+					}
+					else {
+						if(i%6==5){
+							arr[j].setTexture(getTextureByName("Papel Aluminio"));
+							arr[j].setNormalsTexture(getTextureByName("PapelAluminio_normal"));
+						}
+					}
+				}
       }
     balls.push(arr);
     arr = [];
 	}
+
 	createLightsScene1();
 	loadLights();
 	light = lights[0];
@@ -149,7 +170,7 @@ async function onLoad() {
 	requestAnimationFrame(onRender)//Pido que inicie la animacion ejecutando onRender
 }
 var ir =true;
-var volver = false;
+var actHumo = true;
 /*Este metodo se llama constantemente gracias al metodo requestAnimationFrame(). En los sliders no
 se llama al onRender, sino que unicamente actualiza valores. Luego el onRender recupera esos valores y transforma
 los objetos como corresponda.*/
@@ -176,18 +197,19 @@ function onRender(now){
 	}
 	if(ir){
 	timer+=0.002;
-// 	if(timer>1){
-// 	ir=false;
-// 	volver = true;
-// }
 }
-	// if(volver){
-	// 		timer -=0.002;
-	// 	if(timer<-1){
-	// 		ir=true;
-	// 		volver=false;
-	// 	}
-	// }
+
+
+	if(actHumo){
+		timerHumo +=0.002;
+		if(timerHumo>30)
+			actHumo = false;
+	}
+	else {
+		timerHumo -=0.002;
+		if(timerHumo<0)
+			actHumo = true;
+	}
 
 
 	transformBall();

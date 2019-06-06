@@ -110,6 +110,7 @@ function createTextures(){
 	texturas.push(new Texture("Humo",""));
 	texturas.push(new Texture("LogoPorsche_normal","textures/Logos Autos/Porsche_normal.png"));
 	texturas.push(new Texture("LogoChevrolet_normal","textures/Logos Autos/Chevrolet_normal.png"));
+	texturas.push(new Texture("PapelAluminio_normal","textures/index.png"));
 
 
 	for(let i = 0; i<texturas.length; i++){

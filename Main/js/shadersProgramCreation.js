@@ -161,6 +161,7 @@ function setShaderLava(){
   u_coefEspecL = gl.getUniformLocation(shaderProgram, 'coefEspec');
   u_roL = gl.getUniformLocation(shaderProgram,'p');
   u_sigmaL = gl.getUniformLocation(shaderProgram, 'sigma');
+  uTimeL = gl.getUniformLocation(shaderProgram, "u_time");
 }
 
 function setShaderHumo(){

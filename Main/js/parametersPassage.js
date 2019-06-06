@@ -400,6 +400,7 @@ function drawLava(object){
 	gl.uniform1f(u_sigmaL,90.0);
 	gl.uniform1f(u_F0L,material.getF0());
 	gl.uniform1f(u_rugosidadL,material.getRugosidad());
+	gl.uniform1f(uTimeL,timer);
 	gl.bindVertexArray(object.getVao());//Asocio el vao del planeta
 	gl.drawElements(gl.TRIANGLES, object.getIndexCount(), gl.UNSIGNED_INT, 0);//Dibuja planeta
 	gl.bindVertexArray(null);
@@ -437,7 +438,7 @@ function drawHumo(object){
 	gl.uniform1f(u_sigmaH,90.0);
 	gl.uniform1f(u_F0H,material.getF0());
 	gl.uniform1f(u_rugosidadH,0.9);
-	gl.uniform1f(uTime,timer);
+	gl.uniform1f(uTime,timerHumo);
 	gl.bindVertexArray(object.getVao());//Asocio el vao del planeta
 	gl.drawElements(gl.TRIANGLES, object.getIndexCount(), gl.UNSIGNED_INT, 0);//Dibuja planeta
 	gl.bindVertexArray(null);

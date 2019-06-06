@@ -27,7 +27,7 @@ uniform vec3 ks;
 uniform float coefEspec;
 uniform mat4 viewMatrix;
 
-float u_time;
+uniform float u_time;
 vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
@@ -88,50 +88,9 @@ vec3 calcularAportePuntual(Light l, vec3 N , vec3 V){
   vec3 H = normalize(V+L);
   vec3 S = normalize(vec3(dirL));
   vec3 toReturn = vec3(0.0,0.0,0.0);
+  float titaH = max(dot(N,H),0.0);
+  float titaI = max(dot(N,L),0.0);
 
-  // Producto escalar
-  float NdotH = max(dot(N,H),0.000001);
-  float NdotL = max(dot(N,L),0.000001);
-  float VdotH = max(dot(V,H),0.000001);
-  float NdotV = max (dot(N,V),0.00001);
-  float HdotL = max (dot(H,L),0.00001);
-
-
-
-
-
-  //Termino de Fresnel segun Schlick
-
-  float terminoN = (1.0+sqrt(F0))/(1.0-sqrt(F0));
-  float terminoC = max(dot(V,H),0.0);
-  float terminoG = sqrt( pow(terminoN,2.0) + pow(terminoC,2.0) -1.0);
-  float CK1T = pow( (terminoG-terminoC)/(terminoG+terminoC) ,2.0) * 0.5;
-  float CK2T = (1.0 + pow( ( (terminoG + terminoC)*terminoC -1.0 )/((terminoG - terminoC)*terminoC + 1.0 ),2.0));
-  float CK = CK1T*CK2T;
-
-  //NDF - Termino de Trrowbridge-Reitz
-
-  float coeficienteATR = rugosidad*rugosidad;
-  float divisorTR = 3.1415 * pow( (pow(NdotH,2.0)*(coeficienteATR-1.0)) +1.0 ,2.0 );
-  float TrRe = coeficienteATR / divisorTR;
-
-     // NDF - Termino de Beackmann
-  float Beckmann;
-  float coeficienteA = max(rugosidad*rugosidad, 0.00001);
-  float divisorBec = pow(coeficienteA,2.0)* pow(NdotH,4.0);
-  float exponente = -(pow(tan(acos(NdotH))/coeficienteA,2.0));
-  exponente = exp(exponente);
-  Beckmann = exponente/divisorBec;
-
-
-  //Geometric Shadowing - Kelemen
-  float GSKelemen = (NdotL * NdotV) / pow(VdotH,2.0);
-
-  float Fresnel = CK;
-  float NDF = TrRe;
-  float GeometricShadowing = GSKelemen;
-
-  float CookTorrenceBRDF = (NDF * GeometricShadowing * CK) / (4.0 * NdotL * NdotV);
 
   //vest = fTexCoor.xy;
   vec2 st = fTexCoor.xy;
@@ -145,9 +104,37 @@ vec3 calcularAportePuntual(Light l, vec3 N , vec3 V){
   vec3 color = vec3( smoothstep(.1,.2,fract(DF)) );
 
   color = vec3( smoothstep(.9,.1,fract(DF)) );
-  toReturn =0.9 * 1.0 - color + 0.5 *toReturn ;
-  toReturn = ka + vec3(1.0,0.0,0.0)*toReturn*Beckmann/4.0 + vec3(1.0,0.0,0.0)*color*CookTorrenceBRDF;
+  color =0.9 * 1.0 - color + 0.5 *color ;
+
+  float Beckmann;
+  //Termino de Fresnel
+  float Fres = pow(1.0 - titaH, 5.0);
+  Fres *= (1.0 - F0);
+  Fres += F0;
+  //Termino de Beackmann
+  float divisor = pow(rugosidad,2.0)* pow(titaH,4.0);
+  float exponente = -(pow(tan(acos(titaH))/rugosidad,2.0));
+  exponente = exp(exponente);
+  Beckmann = exponente/divisor;
+  //Variables de la atenuacion geometrica
+  float GCT;
+  float Ge;
+  float Gs;
+  float titaV = max(dot(V,H),0.0);
+  Ge = (2.0*titaH*titaV)/(titaV);
+  Gs = (2.0*titaH*titaI)/(titaV);
+  GCT=min(1.0,Ge);
+  GCT=min(GCT,Gs);
+  float componente1 = max(dot(N,V),0.0);
+  float componente2 = max(dot(N,L),0.0);
+  float value = orenNayar(N,V,L,H);
+
+  if(componente1*componente2!=0.0)
+    toReturn = ia*(vec3(1.0,0.0,0.0)*color*value+vec3(1.0,0.0,0.0)*ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+  else
+     toReturn =ia*color*vec3(1.0,0.0,0.0)*value;
   return toReturn;
+
 }
 
 vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
@@ -160,56 +147,10 @@ vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
   vec3 H = normalize(V+L);
   vec3 S = normalize(vec3(dirL));
   vec3 toReturn = vec3(0.0,0.0,0.0);
-
-  // Producto escalar
-  float NdotH = max(dot(N,H),0.000001);
-  float NdotL = max(dot(N,L),0.000001);
-  float VdotH = max(dot(V,H),0.000001);
-  float NdotV = max (dot(N,V),0.00001);
-  float HdotL = max (dot(H,L),0.00001);
-
-
-
-
-
-  //Termino de Fresnel segun Schlick
-
-  float terminoN = (1.0+sqrt(F0))/(1.0-sqrt(F0));
-  float terminoC = max(dot(V,H),0.0);
-  float terminoG = sqrt( pow(terminoN,2.0) + pow(terminoC,2.0) -1.0);
-  float CK1T = pow( (terminoG-terminoC)/(terminoG+terminoC) ,2.0) * 0.5;
-  float CK2T = (1.0 + pow( ( (terminoG + terminoC)*terminoC -1.0 )/((terminoG - terminoC)*terminoC + 1.0 ),2.0));
-  float CK = CK1T*CK2T;
-
-  //NDF - Termino de Trrowbridge-Reitz
-
-  float coeficienteATR = rugosidad*rugosidad;
-  float divisorTR = 3.1415 * pow( (pow(NdotH,2.0)*(coeficienteATR-1.0)) +1.0 ,2.0 );
-  float TrRe = coeficienteATR / divisorTR;
-
-     // NDF - Termino de Beackmann
-  float Beckmann;
-  float coeficienteA = max(rugosidad*rugosidad, 0.00001);
-  float divisorBec = pow(coeficienteA,2.0)* pow(NdotH,4.0);
-  float exponente = -(pow(tan(acos(NdotH))/coeficienteA,2.0));
-  exponente = exp(exponente);
-  Beckmann = exponente/divisorBec;
-
-
-  //Geometric Shadowing - Kelemen
-  float GSKelemen = (NdotL * NdotV) / pow(VdotH,2.0);
-
-  float Fresnel = CK;
-  float NDF = TrRe;
-  float GeometricShadowing = GSKelemen;
-
-  float CookTorrenceBRDF = (NDF * GeometricShadowing * CK) / (4.0 * NdotL * NdotV);
-
-
+  float titaH = max(dot(N,H),0.0);
+  float titaI = max(dot(N,L),0.0);
   float angle = acos(max(dot(S,-L),0.0));
   float inlight = smoothstep(radians(degrees(acos(limit))+10.0),acos(limit),angle);
-
-
 
   //vest = fTexCoor.xy;
   vec2 st = fTexCoor.xy;
@@ -223,109 +164,96 @@ vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
   vec3 color = vec3( smoothstep(.1,.2,fract(DF)) );
 
   color = vec3( smoothstep(.9,.1,fract(DF)) );
-  toReturn =0.9 * 1.0 - color + 0.5 *toReturn ;
-  toReturn = ka + inlight*vec3(1.0,0.0,0.0)*toReturn*Beckmann/4.0 +inlight* vec3(1.0,0.0,0.0)*color*CookTorrenceBRDF;
+  color =0.9 * 1.0 - color + 0.5 *color ;
+
+  float Beckmann;
+  //Termino de Fresnel
+  float Fres = pow(1.0 - titaH, 5.0);
+  Fres *= (1.0 - F0);
+  Fres += F0;
+  //Termino de Beackmann
+  float divisor = pow(rugosidad,2.0)* pow(titaH,4.0);
+  float exponente = -(pow(tan(acos(titaH))/rugosidad,2.0));
+  exponente = exp(exponente);
+  Beckmann = exponente/divisor;
+  //Variables de la atenuacion geometrica
+  float GCT;
+  float Ge;
+  float Gs;
+  float titaV = max(dot(V,H),0.0);
+  Ge = (2.0*titaH*titaV)/(titaV);
+  Gs = (2.0*titaH*titaI)/(titaV);
+  GCT=min(1.0,Ge);
+  GCT=min(GCT,Gs);
+  float componente1 = max(dot(N,V),0.0);
+  float componente2 = max(dot(N,L),0.0);
+  float value = orenNayar(N,V,L,H);
+
+  if(componente1*componente2!=0.0)
+    toReturn = ia*(inlight*vec3(1.0,0.0,0.0)*color*value+inlight*vec3(1.0,0.0,0.0)*ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+  else
+     toReturn =ia*inlight*vec3(1.0,0.0,0.0)*color*value;
   return toReturn;
-  // float titaH = max(dot(N,H),0.0);
-  // float titaI = max(dot(N,L),0.0);
-  // //Variables de la atenuacion geometrica
-  // float angle = acos(max(dot(S,-L),0.0));
-  // float inlight = smoothstep(radians(degrees(acos(limit))+10.0),acos(limit),angle);
-  //
-  //
- 	// vec2 st = fTexCoor.xy;
-  // vec3 color = vec3(0.0);
-  // int Cant_Iteracion = 3;
-	// color += ridgedMF(st*3.0, Cant_Iteracion);
-  //
-  //
-  // float Beckmann;
-  // //Termino de Fresnel
-  // float Fres = pow(1.0 - titaH, 5.0);
-  // Fres *= (1.0 - F0);
-  // Fres += F0;
-  //
-  // //Termino de Beackmann
-  // float divisor = pow(rugosidad,2.0)* pow(titaH,4.0);
-  // float exponente = -(pow(tan(acos(titaH))/rugosidad,2.0));
-  // exponente = exp(exponente);
-  // Beckmann = exponente/divisor;
-  //
-  // //Variables de la atenuacion geometrica
-  // float GCT;
-  // float Ge;
-  // float Gs;
-  // float titaV = max(dot(V,H),0.0);
-  // Ge = (2.0*titaH*titaV)/(titaV);
-  // Gs = (2.0*titaH*titaI)/(titaV);
-  //
-  // GCT=min(1.0,Ge);
-  // GCT=min(GCT,Gs);
-  // float componente1 = max(dot(N,V),0.0);
-  // float componente2 = max(dot(N,L),0.0);
-  //
-  // float value = orenNayar(N,V,L,H);
-  // if(componente1*componente2!=0.0)
-  //   toReturn = ia*(inlight * colorRayo*color*value + inlight * ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
-  // else
-  //    toReturn =ia*inlight*color *colorRayo*value;
-  //
-  // return toReturn;
+
 }
 
-// vec3 calcularAporteDireccional(Light l, vec3 N , vec3 V){
-//   vec4 posL = l.posL;
-//   vec4 dirL = l.dirL;
-//   vec3 ia = l.ia;
-//   float limit = l.limit;
-//   vec3 light_direction = vec3(posL + vec4(vVE,1.0)); //direccion de la luz al vertice
-//   vec3 L = normalize(light_direction);
-//
-//   vec3 S = normalize(vec3(dirL));
-//   vec3 H = normalize(V+S);
-//   vec3 toReturn = vec3(0.0,0.0,0.0);
-//
-//   float titaH = max(dot(N,H),0.0);
-//   float titaI = max(dot(N,S),0.0);
-//   vec2 st = fTexCoor.xy;
-//   vec3 color = vec3(0.0);
-//   int Cant_Iteracion = 3;
-//   color += ridgedMF(st*3.0, Cant_Iteracion);
-//
-//
-//   float Beckmann;
-//   //Termino de Fresnel
-//   float Fres = pow(1.0 - titaH, 5.0);
-//   Fres *= (1.0 - F0);
-//   Fres += F0;
-//
-//   //Termino de Beackmann
-//   float divisor = pow(rugosidad,2.0)* pow(titaH,4.0);
-//   float exponente = -(pow(tan(acos(titaH))/rugosidad,2.0));
-//   exponente = exp(exponente);
-//   Beckmann = exponente/divisor;
-//
-//   //Variables de la atenuacion geometrica
-//   float GCT;
-//   float Ge;
-//   float Gs;
-//   float titaV = max(dot(V,H),0.0);
-//   Ge = (2.0*titaH*titaV)/(titaV);
-//   Gs = (2.0*titaH*titaI)/(titaV);
-//
-//   GCT=min(1.0,Ge);
-//   GCT=min(GCT,Gs);
-//   float componente1 = max(dot(N,V),0.0);
-//   float componente2 = max(dot(N,S),0.0);
-//
-//   float value = orenNayar(N,V,S,H);
-//   if(componente1*componente2!=0.0)
-//     toReturn = ia*(colorRayo*color*value +ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
-//   else
-//      toReturn =ia*color *colorRayo*value;
-//
-//   return toReturn;
-// }
+vec3 calcularAporteDireccional(Light l, vec3 N , vec3 V){
+  vec4 posL = l.posL;
+  vec4 dirL = l.dirL;
+  vec3 ia = l.ia;
+  float limit = l.limit;
+  vec3 light_direction = vec3(posL + vec4(vVE,1.0)); //direccion de la luz al vertice
+  vec3 L = normalize(light_direction);
+  vec3 S = normalize(vec3(dirL));
+  vec3 H = normalize(V+S);
+  vec3 toReturn = vec3(0.0,0.0,0.0);
+  float titaH = max(dot(N,H),0.0);
+  float titaI = max(dot(N,S),0.0);
+
+  //vest = fTexCoor.xy;
+  vec2 st = fTexCoor.xy;
+  vec2 pos = vec2(st*5.0);
+  float DF = .5;
+  vec2 vel = vec2(u_time*.1);
+  DF += snoise(pos+vel)*.25+.25;
+  float a = snoise(pos*vec2(cos(u_time*0.15),sin(u_time*0.1))*0.1)*3.1415;
+  vel = vec2(cos(a),sin(a));
+  DF += snoise(pos*vel)*.65+.25;
+  vec3 color = vec3( smoothstep(.1,.2,fract(DF)) );
+
+  color = vec3( smoothstep(.9,.1,fract(DF)) );
+  color =0.9 * 1.0 - color + 0.5 *color ;
+
+  float Beckmann;
+  //Termino de Fresnel
+  float Fres = pow(1.0 - titaH, 5.0);
+  Fres *= (1.0 - F0);
+  Fres += F0;
+  //Termino de Beackmann
+  float divisor = pow(rugosidad,2.0)* pow(titaH,4.0);
+  float exponente = -(pow(tan(acos(titaH))/rugosidad,2.0));
+  exponente = exp(exponente);
+  Beckmann = exponente/divisor;
+  //Variables de la atenuacion geometrica
+  float GCT;
+  float Ge;
+  float Gs;
+  float titaV = max(dot(V,H),0.0);
+  Ge = (2.0*titaH*titaV)/(titaV);
+  Gs = (2.0*titaH*titaI)/(titaV);
+  GCT=min(1.0,Ge);
+  GCT=min(GCT,Gs);
+  float componente1 = max(dot(N,V),0.0);
+  float componente2 = max(dot(N,S),0.0);
+  float value = orenNayar(N,V,S,H);
+
+  if(componente1*componente2!=0.0)
+    toReturn = ia*(vec3(1.0,0.0,0.0)*color*value+vec3(1.0,0.0,0.0)*ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+  else
+     toReturn =ia*vec3(1.0,0.0,0.0)*color*value;
+  return toReturn;
+
+}
 
 
 
