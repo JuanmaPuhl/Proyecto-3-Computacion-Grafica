@@ -39,7 +39,7 @@ var light3;
 var texturas = [];
 var cameraMouseControls;
 var cameraAnimated = false;
-var normalMappingActivado = 0;
+var normalMappingActivado = 1;
 var timer = 0;
 var timerHumo = 0;
 /*Esta funcion se ejecuta al cargar la pagina. Carga todos los objetos para que luego sean dibujados, asi como los valores iniciales

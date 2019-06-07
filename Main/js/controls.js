@@ -297,19 +297,19 @@ function createLights(){
 
 	var light;
 	var light_position = [0.0,2.0,0.0,1.0];
-	var light_intensity = [[0.01,0.01,0.01],[1.0,1.0,1.0],[1.0,1.0,1.0]];
+	var light_intensity = [[1,1,1],[1.0,1.0,1.0],[1.0,1.0,1.0]];
 	var light_direction = [0.0,-1.0,0.0,0.0];
 	var light_angle = Math.cos(glMatrix.toRadian(13));
 
 	var light2;
 	var light_position2 = [0.0,2.0,1.5,1.0];
-	var light_intensity2 = [[0.01,0.01,0.01],[1.0,1.0,1.0],[1.0,1.0,1.0]];
+	var light_intensity2 = [[1,1,1],[1.0,1.0,1.0],[1.0,1.0,1.0]];
 	var light_direction2 = [0.0,-1.0,0.0,0.0];
 	var light_angle2 = Math.cos(glMatrix.toRadian(13));
 
 	var light3;
 	var light_position3 = [0.0,2.0,-1.5,1.0];
-	var light_intensity3 = [[0.01,0.01,0.01],[1.0,1.0,1.0],[1.0,1.0,1.0]];
+	var light_intensity3 = [[1,1,1],[1.0,1.0,1.0],[1.0,1.0,1.0]];
 	var light_direction3 = [0.0,-1.0,0.0,0.0];
 	var light_angle3 = Math.cos(glMatrix.toRadian(13));
 
@@ -445,7 +445,7 @@ function setLightPosition(index){
 	if (index == 2)
 		light2.setLightPosition([valueX,valueY,valueZ,1.0]);
 	if (index == 3)
-		light3.setDirection([valueX,valueY,valueZ,0.0]);
+		light3.setLightPosition([valueX,valueY,valueZ,1.0]);
 }
 
 
@@ -653,4 +653,68 @@ var colorRayo=[1.0,0.0,0.0];
 function changeColorTextureRayo(value){
 	let color = convertHexToRgb(value);
 	colorRayo = color;
+}
+
+function loadLightsToSelect(){
+	let selector = document.getElementById("selectLight");
+	let option;
+	for(let i=0; i<3; i++){
+		option = document.createElement("option");
+		option.value=i;
+		option.text = "Luz "+i;
+		selector.add(option);
+	}
+}
+
+function actualizarValores(){
+	let selector1 = document.getElementById("selectLight");
+	let numberLight = selector1.value;
+	document.getElementById("textX1").value = lights[numberLight].getLightPosition()[0];
+	document.getElementById("textY1").value = lights[numberLight].getLightPosition()[1];
+	document.getElementById("textZ1").value = lights[numberLight].getLightPosition()[2];
+	document.getElementById("textAngle").value = lights[numberLight].getAngle();
+	document.getElementById("textDX1").value = lights[numberLight].getDirection()[0];
+	document.getElementById("textDY1").value= lights[numberLight].getDirection()[1];
+	document.getElementById("textDZ1").value = lights[numberLight].getDirection()[2];
+	let color = document.getElementById("sliderColor1").value;
+
+}
+
+
+function actualizarSliders(){
+	let selector1 = document.getElementById("selectLight");
+	let numberLight = selector1.value;
+	document.getElementById("textInputX1").value = lights[numberLight].getLightPosition()[0];
+	document.getElementById("textInputY1").value = lights[numberLight].getLightPosition()[1];
+	document.getElementById("textInputZ1").value = lights[numberLight].getLightPosition()[2];
+	document.getElementById("textInputAngle1").value = lights[numberLight].getAngle();
+	document.getElementById("textInputDX1").value = lights[numberLight].getDirection()[0];
+	document.getElementById("textInputDY1").value= lights[numberLight].getDirection()[1];
+	document.getElementById("textInputDZ1").value = lights[numberLight].getDirection()[2];
+	let color = document.getElementById("sliderColor1").value;
+
+}
+
+function modificarLuz(){
+	let selector1 = document.getElementById("selectLight");
+	let numberLight = selector1.value;
+	let posX = document.getElementById("textInputX1").value;
+	let posY = document.getElementById("textInputY1").value;
+	let posZ = document.getElementById("textInputZ1").value;
+	let angle = document.getElementById("textInputAngle1").value;
+	let dirX = document.getElementById("textInputDX1").value;
+	let dirY = document.getElementById("textInputDY1").value;
+	let dirZ = document.getElementById("textInputDZ1").value;
+	let color = document.getElementById("sliderColor1").value;
+	lights[numberLight].setLightPosition([posX,posY,posZ,1.0]);
+	lights[numberLight].setAngle(Math.cos(glMatrix.toRadian(angle)));
+	lights[numberLight].setDirection([dirX,dirY,dirZ,0.0]);
+	lights[numberLight].setColors([colorLuz(color),[0,0,0],[0,0,0]]);
+	actualizarValores();
+
+}
+
+function seleccionarOtraLuz(){
+	actualizarValores();
+	actualizarSliders();
 }

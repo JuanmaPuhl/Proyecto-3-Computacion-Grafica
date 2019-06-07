@@ -85,30 +85,61 @@
 					<td colspan="2" ><button id="botonActivar" onclick="activarLuz(1)">Activar/Desactivar Spot</button></td>
 				</tr>
 				<tr>
-					<td>Posicion Luz Puntual</td>
+					<td>Posicion Luz Spot</td>
 					<td>
 						<input type="text" id="textInputX2" value="0" onchange="setLightPosition(2)">
 						<input type="text" id="textInputY2" value="2" onchange="setLightPosition(2)">
-						<input type="text" id="textInputZ2" value="1" onchange="setLightPosition(2)">
+						<input type="text" id="textInputZ2" value="0" onchange="setLightPosition(2)">
+					</td>
+				</tr>
+				<tr>
+					<td>Angulo Luz Spot</td>
+					<td>
+						<input id="sliderAngle2" type="range"  min="0" max="90" value="30" class="slider" oninput="setNewAngle(2,this.value)">
+						<input type="text" name="textInputAngle2" value="30" oninput = "setNewAngle(2,this.value)">
+					</td>
+				</tr>
+				<tr>
+					<td>Direccion Luz Spot</td>
+					<td>
+						<input type="text" id="textInputXD2" value="0" onchange="setLightDirection(2)">
+						<input type="text" id="textInputYD2" value="-1" onchange="setLightDirection(2)">
+						<input type="text" id="textInputZD2" value="0" onchange="setLightDirection(2)">
 					</td>
 				</tr>
 				<tr>
 					<td>Color</td>
 					<td>
 						<input id="sliderColor2" type="range" min="1700" max="10000" value="5000" class="slider" oninput="changeColorSlider(this.value,2);">
-						<input type="text" id="textInputPuntual" value="5000" onchange="setNewValuePuntual(this.value)">
+						<input type="text" id="textInputPuntual" value="5000" onchange="setNewValueDireccional(this.value)">
 						<input type="color" oninput = "changeColor(this.value,2)">
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2" ><button id="botonActivar" onclick="activarLuz(2)">Activar/Desactivar Puntual</button></td>
 				</tr>
+
+				<tr>
+					<td>Posicion Luz Spot</td>
+					<td>
+						<input type="text" id="textInputX3" value="0" onchange="setLightPosition(3)">
+						<input type="text" id="textInputY3" value="2" onchange="setLightPosition(3)">
+						<input type="text" id="textInputZ3" value="0" onchange="setLightPosition(3)">
+					</td>
+				</tr>
+				<tr>
+					<td>Angulo Luz Spot</td>
+					<td>
+						<input id="sliderAngle3" type="range"  min="0" max="90" value="30" class="slider" oninput="setNewAngle(3,this.value)">
+						<input type="text" name="textInputAngle3" value="30" oninput = "setNewAngle(3,this.value)">
+					</td>
+				</tr>
 				<tr>
 					<td>Direccion Luz Direccional</td>
 					<td>
-						<input type="text" id="textInputX3" value="1" onchange="setLightPosition(3)">
-						<input type="text" id="textInputY3" value="0" onchange="setLightPosition(3)">
-						<input type="text" id="textInputZ3" value="0" onchange="setLightPosition(3)">
+						<input type="text" id="textInputXD3" value="0" onchange="setLightDirection(3)">
+						<input type="text" id="textInputYD3" value="-1" onchange="setLightDirection(3)">
+						<input type="text" id="textInputZD3" value="0" onchange="setLightDirection(3)">
 					</td>
 				</tr>
 				<tr>

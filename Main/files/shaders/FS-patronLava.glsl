@@ -274,7 +274,7 @@ void main()
       if(lights[i].type==1)
         colorFrag += vec4(calcularAportePuntual(lights[i],N,V),1.0);
       if(lights[i].type==2)
-        colorFrag += vec4(calcularAporteSpot(lights[i],N,V),1.0);
+        colorFrag += vec4(calcularAporteDireccional(lights[i],N,V),1.0);
     }
 
 
