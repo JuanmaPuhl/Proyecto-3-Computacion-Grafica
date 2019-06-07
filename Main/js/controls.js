@@ -622,6 +622,27 @@ function setLightDirection(index){
 		light2.setDirection([valueX,valueY,valueZ,0.0]);
 	if (index == 3)
 		light3.setDirection([valueX,valueY,valueZ,0.0]);
+
+	document.getElementById("textXD"+index).value = valueX;
+	document.getElementById("textYD"+index).value = valueY;
+	document.getElementById("textZD"+index).value = valueZ;
+}
+
+function setLightDirectionText(index){
+	let valueX = parseFloat(document.getElementById("textXD"+index).value);
+	let valueY = parseFloat(document.getElementById("textYD"+index).value);
+	let valueZ = parseFloat(document.getElementById("textZD"+index).value);
+	if (index == 1)
+		light.setDirection([valueX,valueY,valueZ,0.0]);
+	if (index == 2)
+		light2.setDirection([valueX,valueY,valueZ,0.0]);
+	if (index == 3)
+		light3.setDirection([valueX,valueY,valueZ,0.0]);
+
+	document.getElementById("textInputXD"+index).value = valueX;
+	document.getElementById("textInputYD"+index).value = valueY;
+	document.getElementById("textInputZD"+index).value = valueZ;
+
 }
 
 
@@ -737,4 +758,29 @@ function modificarLuz(){
 function seleccionarOtraLuz(){
 	actualizarValores();
 	actualizarSliders();
+}
+
+
+function setLightAngle(index){
+	let angle = parseFloat(document.getElementById("textInputAngle"+index).value);
+	if (index == 1)
+		light.setAngle(Math.cos(glMatrix.toRadian(angle)));
+	if (index == 2)
+		light2.setAngle(Math.cos(glMatrix.toRadian(angle)));
+	if (index == 3)
+		light3.setAngle(Math.cos(glMatrix.toRadian(angle)));
+
+	document.getElementById("textAngle"+index).value = angle;
+}
+
+function setLightAngleText(index){
+	let angle = parseFloat(document.getElementById("textAngle"+index).value);
+	if (index == 1)
+		light.setAngle(Math.cos(glMatrix.toRadian(angle)));
+	if (index == 2)
+		light2.setAngle(Math.cos(glMatrix.toRadian(angle)));
+	if (index == 3)
+		light3.setAngle(Math.cos(glMatrix.toRadian(angle)));
+
+	document.getElementById("textInputAngle"+index).value = angle;
 }
