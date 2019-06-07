@@ -204,7 +204,7 @@ vec3 calcularAporteDireccional(Light l, vec3 N , vec3 V){
   float limit = l.limit;
   vec3 light_direction = vec3(posL + vec4(vVE,1.0)); //direccion de la luz al vertice
   vec3 L = normalize(light_direction);
-  vec3 S = normalize(vec3(dirL));
+  vec3 S = -normalize(vec3(dirL));
   vec3 H = normalize(V+S);
   vec3 toReturn = vec3(0.0,0.0,0.0);
   float titaH = max(dot(N,H),0.0);

@@ -446,6 +446,26 @@ function setLightPosition(index){
 		light2.setLightPosition([valueX,valueY,valueZ,1.0]);
 	if (index == 3)
 		light3.setLightPosition([valueX,valueY,valueZ,1.0]);
+
+	document.getElementById("textX"+index).value = valueX;
+	document.getElementById("textY"+index).value = valueY;
+	document.getElementById("textZ"+index).value = valueZ;
+}
+
+function setLightPositionText(index){
+	let valueX = parseFloat(document.getElementById("textX"+index).value);
+	let valueY = parseFloat(document.getElementById("textY"+index).value);
+	let valueZ = parseFloat(document.getElementById("textZ"+index).value);
+	if (index == 1)
+		light.setLightPosition([valueX,valueY,valueZ,1.0]);
+	if (index == 2)
+		light2.setLightPosition([valueX,valueY,valueZ,1.0]);
+	if (index == 3)
+		light3.setLightPosition([valueX,valueY,valueZ,1.0]);
+
+	document.getElementById("textInputX"+index).value = valueX;
+	document.getElementById("textInputY"+index).value = valueY;
+	document.getElementById("textInputZ"+index).value = valueZ;
 }
 
 
