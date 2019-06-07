@@ -696,6 +696,12 @@ function changeColorTextureRayo(value){
 	colorRayo = color;
 }
 
+var colorDegradacion = [1.0,1.0,1.0];
+function changeColorTextureDegradacion(value){
+	let color = convertHexToRgb(value);
+	colorDegradacion = color;
+}
+
 function loadLightsToSelect(){
 	let selector = document.getElementById("selectLight");
 	let option;
@@ -718,7 +724,6 @@ function actualizarValores(){
 	document.getElementById("textDY1").value= lights[numberLight].getDirection()[1];
 	document.getElementById("textDZ1").value = lights[numberLight].getDirection()[2];
 	let color = document.getElementById("sliderColor1").value;
-
 }
 
 
@@ -794,4 +799,26 @@ function desactivarSegundaTextura(){
 			arr[i].setTexture2(getTextureByName("Tierra Nubes"));
 		}
 	}
+}
+
+function changeLight(numberLight){
+	document.getElementById("textInputX1").value =lights[numberLight].getLightPosition()[0] ;
+	document.getElementById("textInputY1").value =lights[numberLight].getLightPosition()[1];
+	document.getElementById("textInputZ1").value =lights[numberLight].getLightPosition()[2];
+	document.getElementById("textInputAngle1").value = (180*Math.acos(lights[numberLight].getAngle()))/Math.PI;
+	document.getElementById("textInputXD1").value;
+	document.getElementById("textInputYD1").value;
+	document.getElementById("textInputZD1").value;
+	document.getElementById("sliderColor1").value;
+	//Math.cos(glMatrix.toRadian(angle))
+
+	document.getElementById("textX1").value = lights[numberLight].getLightPosition()[0];
+	document.getElementById("textY1").value = lights[numberLight].getLightPosition()[1];
+	document.getElementById("textZ1").value = lights[numberLight].getLightPosition()[2];
+	document.getElementById("textAngle1").value = (180*Math.acos(lights[numberLight].getAngle()))/Math.PI;
+	document.getElementById("textXD1").value = lights[numberLight].getDirection()[0];
+	document.getElementById("textYD1").value= lights[numberLight].getDirection()[1];
+	document.getElementById("textZD1").value = lights[numberLight].getDirection()[2];
+	let color = document.getElementById("sliderColor1").value;
+
 }

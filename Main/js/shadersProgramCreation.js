@@ -140,6 +140,7 @@ function setShaderDegradacion(){
   u_coefEspecD = gl.getUniformLocation(shaderProgram, 'coefEspec');
   u_roD = gl.getUniformLocation(shaderProgram,'p');
   u_sigmaD = gl.getUniformLocation(shaderProgram, 'sigma');
+  u_colorDegradacion = gl.getUniformLocation(shaderProgram,'colorDegradacion');
 }
 
 function setShaderLava(){
@@ -184,6 +185,7 @@ function setShaderHumo(){
   u_roH = gl.getUniformLocation(shaderProgram,'p');
   u_sigmaH = gl.getUniformLocation(shaderProgram, 'sigma');
   uTime = gl.getUniformLocation(shaderProgram, "u_time");
+
 }
 
 /*Funcion para crear cada shaderProgram*/

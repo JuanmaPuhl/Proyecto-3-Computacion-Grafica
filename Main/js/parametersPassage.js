@@ -357,6 +357,7 @@ function drawDegradacion(object){
 	mat4.multiply(MVP,projMatrix,MVP);
 	gl.uniformMatrix4fv(u_MVPD,false,MVP);
   let material = object.getMaterial();
+	gl.uniform3fv(u_colorDegradacion,colorDegradacion);
 	gl.uniform3fv(u_kaD,material.getKa());
 	gl.uniform3fv(u_kdD,material.getKd());
 	gl.uniform3fv(u_ksD,material.getKs());

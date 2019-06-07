@@ -239,7 +239,7 @@ async function onLoad() {
 	obj_base3 = new Object(parsedOBJ_Base);
 	obj_girl = new Object(parsedOBJ_Girl);
 	createLights();//Creo las luces
-	loadLights();//Las cargo
+	//loadLights();//Las cargo
 	light = lights[0];
 	light2 = lights[1];
 	light3 = lights[2];
@@ -284,6 +284,7 @@ async function onLoad() {
 	// obj_ball3.setMaterial(getMaterialByName("Default"));
 	/*Creacion de camara*/
 	//camaraEsferica= new sphericalCamera(glMatrix.toRadian(angle[4]),glMatrix.toRadian(angle[5]),3,target,up);
+	loadLightsToSelect();
 	camaraEsferica = new sphericalCamera();
 	//viewMatrix=camaraEsferica.createViewMatrix();//Calculo la matriz de vista
 	projMatrix = camaraEsferica.projectionMatrix;

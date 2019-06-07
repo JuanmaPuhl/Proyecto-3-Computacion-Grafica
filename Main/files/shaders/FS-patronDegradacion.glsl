@@ -11,6 +11,7 @@ uniform float sigma;
 uniform vec3 ka;
 uniform vec3 kd;
 uniform vec3 ks;
+uniform vec3 colorDegradacion;
 out vec4 colorFrag;
 struct Light{
   vec4 posL;
@@ -137,9 +138,9 @@ vec3 calcularAportePuntual(Light l, vec3 N , vec3 V){
   float value = orenNayar(N,V,L,H);
 
   if(componente1*componente2!=0.0)
-    toReturn = ia*(color*value +ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    toReturn = ia*(colorDegradacion*color*value +colorDegradacion*ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     toReturn =ia*color *value;
+     toReturn =ia*colorDegradacion*color *value;
   return toReturn;
 }
 
@@ -198,9 +199,9 @@ vec3 calcularAporteSpot(Light l, vec3 N, vec3 V){
 
   float value = orenNayar(N,V,L,H);
   if(componente1*componente2!=0.0)
-    toReturn = ia*(inlight * color*value + inlight * ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    toReturn = ia*(colorDegradacion*inlight * color*value + colorDegradacion*inlight * ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     toReturn =ia*inlight*color *value;
+     toReturn =ia*colorDegradacion*inlight*color *value;
 
   return toReturn;
 }
@@ -256,9 +257,9 @@ vec3 calcularAporteDireccional(Light l, vec3 N , vec3 V){
 
   float value = orenNayar(N,V,S,H);
   if(componente1*componente2!=0.0)
-    toReturn = ia*(color*value +ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    toReturn = ia*(colorDegradacion*color*value +colorDegradacion*ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     toReturn =ia*color *value;
+     toReturn =ia*colorDegradacion*color *value;
 
   return toReturn;
 }
