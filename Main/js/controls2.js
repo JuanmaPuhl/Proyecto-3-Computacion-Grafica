@@ -2,7 +2,7 @@
 /*Se organiza de la siguiente manera.
 Para crear un material es necesario darle el tipo, nombre, ka,kd,ks,coeficiente especular,F0 y sigma creo que era de cook torrance*/
 function crearMateriales(){
-	materials.push(new Material("Metal","Scarlet",[0.0,0.0,0.0],[0.7,0.0,0.0],[1.0,1.0,1.0],89.5,0.09,0.1));
+	materials.push(new Material("Metal","Scarlet",[0.0,0.0,0.0],[0.7,0.0,0.0],[1.0,1.0,1.0],89.5,0.03,0.05));
 	materials.push(new Material("Metal","Polished Gold",[0.0,0.0,0.0],[0.34615,0.3143,0.0903],[0.797357,0.723991,0.208006],83.2,0.1,0.1));
 	materials.push(new Material("Metal","Polished Silver",[0.0,0.0,0.0],[0.2775,0.2775,0.2775],[0.773911,0.773911,0.773911],89.6,0.09,0.1));
 	materials.push(new Material("Metal","Silver2",[0.0,0.0,0.0],[0.50754,0.50754,0.50754],[0.508273,0.508273,0.508273],51.2,0.09,0.1));
@@ -78,6 +78,14 @@ function createTextures(){
 	texturas.push(new Texture("RuedasMLE","textures/Mitsubishi/MLE-wheel.jpg"));
 	texturas.push(new Texture("EnrejadoMLE","textures/Mitsubishi/MLE-opacity.jpg"));
 	texturas.push(new Texture("Porsche","textures/Porsche/skin07/0000.bmp"));
+  texturas.push(new Texture("Porsche1","textures/Porsche/skin00/0000.bmp"));
+  texturas.push(new Texture("Porsche2","textures/Porsche/skin01/0000.bmp"));
+  texturas.push(new Texture("Porsche3","textures/Porsche/skin02/0000.bmp"));
+  texturas.push(new Texture("Porsche4","textures/Porsche/skin03/0000.bmp"));
+  texturas.push(new Texture("Porsche5","textures/Porsche/skin04/0000.bmp"));
+  texturas.push(new Texture("Porsche6","textures/Porsche/skin05/0000.bmp"));
+  texturas.push(new Texture("Porsche7","textures/Porsche/skin06/0000.bmp"));
+
 	texturas.push(new Texture("RuedasPorsche","textures/Porsche/car/0000.bmp"));
 	texturas.push(new Texture("Camaro", "textures/Camaro/Lines1.png"));
 	texturas.push(new Texture("CamaroPlaca","textures/Camaro/plaque2.jpg"));
@@ -535,9 +543,6 @@ function changeColor(value,index){
   let selector1 = document.getElementById("selectLight");
   let numberLight = selector1.value;
 		lights[numberLight].setIntensity([color,[0.0,0.0,0.0],[0.0,0.0,0.0]]);
-
-
-
 }
 
 /*Metodo auxiliar para cambiar el color de la luz en funcion del slider*/
@@ -547,10 +552,6 @@ function changeColorSlider(value,index){
   let numberLight = selector1.value;
 		lights[numberLight].setIntensity([color,[0.0,0.0,0.0],[0.0,0.0,0.0]]);
 		document.getElementById("textInputSpot").value=value;
-
-
-
-
 }
 
 /*Metodo auxiliar para convertir un color en hexa a rgb. Se llama desde el colorPicker*/

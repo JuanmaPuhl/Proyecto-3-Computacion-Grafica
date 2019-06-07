@@ -147,7 +147,7 @@ async function onLoad() {
 
 	corvette = new Car("Corvette");
 	let corvette_textures = ["Corvette",null,null,"CorvetteWheel","Corvette",null,null,null];
-	let corvette_colors = ["Chrome","Glass","Caucho","Bronze","Scarlet","Scarlet","Caucho","Scarlet","Caucho","Caucho","Caucho"];
+	let corvette_colors = ["Silver2","Glass","Caucho","Bronze","Scarlet","Scarlet","Caucho","Scarlet","Caucho","Caucho","Caucho"];
 	corvette.setColors(corvette_colors);
 	corvette.setTextures(corvette_textures);
 	corvette.setOBJ(parsedOBJ_Corvette);
@@ -174,7 +174,7 @@ async function onLoad() {
 
 	porsche = new Car("Porsche");
 	let porsche_textures = ["Rayo","Porsche","RuedasPorsche","RuedasPorsche",null,null,null,null,null,null,null];
-	let porsche_colors = ["Chrome","Glass","Bronze","Caucho","Scarlet","Scarlet","Caucho","Scarlet","Caucho","Caucho","Caucho"];
+	let porsche_colors = ["Silver2","Glass","Bronze","Caucho","Scarlet","Scarlet","Caucho","Scarlet","Caucho","Caucho","Caucho"];
 	let porsche_normalTextures = [null,null,"normalsPorsche","normalsPorsche",null,null,null,null,null];
 	porsche.setColors(porsche_colors);
 	porsche.setTextures(porsche_textures);
@@ -193,7 +193,7 @@ async function onLoad() {
 
 	supra = new Car("Supra");
 	let supra_textures = ["Supra",null,"SupraNeumaticos","SupraNeumaticos",null,null,null,null,null,null];
-	let supra_colors = ["Chrome","Glass","Caucho","Caucho","Default","Default","Default","Default","Default"];
+	let supra_colors = ["Silver2","Glass","Caucho","Caucho","Default","Default","Default","Default","Default"];
 	let supra_normalTextures = [null,null,"normalsNeumaticos","normalsNeumaticos",null,null,null,null,null];
 	supra.setColors(supra_colors);
 	supra.setTextures(supra_textures);
