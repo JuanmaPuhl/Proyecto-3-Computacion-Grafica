@@ -784,3 +784,14 @@ function setLightAngleText(index){
 
 	document.getElementById("textInputAngle"+index).value = angle;
 }
+
+function desactivarSegundaTextura(){
+	let arr = balls[3];
+	for(let i=0; i<4; i++){
+		if(arr[i].getTexture2()!=null)
+		arr[i].setTexture2(null);
+		else {
+			arr[i].setTexture2(getTextureByName("Tierra Nubes"));
+		}
+	}
+}
