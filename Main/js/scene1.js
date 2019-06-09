@@ -135,6 +135,8 @@ async function onLoad() {
 					arr[j].setMaterial(getMaterialByName("NoRefleja"));
 					arr[j].setTexture(getTextureByName("Tierra Base"));
 					arr[j].setTexture2(getTextureByName("Tierra Nubes"));
+					arr[j].setTexture3(getTextureByName("Tierra Noche"));
+					arr[j].setNormalsTexture(getTextureByName("Tierra Normales"));
 				}
 				else {
 					if(i%6==4){

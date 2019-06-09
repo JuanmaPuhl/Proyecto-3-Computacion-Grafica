@@ -18,6 +18,7 @@ uniform mat4 viewMatrix;
 uniform float rugosidad;
 uniform sampler2D imagen;
 uniform sampler2D imagen2;
+uniform sampler2D imagen3;
 uniform float p;
 uniform float sigma;
 vec3 coefSpecular;
@@ -195,7 +196,7 @@ vec3 calcularAporteDireccional(Light l, vec3 N , vec3 V){
 
 
 void main(){
-    coefDifuso = vec3(texture(imagen,fTexCoor)*0.5+texture(imagen2,fTexCoor)*0.5);
+    coefDifuso = mix(vec3(texture(imagen,fTexCoor)+texture(imagen2,fTexCoor))*0.5,vec3(texture(imagen3,fTexCoor)),0.5);
     coefSpecular = vec3(texture(imagen2,fTexCoor));
 
     vec3 N = vec3(0.0);

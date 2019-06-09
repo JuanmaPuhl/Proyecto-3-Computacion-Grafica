@@ -121,9 +121,9 @@ vec3 calcularAporteSpot(Light l, vec3 N , vec3 V){
   color += fbm(st*3.0*u_time);
   toReturn= color;
   if(componente1*componente2!=0.0)
-    toReturn = ia*(color*value*inlight+inlight*ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    toReturn = ia*titaI*(color*value*inlight + inlight*ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     toReturn =ia*color *inlight*value;
+     toReturn =ia*titaI*color *inlight*value;
   return toReturn;
 }
 
@@ -166,9 +166,9 @@ vec3 calcularAportePuntual(Light l, vec3 N , vec3 V){
   color += fbm(st*3.0*u_time);
   toReturn= color;
   if(componente1*componente2!=0.0)
-    toReturn = ia*(color*value+ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    toReturn = ia*titaI*(color*value+ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     toReturn =ia*color*value;
+     toReturn =ia*color*value*titaI;
   return toReturn;
 }
 
@@ -211,9 +211,9 @@ vec3 calcularAporteDireccional(Light l, vec3 N , vec3 V){
   color += fbm(st*3.0*u_time);
   toReturn= color;
   if(componente1*componente2!=0.0)
-    toReturn = ia*(color*value+ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
+    toReturn = ia*titaI*(color*value+ks*(Fres/3.141516)* (Beckmann*GCT)/(componente1*componente2));
   else
-     toReturn =ia*color*value;
+     toReturn =ia*titaI*color*value;
   return toReturn;
 }
 

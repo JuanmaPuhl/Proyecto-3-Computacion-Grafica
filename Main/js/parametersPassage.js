@@ -189,6 +189,17 @@ function drawCookTorrance(object){
 		gl.uniform1f(u_normalMappingCT,normalMappingActivado);
 	}
 
+	gl.activeTexture(gl.TEXTURE3);
+	if(object.getTexture3()!=null){
+		gl.bindTexture(gl.TEXTURE_2D,object.getTexture3().getTextura());
+	}
+	else {
+		gl.bindTexture(gl.TEXTURE_2D,null);
+	}
+	gl.uniform1i(shaderProgram.samplerUniform3,0);
+	gl.uniform1i(u_sampler3CT,3);
+
+
   let matrix = object.getObjectMatrix();
   gl.uniformMatrix4fv(u_modelMatrixCT, false, matrix);
   let MV = mat4.create();

@@ -15,6 +15,7 @@ class Object{
     this.textures = this.parsedOBJ.vertexTextureCoordinates;
     this.texture = null;
     this.texture2 = null;
+    this.texture3 = null;
     this.tangents = this.parsedOBJ.vertexTangents;
     this.normalsTexture = null;
     this.textureType = "Normal";
@@ -24,6 +25,9 @@ class Object{
   }
   setTexture2(texture2){
     this.texture2 = texture2;
+  }
+  setTexture3(texture3){
+    this.texture3 = texture3;
   }
   getTextureType(){
     return this.textureType;
@@ -44,6 +48,10 @@ class Object{
 
   getTexture2(){
     return this.texture2;
+  }
+
+  getTexture3(){
+    return this.texture3;
   }
   /*-------------------SETTERS-------------------*/
   setCenter(center){

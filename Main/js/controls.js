@@ -114,7 +114,9 @@ function createTextures(){
 	texturas.push(new Texture("PapelAluminio_normal","textures/index.png"));
 	texturas.push(new Texture("Tierra Nubes","textures/4096_clouds.jpg"));
 	texturas.push(new Texture("Tierra Base","textures/4096_earth.jpg"));
+	texturas.push(new Texture("Tierra Noche","textures/4096_night_lights.jpg"));
 	texturas.push(new Texture("LogoAudi","textures/Logos Autos/Audi.jpg"));
+	texturas.push(new Texture("Tierra Normales","textures/tierra normals.png"));
 
 
 	for(let i = 0; i<texturas.length; i++){
